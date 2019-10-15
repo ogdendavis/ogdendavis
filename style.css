@@ -1,0 +1,26 @@
+:root {
+  --gray: #ccc;
+  --flesh: #dbae8e;
+}
+
+body {
+  background: var(--gray);
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.head {
+  height: 200px;
+  width: 150px;
+  border-radius: 50%;
+  background: var(--flesh);
+  position: relative;
+}
