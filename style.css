@@ -19,8 +19,6 @@ body {
 }
 
 .grid {
-  width: 16rem;
-  height: 16rem;
   box-sizing: border-box;
   position: relative;
   line-height: 0;
@@ -28,8 +26,8 @@ body {
 
 .pixel {
   display: inline-block;
-  width: 1rem;
-  height: 1rem;
+  width: 0.75rem;
+  height: 0.75rem;
   box-sizing: border-box;
   position: relative;
   background: var(--white);
