@@ -1,9 +1,10 @@
 window.onload = function() {
-  drawGrid();
-  drawLucasHead();
+  makeGrid();
+  drawLucasHead(26,10);
+  drawLucasShirt(26,25,'blue')
 }
 
-const drawGrid = (cols=64, rows=64) => {
+const makeGrid = (cols=64, rows=64) => {
   const grid = document.querySelector('.grid');
 
   for (let i=0; i<rows; i++) {
@@ -21,7 +22,6 @@ const drawGrid = (cols=64, rows=64) => {
 const drawLucasHead = (x=0,y=0) => {
   // From drawing made on pixilart.com
   // x and y are points of origin (top left) of image
-  // image is 18px wide by 39px tall
 
   // All x coordinates in comments below were written when this
   // was a part of drawLucas, so they've been adjusted in the
@@ -155,4 +155,29 @@ const drawLucasHead = (x=0,y=0) => {
     })
   }
 
+}
+
+const drawLucasShirt = (x=0,y=0,color='blue') => {
+  // t-shirt! Designed to fit immediately under my head
+  // Offset from head origin should be x+0, y+15
+
+  // y0: 1,2
+  shirtMap = {
+    0: [1,2,9,10],
+    1: [0,1,2,3,4,5,6,7,8,9,10,11],
+    2: [0,1,2,3,4,5,6,7,8,9,10,11],
+    3: [2,3,4,5,6,7,8,9],
+    4: [2,3,4,5,6,7,8,9],
+    5: [2,3,4,5,6,7,8,9],
+    6: [2,3,4,5,6,7,8,9],
+    7: [2,3,4,5,6,7,8,9],
+    8: [2,3,4,5,6,7,8,9],
+    9: [2,3,4,5,6,7,8,9],
+  }
+  for (row in shirtMap) {
+    shirtMap[row].forEach(col => {
+      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
+      target.classList.add(color);
+    })
+  }
 }

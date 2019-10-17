@@ -64,3 +64,15 @@ body {
 .pixel.white {
   background: #fff;
 }
+
+.pixel.blue {
+  background: #2196f3;
+}
+
+.pixel.red {
+  background: #f44336;
+}
+
+.pixel.green {
+  background: #4caf50;
+}
