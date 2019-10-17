@@ -33,11 +33,11 @@ body {
 }
 
 /* Colors! Classes used by JS to draw pixel art */
-.pixel.brown-hair {
+.pixel.brown {
   background: #744720
 }
 
-.pixel.light-brown-hair {
+.pixel.light-brown {
   background: #8d5524;
 }
 
@@ -45,12 +45,20 @@ body {
   background: #c6915c;
 }
 
-.pixel.dark-brown-hair {
+.pixel.dark-brown {
   background: #5b3a1c;
 }
 
-.pixel.darkest-brown-hair {
+.pixel.darkest-brown {
   background: #432c19;
+}
+
+.pixel.leather {
+  background: #5d4037;
+}
+
+.pixel.dark-leather {
+  background: #3e2723;
 }
 
 .pixel.skin {
@@ -75,4 +83,12 @@ body {
 
 .pixel.green {
   background: #4caf50;
+}
+
+.pixel.gray {
+  background: #808080;
+}
+
+.pixel.denim {
+  background: #3f51b5;
 }

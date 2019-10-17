@@ -1,7 +1,8 @@
 window.onload = function() {
   makeGrid();
   drawLucasHead(26,10);
-  drawLucasShirt(26,25,'blue')
+  drawLucasShirt(26,25,'blue');
+  drawLucasLegs(26,35,'gray');
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -68,7 +69,7 @@ const drawLucasHead = (x=0,y=0) => {
     10: [1,10],
     12: [2,3,4,5,6,7,8,9],
   }
-  fill(x,y,brownMap,'brown-hair')
+  fill(x,y,brownMap,'brown')
 
   const lightBrownMap = {
     2: [10],
@@ -77,7 +78,7 @@ const drawLucasHead = (x=0,y=0) => {
     10: [2,3,8,9],
     11: [2,3,4,5,6,7,8,9],
   }
-  fill(x,y,lightBrownMap,'light-brown-hair');
+  fill(x,y,lightBrownMap,'light-brown');
 
   const stubbleMap = {
     7: [1,10],
@@ -93,14 +94,14 @@ const drawLucasHead = (x=0,y=0) => {
     13: [2,3,4,5,6,7,8,9],
     14: [4,5,6,7],
   }
-  fill(x,y,darkBrownMap,'dark-brown-hair');
+  fill(x,y,darkBrownMap,'dark-brown');
 
   const darkestBrownMap = {
     13: [1,10],
     14: [2,3,8,9],
     15: [3,4,5,6,7,8],
   }
-  fill(x,y,darkestBrownMap,'darkest-brown-hair');
+  fill(x,y,darkestBrownMap,'darkest-brown');
 
   const skinMap = {
     3: [4,5,6,7,8,9,10],
@@ -130,7 +131,6 @@ const drawLucasShirt = (x=0,y=0,color='blue') => {
   // t-shirt! Designed to fit immediately under my head
   // Offset from head origin should be x+0, y+15
 
-  // y0: 1,2
   shirtMap = {
     0: [1,2,9,10],
     1: [0,1,2,3,4,5,6,7,8,9,10,11],
@@ -145,4 +145,35 @@ const drawLucasShirt = (x=0,y=0,color='blue') => {
   }
   fill(x,y,shirtMap,color);
 
+}
+
+const drawLucasLegs = (x=0,y=0,color='gray') => {
+  // Pants and shoes! Designed to sit immediately under shirt
+  // Offset from head origin should be x+0, y+25;
+
+  const pantsMap = {
+    0: [2,3,4,5,6,7,8,9],
+    1: [2,3,4,5,6,7,8,9],
+    2: [2,3,4,7,8,9],
+    3: [2,3,4,7,8,9],
+    4: [2,3,4,7,8,9],
+    5: [2,3,4,7,8,9],
+    6: [2,3,4,7,8,9],
+    7: [2,3,4,7,8,9],
+    8: [2,3,4,7,8,9],
+    9: [2,3,4,7,8,9],
+    10: [2,3,4,7,8,9],
+    11: [2,3,4,7,8,9],
+  }
+  fill(x,y,pantsMap,color);
+
+  const leatherMap = {
+    12: [0,1,2,3,4,7,8,9,10,11],
+  }
+  fill(x,y,leatherMap,'leather');
+
+  const darkLeatherMap = {
+    13: [0,1,2,3,4,7,8,9,10,11],
+  }
+  fill(x,y,darkLeatherMap,'dark-leather');
 }
