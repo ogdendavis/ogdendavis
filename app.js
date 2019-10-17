@@ -3,6 +3,7 @@ window.onload = function() {
   drawLucasHead(26,10);
   drawLucasShirt(26,25,'blue');
   drawLucasLegs(26,35,'gray');
+  drawLucasArms(26,28)
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -176,4 +177,34 @@ const drawLucasLegs = (x=0,y=0,color='gray') => {
     13: [0,1,2,3,4,7,8,9,10,11],
   }
   fill(x,y,darkLeatherMap,'dark-leather');
+}
+
+const drawLucasArms = (x=0,y=0,position='thumbsUp') => {
+  // Arms! Should fit in sleeves (duh)
+  // Offest from head origin should be x+0,y+18
+  // Depending on position, some X values may be negative
+
+  thumbsUpMap = {
+    0: [0,1,10,11],
+    1: [-4,0,1,10,11],
+    2: [-5,-4,0,1,10,11],
+    3: [-5,-4,-3,-2,-1,0,1,10,11],
+    4: [-5,-4,-3,-2,-1,0,1,10,11],
+    5: [10,11],
+    6: [10,11],
+    7: [10,11,12],
+    8: [10,11,12],
+    9: [10,11],
+  }
+  // Pick the correct map for the position
+  let selectedMap = {}
+  switch (position) {
+    case 'thumbsUp':
+      selectedMap = thumbsUpMap;
+      break;
+    default:
+      selectedMap = thumbsUpMap;
+  }
+
+  fill(x,y,selectedMap,'skin');
 }
