@@ -1,6 +1,6 @@
 window.onload = function() {
   drawGrid();
-  drawLucas();
+  drawLucasHead();
 }
 
 const drawGrid = (cols=64, rows=64) => {
@@ -18,10 +18,14 @@ const drawGrid = (cols=64, rows=64) => {
   grid.style.width = `${rows*.75}rem`;
 }
 
-const drawLucas = (x=0,y=0) => {
+const drawLucasHead = (x=0,y=0) => {
   // From drawing made on pixilart.com
   // x and y are points of origin (top left) of image
   // image is 18px wide by 39px tall
+
+  // All x coordinates in comments below were written when this
+  // was a part of drawLucas, so they've been adjusted in the
+  // actual code to be 5 less than they are in the comments
 
   // Upper face: hair, forehead, eyes, ears
   // row y0. brown hair: x8-x13
@@ -47,13 +51,13 @@ const drawLucas = (x=0,y=0) => {
   // relative to the object's origin. Object keys are rows (y-
   // values), and arrays are all x-values on that row of that color
   const brownMap = {
-    0: [8,9,10,11,12,13],
-    1: [7,8,9,10,11,12,13,14],
-    2: [6,7,8,9,10,11,12,13,14],
-    3: [6,7,8],
-    4: [6],
-    10: [6,15],
-    12: [7,8,9,10,11,12,13,14],
+    0: [3,4,5,6,7,8],
+    1: [2,3,4,5,6,7,8,9],
+    2: [1,2,3,4,5,6,7,8,9],
+    3: [1,2,3],
+    4: [1],
+    10: [1,10],
+    12: [2,3,4,5,6,7,8,9],
   }
   for (row in brownMap) {
     brownMap[row].forEach(col => {
@@ -63,11 +67,11 @@ const drawLucas = (x=0,y=0) => {
   }
 
   const lightBrownMap = {
-    2: [15],
-    8: [9,10,11,12],
-    9: [8,13],
-    10: [7,8,13,14],
-    11: [7,8,9,10,11,12,13,14],
+    2: [10],
+    8: [4,5,6,7],
+    9: [3,8],
+    10: [2,3,8,9],
+    11: [2,3,4,5,6,7,8,9],
   }
   for (row in lightBrownMap) {
     lightBrownMap[row].forEach(col => {
@@ -77,10 +81,10 @@ const drawLucas = (x=0,y=0) => {
   }
 
   const stubbleMap = {
-    7: [6,15],
-    8: [6,8,13,15],
-    9: [6,7,14,15],
-    10: [9,12],
+    7: [1,10],
+    8: [1,3,8,10],
+    9: [1,2,9,10],
+    10: [4,7],
   }
   for (row in stubbleMap) {
     stubbleMap[row].forEach(col => {
@@ -90,10 +94,10 @@ const drawLucas = (x=0,y=0) => {
   }
 
   const darkBrownMap = {
-    11: [6,15],
-    12: [6,15],
-    13: [7,8,9,10,11,12,13,14],
-    14: [9,10,11,12],
+    11: [1,10],
+    12: [1,10],
+    13: [2,3,4,5,6,7,8,9],
+    14: [4,5,6,7],
   }
   for (row in darkBrownMap) {
     darkBrownMap[row].forEach(col => {
@@ -103,9 +107,9 @@ const drawLucas = (x=0,y=0) => {
   }
 
   const darkestBrownMap = {
-    13: [6,15],
-    14: [7,8,13,14],
-    15: [8,9,10,11,12,13],
+    13: [1,10],
+    14: [2,3,8,9],
+    15: [3,4,5,6,7,8],
   }
   for (row in darkestBrownMap) {
     darkestBrownMap[row].forEach(col => {
@@ -115,12 +119,12 @@ const drawLucas = (x=0,y=0) => {
   }
 
   const skinMap = {
-    3: [9,10,11,12,13,14,15],
-    4: [7,8,9,10,11,12,13,14,15],
-    5: [5,6,7,9,10,11,12,14,15,16],
-    6: [5,6,7,9,10,11,12,14,15,16],
-    7: [7,8,9,10,11,12,13,14],
-    8: [7,14],
+    3: [4,5,6,7,8,9,10],
+    4: [2,3,4,5,6,7,8,9,10],
+    5: [0,1,2,4,5,6,7,9,10,11],
+    6: [0,1,2,4,5,6,7,9,10,11],
+    7: [2,3,4,5,6,7,8,9],
+    8: [2,9],
   }
   for (row in skinMap) {
     skinMap[row].forEach(col => {
@@ -130,8 +134,8 @@ const drawLucas = (x=0,y=0) => {
   }
 
   const blackMap = {
-    5: [8,13],
-    6: [8,13],
+    5: [3,8],
+    6: [3,8],
   }
   for (row in blackMap) {
     blackMap[row].forEach(col => {
@@ -141,8 +145,8 @@ const drawLucas = (x=0,y=0) => {
   }
 
   const whiteMap = {
-    9: [9,10,11,12],
-    10: [10,11],
+    9: [4,5,6,7],
+    10: [5,6],
   }
   for (row in whiteMap) {
     whiteMap[row].forEach(col => {
