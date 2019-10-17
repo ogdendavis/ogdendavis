@@ -30,13 +30,37 @@ body {
   height: 0.75rem;
   box-sizing: border-box;
   position: relative;
-  background: var(--white);
 }
 
-.pixel:nth-child(3n) {
-  background: var(--flesh);
+/* Colors! Classes used by JS to draw pixel art */
+.pixel.brown-hair {
+  background: #744720
 }
 
-.pixel:nth-child(3n+2) {
-  background: black;
+.pixel.light-brown-hair {
+  background: #8d5524;
+}
+
+.pixel.stubble {
+  background: #c6915c;
+}
+
+.pixel.dark-brown-hair {
+  background: #5b3a1c;
+}
+
+.pixel.darkest-brown-hair {
+  background: #432c19;
+}
+
+.pixel.skin {
+  background: #ffcd94;
+}
+
+.pixel.black {
+  background: #000;
+}
+
+.pixel.white {
+  background: #fff;
 }
