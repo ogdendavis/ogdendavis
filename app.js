@@ -19,6 +19,15 @@ const makeGrid = (cols=64, rows=64) => {
   grid.style.width = `${rows*.75}rem`;
 }
 
+const fill = (x, y, fillMap, fillClass) => {
+  for (row in fillMap) {
+    fillMap[row].forEach(col => {
+      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
+      target.classList.add(fillClass);
+    })
+  }
+}
+
 const drawLucasHead = (x=0,y=0) => {
   // From drawing made on pixilart.com
   // x and y are points of origin (top left) of image
@@ -59,12 +68,7 @@ const drawLucasHead = (x=0,y=0) => {
     10: [1,10],
     12: [2,3,4,5,6,7,8,9],
   }
-  for (row in brownMap) {
-    brownMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('brown-hair');
-    })
-  }
+  fill(x,y,brownMap,'brown-hair')
 
   const lightBrownMap = {
     2: [10],
@@ -73,12 +77,7 @@ const drawLucasHead = (x=0,y=0) => {
     10: [2,3,8,9],
     11: [2,3,4,5,6,7,8,9],
   }
-  for (row in lightBrownMap) {
-    lightBrownMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('light-brown-hair');
-    })
-  }
+  fill(x,y,lightBrownMap,'light-brown-hair');
 
   const stubbleMap = {
     7: [1,10],
@@ -86,12 +85,7 @@ const drawLucasHead = (x=0,y=0) => {
     9: [1,2,9,10],
     10: [4,7],
   }
-  for (row in stubbleMap) {
-    stubbleMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('stubble');
-    })
-  }
+  fill(x,y,stubbleMap,'stubble');
 
   const darkBrownMap = {
     11: [1,10],
@@ -99,24 +93,14 @@ const drawLucasHead = (x=0,y=0) => {
     13: [2,3,4,5,6,7,8,9],
     14: [4,5,6,7],
   }
-  for (row in darkBrownMap) {
-    darkBrownMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('dark-brown-hair');
-    })
-  }
+  fill(x,y,darkBrownMap,'dark-brown-hair');
 
   const darkestBrownMap = {
     13: [1,10],
     14: [2,3,8,9],
     15: [3,4,5,6,7,8],
   }
-  for (row in darkestBrownMap) {
-    darkestBrownMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('darkest-brown-hair');
-    })
-  }
+  fill(x,y,darkestBrownMap,'darkest-brown-hair');
 
   const skinMap = {
     3: [4,5,6,7,8,9,10],
@@ -126,34 +110,19 @@ const drawLucasHead = (x=0,y=0) => {
     7: [2,3,4,5,6,7,8,9],
     8: [2,9],
   }
-  for (row in skinMap) {
-    skinMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('skin');
-    })
-  }
+  fill(x,y,skinMap,'skin');
 
   const blackMap = {
     5: [3,8],
     6: [3,8],
   }
-  for (row in blackMap) {
-    blackMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('black');
-    })
-  }
+  fill(x,y,blackMap,'black');
 
   const whiteMap = {
     9: [4,5,6,7],
     10: [5,6],
   }
-  for (row in whiteMap) {
-    whiteMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add('white');
-    })
-  }
+  fill(x,y,whiteMap,'white');
 
 }
 
@@ -174,10 +143,6 @@ const drawLucasShirt = (x=0,y=0,color='blue') => {
     8: [2,3,4,5,6,7,8,9],
     9: [2,3,4,5,6,7,8,9],
   }
-  for (row in shirtMap) {
-    shirtMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add(color);
-    })
-  }
+  fill(x,y,shirtMap,color);
+
 }
