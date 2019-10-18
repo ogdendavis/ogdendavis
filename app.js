@@ -3,7 +3,7 @@ window.onload = function() {
   drawLucasHead(26,10);
   drawLucasShirt(26,25,'blue');
   drawLucasLegs(26,35,'gray');
-  drawLucasArms(26,28)
+  drawLucasArms(26,28);
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -19,6 +19,14 @@ const makeGrid = (cols=64, rows=64) => {
   }
 
   grid.style.width = `${rows*.75}rem`;
+}
+
+const resetGrid = () => {
+  const pixels = document.querySelectorAll('.pixel');
+  pixels.forEach(pixel => {
+    pixel.classList.remove(...pixel.classList);
+    pixel.classList.add('pixel');
+  });
 }
 
 const fill = (x, y, fillMap, fillClass) => {
