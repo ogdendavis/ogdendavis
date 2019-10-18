@@ -4,6 +4,7 @@ window.onload = function() {
   drawLucasShirt(26,25,'blue');
   drawLucasLegs(26,35,'gray');
   drawLucasArms(26,28);
+  drawFiggy();
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -30,6 +31,7 @@ const resetGrid = () => {
 }
 
 const fill = (x, y, fillMap, fillClass) => {
+  // fills pixels indicated in map by attaching the indicated class
   for (row in fillMap) {
     fillMap[row].forEach(col => {
       const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
@@ -38,7 +40,7 @@ const fill = (x, y, fillMap, fillClass) => {
   }
 }
 
-const drawLucasHead = (x=0,y=0) => {
+const drawLucasHead = (x=0, y=0) => {
   // From drawing made on pixilart.com
   // x and y are points of origin (top left) of image
 
@@ -136,7 +138,7 @@ const drawLucasHead = (x=0,y=0) => {
 
 }
 
-const drawLucasShirt = (x=0,y=0,color='blue') => {
+const drawLucasShirt = (x=0, y=0, color='blue') => {
   // t-shirt! Designed to fit immediately under my head
   // Offset from head origin should be x+0, y+15
 
@@ -156,7 +158,7 @@ const drawLucasShirt = (x=0,y=0,color='blue') => {
 
 }
 
-const drawLucasLegs = (x=0,y=0,color='gray') => {
+const drawLucasLegs = (x=0, y=0, color='gray') => {
   // Pants and shoes! Designed to sit immediately under shirt
   // Offset from head origin should be x+0, y+25;
 
@@ -187,7 +189,7 @@ const drawLucasLegs = (x=0,y=0,color='gray') => {
   fill(x,y,darkLeatherMap,'dark-leather');
 }
 
-const drawLucasArms = (x=0,y=0,position='thumbsUp') => {
+const drawLucasArms = (x=0, y=0, position='thumbsUp') => {
   // Arms! Should fit in sleeves (duh)
   // Offest from head origin should be x+0,y+18
   // Depending on position, some X values may be negative
@@ -215,4 +217,31 @@ const drawLucasArms = (x=0,y=0,position='thumbsUp') => {
   }
 
   fill(x,y,selectedMap,'skin');
+}
+
+const drawFiggy = (x=0, y=0) => {
+  // Figgy is 17px wide and 23px tall
+
+  // row y0: black x2-4, x12-14
+  // row y1: black x1, blue-gray x2-4, black x5, black x11, white x12-14, black x15
+  // row y2: black x0, blue-gray x1-3, black x4, blue-gray x5, black x6, black x10, white x11, black x12, white x13-15, black x16
+
+  const blackMap = {
+    0: [2,3,4,12,13,14],
+    1: [1,5,11,15],
+    2: [0,4,6,10,12,16],
+  }
+  fill(x,y,blackMap,'black');
+
+  const whiteMap = {
+    1: [12,13,14],
+    2: [11,13,14,15],
+  }
+  fill(x,y,whiteMap,'white');
+
+  const blueGrayMap = {
+    1: [2,3,4],
+    2: [1,2,3,5],
+  }
+  fill(x,y,blueGrayMap,'blue-gray');
 }

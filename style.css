@@ -89,6 +89,10 @@ body {
   background: #808080;
 }
 
+.pixel.blue-gray {
+  background: #607d8b;
+}
+
 .pixel.denim {
   background: #3f51b5;
 }
