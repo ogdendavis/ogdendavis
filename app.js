@@ -225,23 +225,43 @@ const drawFiggy = (x=0, y=0) => {
   // row y0: black x2-4, x12-14
   // row y1: black x1, blue-gray x2-4, black x5, black x11, white x12-14, black x15
   // row y2: black x0, blue-gray x1-3, black x4, blue-gray x5, black x6, black x10, white x11, black x12, white x13-15, black x16
+  // row y3: black x0, blue-gray x1-3, black x4-12, white x13-15, black x16
+  // row y4: black x1-4, white x5-8, blue-gray x9-11, black x12-15
+  // row y5: black x3, white x4-8, blue-gray x9-12, black x13
+  // row y6: black x3, white x4-5, black x6, white x7-8, black x9, white x10, blue-gray x11-12, black x13
+  // row y7: black x3, white x4-5, black x6-7, white x8, black x9-10, blue-gray x11-12, black x13
 
   const blackMap = {
     0: [2,3,4,12,13,14],
     1: [1,5,11,15],
     2: [0,4,6,10,12,16],
+    3: [0,4,5,6,7,8,9,10,11,12,16],
+    4: [1,2,3,4,12,13,14,15],
+    5: [3,13],
+    6: [3,6,9,13],
+    7: [3,6,7,9,10,13],
   }
   fill(x,y,blackMap,'black');
 
   const whiteMap = {
     1: [12,13,14],
     2: [11,13,14,15],
+    3: [13,14,15],
+    4: [5,6,7,8],
+    5: [4,5,6,7,8],
+    6: [4,5,7,8,10],
+    7: [4,5,8],
   }
   fill(x,y,whiteMap,'white');
 
   const blueGrayMap = {
     1: [2,3,4],
     2: [1,2,3,5],
+    3: [1,2,3],
+    4: [9,10,11],
+    5: [9,10,11,12],
+    6: [11,12],
+    7: [11,12],
   }
   fill(x,y,blueGrayMap,'blue-gray');
 }
