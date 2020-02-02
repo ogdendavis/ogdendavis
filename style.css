@@ -1,11 +1,11 @@
 :root {
   --white: #eee;
-  --gray: #ccc;
+  --gray: #d8d8d8;
   --flesh: #dbae8e;
 }
 
 body {
-  background: var(--gray);
+  background: lightyellow;
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -95,4 +95,8 @@ body {
 
 .pixel.denim {
   background: #3f51b5;
+}
+
+.pixel.light-gray {
+  background: #c0c0c0;
 }
