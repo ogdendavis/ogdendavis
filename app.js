@@ -31,7 +31,9 @@ const fill = (x, y, fillMap, fillClass) => {
   for (row in fillMap) {
     fillMap[row].forEach(col => {
       const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      target.classList.add(fillClass);
+      //target.classList.add(fillClass);
+      // Using className to let later drawings override earlier, as opposed to letting CSS order control which one displays
+      target.className = 'pixel ' + fillClass;
     })
   }
 }
