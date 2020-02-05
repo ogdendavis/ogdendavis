@@ -1,6 +1,7 @@
 window.onload = function() {
   makeGrid();
-  familyPortrait(15,15,'wave','wave');
+  // familyPortrait(15,15,'wave','wave');
+  workPortrait(16,15);
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -498,4 +499,81 @@ const familyPortrait = (x=0, y=0, lucasArms='down', kimArms='down') => {
   drawFiggy(x+14,y+30);
   drawKim(x+19,y+6,kimArms);
   drawSylvie(x+33,y+29);
+}
+
+const drawDesk = (x=0, y=0) => {
+  // Desk and stuff are 32px wide and 26px tall
+
+  const lightGrayMap = {
+    0: [20,21,22,23,24,25,26,27,28,29,30,31],
+    1: [20,21,22,23,24,25,26,27,28,29,30,31],
+    2: [20,21,22,23,24,25,27,28,29,30,31],
+    3: [20,21,22,23,24,26,27,28,29,30,31],
+    4: [20,21,22,23,24,27,28,29,30,31],
+    5: [20,21,22,23,24,25,26,27,28,29,30,31],
+    6: [20,21,22,23,24,25,26,27,28,29,30,31],
+    7: [20,21,22,23,24,25,26,27,28,29,30,31],
+    10: [24,25,26,27],
+  }
+  fill(x,y,lightGrayMap,'light-gray');
+
+  const grayMap = {
+    2: [26],
+    3: [25],
+    4: [25,26],
+  }
+  fill(x,y,grayMap,'gray');
+
+  const shadowMap = {
+    8: [25,26],
+    9: [25,26],
+  }
+  fill(x,y,shadowMap,'shadow-gray');
+
+  const darkLeatherMap = {
+    11: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+    12: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+    13: [0,31],
+    14: [0,31],
+    15: [0,31],
+    16: [0,31],
+    17: [0,31],
+    18: [0,31],
+    19: [0,31],
+    20: [0,31],
+    21: [0,31],
+    22: [0,31],
+    23: [0,31],
+    24: [0,31],
+    25: [0,31],
+  }
+  fill(x,y,darkLeatherMap,'dark-leather');
+
+  const blackMap = {
+    8: [15,16,17],
+    9: [14,15,16,17],
+    10: [15,16,17],
+  }
+  fill(x,y,blackMap,'black');
+
+  const stubbleMap = {
+    8: [1,2,3],
+    9: [1,2,3],
+    10: [1,2,3],
+  }
+  fill(x,y,stubbleMap,'stubble');
+
+  fill(x,y,{7: [2]},'light-brown');
+
+  const greenMap = {
+    4: [1,2,3],
+    5: [0,1,2,3,4],
+    6: [0,1,2,3,4],
+  }
+  fill(x,y,greenMap,'green');
+}
+
+const workPortrait = (x=0, y=0) => {
+  drawLucas(x+7,y,'blue','gray','down');
+  drawDesk(x,y+13);
 }
