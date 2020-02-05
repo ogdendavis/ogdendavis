@@ -265,6 +265,49 @@ const drawFiggy = (x=0, y=0) => {
   fill(x,y,{4:[2,3,4]},'blue');
 }
 
+const drawSylvie = (x=0, y=0) => {
+  // Sylvie is 8px wide and 10px tall
+
+  // row y0: gold x0, gold x4
+  // row y1: gold x0-1, gold x3-4
+  // row y2: yellow x0-4
+  // row y3: yellow x0, black x1, yellow x2, black x3, yellow x4
+  // row y4: yellow x0-1, black x2, yellow x3-4
+  // row y5: yellow x1-3
+  // row y6: yellow x0-4, gold x6-7
+  // row y7: yellow x0-4, gold x7
+  // row y8: yellow x0, gold x1, yellow x2, gold x3, yellow x4, gold x7
+  // row y9: yellow x0, gold x1, yellow x2, gold x3, yellow x4, gold x5-7
+
+  const goldMap = {
+    0: [0,4],
+    1: [0,1,3,4],
+    6: [6,7],
+    7: [7],
+    8: [1,3,7],
+    9: [1,3,5,6,7],
+  }
+  fill(x,y,goldMap,'gold');
+
+  const yellowMap = {
+    2: [0,1,2,3,4],
+    3: [0,2,4],
+    4: [0,1,3,4],
+    5: [1,2,3],
+    6: [0,1,2,3,4],
+    7: [0,1,2,3,4],
+    8: [0,2,4],
+    9: [0,2,4],
+  }
+  fill(x,y,yellowMap,'yellow');
+
+  const blackMap = {
+    3: [1,3],
+    4: [2],
+  }
+  fill(x,y,blackMap,'black');
+}
+
 const drawKimMain = (x=0, y=0) => {
   // Kim is 14px wide and 33px tall
 
@@ -393,6 +436,7 @@ const drawKim = (x=0, y=0, arms='down') => {
 
 const familyPortrait = (x=0, y=0) => {
   drawLucas(x,y);
-  drawFiggy(x+15,y+30);
-  drawKim(x+21,y+6);
+  drawFiggy(x+14,y+30);
+  drawKim(x+19,y+6);
+  drawSylvie(x+33,y+29);
 }
