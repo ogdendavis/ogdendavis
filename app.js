@@ -5,6 +5,7 @@ window.onload = function() {
   drawLucasLegs(26,35,'gray');
   drawLucasArms(26,28);
   drawFiggy(40,40);
+  drawKim(5,5);
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -260,4 +261,130 @@ const drawFiggy = (x=0, y=0) => {
   fill(x,y,blackMap,'black');
 
   fill(x,y,{4:[2,3,4]},'blue');
+}
+
+const drawKimMain = (x=0, y=0) => {
+  // Kim is 14px wide and 33px tall
+
+  // row y0: light brown x4-10
+  // row y1: light brown x3-11
+  // row y2: light brown x2-8, skin x9-10, light brown x11-12
+  // row y3: light brown x2-5, skin x6-11, light brown x12-13
+  // row y4: light brown x1-3, skin x4-12, light brown x13
+  // row y5: light brown x1, skin x2, light brown x3, skin x4, black x5, skin x6-9, black x10, skin x11-13
+  // row y6: light brown x1, skin x2-4, black x5, skin x6-9, black x10, skin x11-13
+  // row y7: light brown x1-2, skin x3-12, light brown x13
+  // row y8: light brown x1-2, skin x3-5, white x6-9, skin x10-12, light brown x13
+  // row y9: light brown x1-2, skin x3-6, white x7-8, skin x9-12, light brown x13
+  // row y10: light brown x0-3, skin x4-11, light brown x12-13
+  // row y11: light brown x0-4, skin x5-10, light brown x11-12
+  // row y12: light brown x0-6, skin x7-8, light brown x9-11
+  // row y13: light brown x1-4, purple x5-10
+  // rows y14-15: purple x3-12
+  // rows y16-20: purple x5-10
+  // rows y21-23: gray x5-10
+  // rows y24-30: gray x5-6, gray x9-10
+  // row y31: leather x4-6, leather x9-11
+  // row y32: dark leather x4-6, dark leather x9-11
+
+  const lightBrownMap = {
+    0: [4,5,6,7,8,9,10],
+    1: [3,4,5,6,7,8,9,10,11],
+    2: [2,3,4,5,6,7,8,11,12],
+    3: [2,3,4,5,12,13],
+    4: [1,2,3,13],
+    5: [1,3],
+    6: [1],
+    7: [1,2,13],
+    8: [1,2,13],
+    9: [1,2,13],
+    10: [0,1,2,3,12,13],
+    11: [0,1,2,3,4,11,12],
+    12: [0,1,2,3,4,5,6,9,10,11],
+    13: [1,2,3,4],
+  }
+  fill(x,y,lightBrownMap,'light-brown');
+
+  const skinMap = {
+    2: [9,10],
+    3: [6,7,8,9,10,11],
+    4: [4,5,6,7,8,9,10,11,12],
+    5: [2,4,6,7,8,9,11,12,13],
+    6: [2,3,4,6,7,8,9,11,12,13],
+    7: [3,4,5,6,7,8,9,10,11,12],
+    8: [3,4,5,10,11,12],
+    9: [3,4,5,6,9,10,11,12],
+    10: [4,5,6,7,8,9,10,11],
+    11: [5,6,7,8,9,10],
+    12: [7,8],
+  }
+  fill(x,y,skinMap,'skin');
+
+  const blackMap = {
+    5: [5,10],
+    6: [5,10],
+  }
+  fill(x,y,blackMap,'black');
+
+  const whiteMap = {
+    8: [6,7,8,9],
+    9: [7,8],
+  }
+  fill(x,y,whiteMap,'white');
+
+  const purpleMap = {
+    13: [5,6,7,8,9,10],
+    14: [3,4,5,6,7,8,9,10,11,12],
+    15: [3,4,5,6,7,8,9,10,11,12],
+    16: [5,6,7,8,9,10],
+    17: [5,6,7,8,9,10],
+    18: [5,6,7,8,9,10],
+    19: [5,6,7,8,9,10],
+    20: [5,6,7,8,9,10],
+  }
+  fill(x,y,purpleMap,'purple');
+
+  const grayMap = {
+    21: [5,6,7,8,9,10],
+    22: [5,6,7,8,9,10],
+    23: [5,6,7,8,9,10],
+    24: [5,6,9,10],
+    25: [5,6,9,10],
+    26: [5,6,9,10],
+    27: [5,6,9,10],
+    28: [5,6,9,10],
+    29: [5,6,9,10],
+    30: [5,6,9,10],
+  }
+  fill(x,y,grayMap,'gray');
+
+  fill(x,y,{31:[4,5,6,9,10,11]},'leather');
+  fill(x,y,{32:[4,5,6,9,10,11]},'dark-leather');
+}
+
+const drawKimArms = (x=0, y=0, position='down') => {
+  downMap = {
+    0: [1,2,9,10],
+    1: [1,2,9,10],
+    2: [1,2,9,10],
+    3: [1,2,9,10],
+    4: [1,2,9,10],
+    5: [0,1,2,9,10,11],
+    6: [1,2,9,10],
+  }
+  let selectedMap = {}
+  switch (position) {
+    case 'down':
+      selectedMap = downMap;
+      break;
+    default:
+      selectedMap = downMap;
+  }
+
+  fill(x,y,selectedMap,'skin');
+}
+
+const drawKim = (x=0, y=0, arms='down') => {
+  drawKimMain(x,y);
+  drawKimArms(x+2,y+16,arms);
 }
