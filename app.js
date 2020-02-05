@@ -1,6 +1,6 @@
 window.onload = function() {
   makeGrid();
-  familyPortrait(15,15);
+  familyPortrait(15,15,'wave','wave');
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -185,12 +185,12 @@ const drawLucasLegs = (x=0, y=0, color='gray') => {
   fill(x,y,darkLeatherMap,'dark-leather');
 }
 
-const drawLucasArms = (x=0, y=0, position='thumbsUp') => {
+const drawLucasArms = (x=0, y=0, position='down') => {
   // Arms! Should fit in sleeves (duh)
   // Offest from head origin should be x+0,y+18
   // Depending on position, some X values may be negative
 
-  thumbsUpMap = {
+  const thumbsUpMap = {
     0: [0,1,10,11],
     1: [-4,0,1,10,11],
     2: [-5,-4,0,1,10,11],
@@ -202,11 +202,50 @@ const drawLucasArms = (x=0, y=0, position='thumbsUp') => {
     8: [10,11,12],
     9: [10,11],
   }
+  const downMap = {
+    0: [0,1,10,11],
+    1: [0,1,10,11],
+    2: [0,1,10,11],
+    3: [0,1,10,11],
+    4: [0,1,10,11],
+    5: [0,1,10,11],
+    6: [0,1,10,11],
+    7: [-1,0,1,10,11,12],
+    8: [-1,0,1,10,11,12],
+    9: [0,1,10,11],
+  }
+  const waveMap = {
+    '-9': [-4,-3],
+    '-8': [-4,-3,-2],
+    '-7': [-4,-3,-2],
+    '-6': [-4,-3],
+    '-5': [-4,-3],
+    '-4': [-4,-3],
+    '-3': [-4,-3],
+    '-2': [-4,-3,-2,-1],
+    '-1': [-4,-3,-2,-1],
+    0: [10,11],
+    1: [10,11],
+    2: [10,11],
+    3: [10,11],
+    4: [10,11],
+    5: [10,11],
+    6: [10,11],
+    7: [10,11,12],
+    8: [10,11,12],
+    9: [10,11],
+  }
   // Pick the correct map for the position
   let selectedMap = {}
   switch (position) {
     case 'thumbsUp':
       selectedMap = thumbsUpMap;
+      break;
+    case 'down':
+      selectedMap = downMap;
+      break;
+    case 'wave':
+      selectedMap = waveMap;
       break;
     default:
       selectedMap = thumbsUpMap;
@@ -408,7 +447,7 @@ const drawKimMain = (x=0, y=0) => {
 }
 
 const drawKimArms = (x=0, y=0, position='down') => {
-  downMap = {
+  const downMap = {
     0: [1,2,9,10],
     1: [1,2,9,10],
     2: [1,2,9,10],
@@ -417,10 +456,28 @@ const drawKimArms = (x=0, y=0, position='down') => {
     5: [0,1,2,9,10,11],
     6: [1,2,9,10],
   }
+  const waveMap = {
+    '-6': [13,14],
+    '-5': [12,13,14],
+    '-4': [13,14],
+    '-3': [13,14],
+    '-2': [11,12,13,14],
+    '-1': [11,12,13,14],
+    0: [1,2],
+    1: [1,2],
+    2: [1,2],
+    3: [1,2],
+    4: [1,2],
+    5: [0,1,2],
+    6: [1,2],
+  }
   let selectedMap = {}
   switch (position) {
     case 'down':
       selectedMap = downMap;
+      break;
+    case 'wave':
+      selectedMap = waveMap;
       break;
     default:
       selectedMap = downMap;
@@ -434,9 +491,9 @@ const drawKim = (x=0, y=0, arms='down') => {
   drawKimArms(x+2,y+16,arms);
 }
 
-const familyPortrait = (x=0, y=0) => {
-  drawLucas(x,y);
+const familyPortrait = (x=0, y=0, lucasArms='down', kimArms='down') => {
+  drawLucas(x,y,'blue','gray',lucasArms);
   drawFiggy(x+14,y+30);
-  drawKim(x+19,y+6);
+  drawKim(x+19,y+6,kimArms);
   drawSylvie(x+33,y+29);
 }
