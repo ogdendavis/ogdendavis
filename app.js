@@ -1,9 +1,6 @@
 window.onload = function() {
   makeGrid();
-  drawLucasHead(26,10);
-  drawLucasShirt(26,25,'blue');
-  drawLucasLegs(26,35,'gray');
-  drawLucasArms(26,28);
+  drawLucas(26,10);
   drawFiggy(40,40);
   drawKim(5,5);
 }
@@ -218,6 +215,13 @@ const drawLucasArms = (x=0, y=0, position='thumbsUp') => {
   }
 
   fill(x,y,selectedMap,'skin');
+}
+
+const drawLucas = (x=0, y=0, shirt='blue', legs='gray', arms='thumbsUp') => {
+  drawLucasHead(x,y);
+  drawLucasShirt(x,y+15,shirt);
+  drawLucasLegs(x,y+25,legs);
+  drawLucasArms(x,y+18,arms);
 }
 
 const drawFiggy = (x=0, y=0) => {
