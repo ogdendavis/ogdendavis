@@ -1,8 +1,6 @@
 window.onload = function() {
   makeGrid();
-  drawLucas(26,10);
-  drawFiggy(40,40);
-  drawKim(5,5);
+  familyPortrait(15,15);
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -391,4 +389,10 @@ const drawKimArms = (x=0, y=0, position='down') => {
 const drawKim = (x=0, y=0, arms='down') => {
   drawKimMain(x,y);
   drawKimArms(x+2,y+16,arms);
+}
+
+const familyPortrait = (x=0, y=0) => {
+  drawLucas(x,y);
+  drawFiggy(x+15,y+30);
+  drawKim(x+21,y+6);
 }
