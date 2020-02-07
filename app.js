@@ -3,6 +3,7 @@ window.onload = function() {
   // familyPortrait(15,15,'wave','wave');
   drawBar()
   drawBookshelf(20,20);
+  drawLucas(45,20,'red','thumbsUp','gray',true);
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -158,10 +159,9 @@ const drawLucasShirt = (x=0, y=0, color='blue') => {
 
 }
 
-const drawLucasLegs = (x=0, y=0, color='gray') => {
+const drawLucasLegs = (x=0, y=0, color='gray', shorts=false) => {
   // Pants and shoes! Designed to sit immediately under shirt
   // Offset from head origin should be x+0, y+25;
-
   const pantsMap = {
     0: [2,3,4,5,6,7,8,9],
     1: [2,3,4,5,6,7,8,9],
@@ -187,6 +187,31 @@ const drawLucasLegs = (x=0, y=0, color='gray') => {
     13: [0,1,2,3,4,7,8,9,10,11],
   }
   fill(x,y,darkLeatherMap,'dark-leather');
+
+  // If wearing shorts, erase some of what is done above!
+  if (shorts) {
+    const backgroundMap = {
+      6: [4,7],
+      7: [4,7],
+      8: [4,7],
+      9: [4,7],
+      10: [4,7],
+      11: [4,7],
+      12: [4,7],
+      13: [4,7],
+    }
+    fill(x,y,backgroundMap,'');
+
+    const legsMap = {
+      6: [2,3,8,9],
+      7: [2,3,8,9],
+      8: [2,3,8,9],
+      9: [2,3,8,9],
+      10: [2,3,8,9],
+      11: [2,3,8,9],
+    }
+    fill(x,y,legsMap,'skin');
+  }
 }
 
 const drawLucasArms = (x=0, y=0, position='down') => {
@@ -258,10 +283,10 @@ const drawLucasArms = (x=0, y=0, position='down') => {
   fill(x,y,selectedMap,'skin');
 }
 
-const drawLucas = (x=0, y=0, shirt='blue', legs='gray', arms='thumbsUp') => {
+const drawLucas = (x=0, y=0, shirt='blue', arms='thumbsUp', legs='gray', shorts=false) => {
   drawLucasHead(x,y);
   drawLucasShirt(x,y+15,shirt);
-  drawLucasLegs(x,y+25,legs);
+  drawLucasLegs(x,y+25,legs,shorts);
   drawLucasArms(x,y+18,arms);
 }
 
