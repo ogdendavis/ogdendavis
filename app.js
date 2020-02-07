@@ -39,7 +39,7 @@ const fill = (x, y, fillMap, fillClass) => {
   }
 }
 
-const drawLucasHead = (x=0, y=0) => {
+const drawLucasHead = (x=0, y=0, opt={}) => {
   // From drawing made on pixilart.com
   // x and y are points of origin (top left) of image
 
@@ -134,6 +134,15 @@ const drawLucasHead = (x=0, y=0) => {
     10: [5,6],
   }
   fill(x,y,whiteMap,'white');
+
+  // Add a headband!
+  if (opt.headband) {
+    const headbandMap = {
+      2: [1,2,3,4,5,6,7,8,9,10],
+      3: [1,2,3,4,5,6,7,8,9,10],
+    }
+    fill(x,y,headbandMap,opt.headband);
+  }
 
 }
 
