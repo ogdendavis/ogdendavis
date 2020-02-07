@@ -10,6 +10,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -200%);
+  /* transform: translate(-50%,-50%); */
   transition: all 2s linear;
 }
 
@@ -37,6 +38,7 @@ body {
   box-sizing: border-box;
   -webkit-margin-before: -0.1px;
   -webkit-margin-after: -0.1px;
+  /* border: 1px solid gray; */
 }
 
 /* Colors! Classes used by JS to draw pixel art */
@@ -146,4 +148,16 @@ body {
 
 .pixel.bookshelf-back {
   background: #795548;
+}
+
+.pixel.button {
+  transition: all .5s ease-in-out;
+}
+
+.pixel.button:hover {
+  cursor: pointer;
+}
+
+.pixel.button__text {
+  background: #3f51b5;
 }

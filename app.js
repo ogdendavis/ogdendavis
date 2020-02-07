@@ -855,19 +855,115 @@ const playPortrait = (x=0, y=0, opt={}) => {
   drawBookshelf(x+28,y+14);
 }
 
+const drawButtons = (x=0, y=0) => {
+  // all buttons together are 35px wide and 45px tall
+  const buttonsTextMap = {
+    0: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
+    1: [1,33],
+    2: [0,34],
+    3: [0,4,5,6,9,10,11,12,16,17,18,21,25,27,28,29,30,31,34],
+    4: [0,3,7,9,13,15,19,21,25,29,34],
+    5: [0,3,7,9,13,15,19,21,25,29,34],
+    6: [0,3,4,5,6,7,9,10,11,12,15,19,21,25,29,34],
+    7: [0,3,7,9,13,15,19,21,25,29,34],
+    8: [0,3,7,9,13,15,19,21,25,29,34],
+    9: [0,3,7,9,10,11,12,16,17,18,22,23,24,29,34],
+    10: [0,34],
+    11: [1,33],
+    12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
+    16: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+    17: [1,27],
+    18: [0,28],
+    19: [0,3,7,10,11,12,15,16,17,18,21,25,28],
+    20: [0,3,7,9,13,15,19,21,24,28],
+    21: [0,3,7,9,13,15,19,21,23,28],
+    22: [0,3,5,7,9,13,15,16,17,18,21,22,28],
+    23: [0,3,5,7,9,13,15,17,21,23,28],
+    24: [0,3,5,7,9,13,15,18,21,24,28],
+    25: [0,4,6,10,11,12,15,19,21,25,28],
+    26: [0,28],
+    27: [1,27],
+    28: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+    32: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+    33: [1,27],
+    34: [0,28],
+    35: [0,3,4,5,6,9,16,17,18,21,25,28],
+    36: [0,3,7,9,15,19,21,25,28],
+    37: [0,3,7,9,15,19,22,24,28],
+    38: [0,3,4,5,6,9,15,16,17,18,19,23,28],
+    39: [0,3,9,15,19,23,28],
+    40: [0,3,9,15,19,23,28],
+    41: [0,3,9,10,11,12,13,15,19,23,28],
+    42: [0,28],
+    43: [1,27],
+    44: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+  }
+  fill(x,y,buttonsTextMap,'button__text');
+
+
+  const aboutButtonRange = {
+    rowStart: 0,
+    rowEnd: 12,
+    colStart: 0,
+    colEnd: 34
+  }
+  addButtonClass(x,y,aboutButtonRange,['button','button--about']);
+
+  const workButtonRange = {
+    rowStart: 32,
+    rowEnd: 44,
+    colStart: 0,
+    colEnd: 28
+  }
+  addButtonClass(x,y,workButtonRange,['button','button--work']);
+
+  const playButtonRange = {
+    rowStart: 16,
+    rowEnd: 28,
+    colStart: 0,
+    colEnd: 28
+  }
+  addButtonClass(x,y,playButtonRange,['button','button--play']);
+
+}
+
+const addButtonClass = (x, y, range, classes) => {
+  // Take a range defining a rectangle, and add a class to all pixels inside the rectangle
+  let rows = []
+  for (let i = range.rowStart; i <= range.rowEnd; i++) {
+    rows.push(i);
+  }
+  rows.forEach(row => {
+    for (let j = range.colStart; j <= range.colEnd; j++) {
+      const target = document.querySelector(`#x${x + j}y${y + Number(row)}`);
+      if (target) {
+        target.classList.add(...classes);
+      }
+    }
+  });
+}
+
 const introAnimate = (x=25,y=25,tick=30) => {
   drawLucas(x,y);
 
   const container = document.querySelector('.container');
   const undergrid = document.querySelector('.undergrid');
 
+  // Stage timing variables, for reference and consistency
+  const sOneEnd = 2100;
+  const sTwoStart = sOneEnd + 500;
+  const sTwoEnd = sTwoStart + 25 * tick;
+  const sThreeStart = sTwoEnd + 100;
+
+  // Stage 1: Slide the grid down and into view
   container.style.transform = 'translate(-50%,-60%)';
   window.setTimeout(() => {
     resetGrid();
     drawLucas(x,y,{lucasArmPos:'wave'});
     undergrid.innerText = 'Hi, I\'m Lucas';
-  }, 2100);
+  }, sOneEnd);
 
+  // Stage 2: Slide Lucas left
   // Modified from first draft animate function
   // width offset to make sure he doesn't go off screen left
   offsetX = 7
@@ -876,11 +972,28 @@ const introAnimate = (x=25,y=25,tick=30) => {
     window.setTimeout(() => {
       resetGrid();
       drawLucas(j,y,{lucasArmPos:'wave'});
-    }, 2600 + (x-j) * tick);
+    }, sTwoStart + (x-j) * tick);
   }
   window.setTimeout(() => {
     resetGrid();
     drawLucas(offsetX,y)
     undergrid.style.minWidth = '0';
-  }, 2600 + 25 * tick);
+  }, sTwoEnd);
+
+  // Stage 3: Add nav buttons
+  window.setTimeout(() => {
+    drawButtons(29,19)
+    // Also start the app from here, since it's our last step
+    startApp();
+  }, sThreeStart);
+}
+
+const startApp = () => {
+  /*
+  To do:
+  1. Add event listeners for hover effects on buttons
+  2. Add bottom text change on button hover (e.g. 'Hi, I'm Lucas' -> 'Learn about me')
+  3. Add click events to display appropriate portrait and text area
+  */
+  console.log('Starting!');
 }
