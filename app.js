@@ -1,8 +1,9 @@
 window.onload = function() {
   makeGrid();
-  familyPortrait(15,15);
+  // familyPortrait(15,15);
   // playPortrait(10,15);
   // workPortrait(15,15);
+  introAnimate();
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -271,7 +272,7 @@ const drawLucasArms = (x=0, y=0, opt={}) => {
     8: [10,11,12],
     9: [10,11],
   }
-  // Pick the correct map for the position
+  // Pick the correct map for the arm position
   let selectedMap = {}
   switch (opt.lucasArmPos) {
     case 'thumbsUp':
@@ -296,9 +297,10 @@ const defaultOpt = {
   pantsColor: 'gray',
   shorts: false,
   lucasArmPos: 'down',
+  kimArmPos: 'down',
 }
 
-const drawLucas = (x=0, y=0, opt=defaultLucasOpt) => {
+const drawLucas = (x=0, y=0, opt=defaultOpt) => {
   drawLucasHead(x,y,opt);
   drawLucasShirt(x,y+15,opt);
   drawLucasLegs(x,y+25,opt);
@@ -849,4 +851,36 @@ const playPortrait = (x=0, y=0, opt={}) => {
   drawLucas(x+7,y,opt);
   drawBar(x,y+30);
   drawBookshelf(x+28,y+14);
+}
+
+const introAnimate = (x=25, y=25, tick=50) => {
+  // Area under grid where text goes
+  const undergrid = document.querySelector('.undergrid');
+
+  // Remember times when each animation stage starts/stops
+  const stageOneEnd = y * tick;
+  const stageTwoStart = stageOneEnd + 1000;
+
+  // Stage 1: Lucas drops down, waves, 'Hi, I'm Lucas'
+  for (let i = 0; i <= y; i++) {
+    window.setTimeout(() => {
+      resetGrid();
+      drawLucas(x,i,i == y ? {lucasArmPos:'wave'} : {});
+    }, i * tick);
+  }
+  window.setTimeout(() => {
+    undergrid.innerText = 'Hi, I\'m Lucas';
+  }, stageOneEnd);
+
+  // Stage 2: Lucas slides left
+  for (let j = x; j > 3; j--) {
+    window.setTimeout(() => {
+      resetGrid();
+      drawLucas(j,y,j == 3 ? {} : {lucasArmPos:'wave'});
+    }, stageTwoStart + (x-j) * tick);
+  }
+  window.setTimeout(() => {
+    undergrid.style.minWidth = '0';
+  }, stageTwoStart + 25 * tick);
+
 }

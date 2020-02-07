@@ -18,6 +18,17 @@ body {
   line-height: 0;
 }
 
+.undergrid {
+  font-family: monospace;
+  font-size: 3rem;
+  height: 3.5rem;
+  margin: auto;
+  text-align: center;
+  display: inline-block;
+  min-width: 100%;
+  transition: all .5s linear;
+}
+
 .pixel {
   display: inline-block;
   width: 0.75rem;
