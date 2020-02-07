@@ -33,9 +33,11 @@ const fill = (x, y, fillMap, fillClass) => {
   for (row in fillMap) {
     fillMap[row].forEach(col => {
       const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
-      //target.classList.add(fillClass);
+      // target.classList.add(fillClass);
       // Using className to let later drawings override earlier, as opposed to letting CSS order control which one displays
-      target.className = 'pixel ' + fillClass;
+      if (target) {
+        target.className = 'pixel ' + fillClass;
+      }
     })
   }
 }
@@ -853,34 +855,32 @@ const playPortrait = (x=0, y=0, opt={}) => {
   drawBookshelf(x+28,y+14);
 }
 
-const introAnimate = (x=25, y=25, tick=50) => {
-  // Area under grid where text goes
+const introAnimate = (x=25,y=25,tick=30) => {
+  drawLucas(x,y);
+
+  const container = document.querySelector('.container');
   const undergrid = document.querySelector('.undergrid');
 
-  // Remember times when each animation stage starts/stops
-  const stageOneEnd = y * tick;
-  const stageTwoStart = stageOneEnd + 1000;
-
-  // Stage 1: Lucas drops down, waves, 'Hi, I'm Lucas'
-  for (let i = 0; i <= y; i++) {
-    window.setTimeout(() => {
-      resetGrid();
-      drawLucas(x,i,i == y ? {lucasArmPos:'wave'} : {});
-    }, i * tick);
-  }
+  container.style.transform = 'translate(-50%,-60%)';
   window.setTimeout(() => {
+    resetGrid();
+    drawLucas(x,y,{lucasArmPos:'wave'});
     undergrid.innerText = 'Hi, I\'m Lucas';
-  }, stageOneEnd);
+  }, 2100);
 
-  // Stage 2: Lucas slides left
-  for (let j = x; j > 3; j--) {
+  // Modified from first draft animate function
+  // width offset to make sure he doesn't go off screen left
+  offsetX = 7
+
+  for (let j = x; j >= offsetX; j--) {
     window.setTimeout(() => {
       resetGrid();
-      drawLucas(j,y,j == 3 ? {} : {lucasArmPos:'wave'});
-    }, stageTwoStart + (x-j) * tick);
+      drawLucas(j,y,{lucasArmPos:'wave'});
+    }, 2600 + (x-j) * tick);
   }
   window.setTimeout(() => {
+    resetGrid();
+    drawLucas(offsetX,y)
     undergrid.style.minWidth = '0';
-  }, stageTwoStart + 25 * tick);
-
+  }, 2600 + 25 * tick);
 }
