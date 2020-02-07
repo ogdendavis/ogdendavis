@@ -75,8 +75,16 @@ body {
   background: #f44336;
 }
 
+.pixel.dark-red {
+  background: #dd2c00;
+}
+
 .pixel.green {
   background: #4caf50;
+}
+
+.pixel.dark-green {
+  background: #388e3c;
 }
 
 .pixel.gray {
@@ -105,4 +113,24 @@ body {
 
 .pixel.yellow {
   background: #ffe082;
+}
+
+.pixel.teal {
+  background: #008080;
+}
+
+.pixel.violet {
+  background: #800080;
+}
+
+.pixel.orange {
+  background: #ff5722;
+}
+
+.pixel.cream {
+  background: #ffd180;
+}
+
+.pixel.bookshelf-back {
+  background: #795548;
 }
