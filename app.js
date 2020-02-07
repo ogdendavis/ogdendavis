@@ -1,9 +1,7 @@
 window.onload = function() {
   makeGrid();
   // familyPortrait(15,15,'wave','wave');
-  drawBar()
-  drawBookshelf(20,20);
-  drawLucas(45,20,'red','thumbsUp','gray',true);
+  playPortrait(10,15);
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -809,4 +807,10 @@ const drawBookshelf = (x=0, y=0) => {
     23: [4,5],
   }
   fill(x,y,darkRedMap,'dark-red');
+}
+
+const playPortrait = (x=0, y=0) => {
+  drawLucas(x+7,y,'red','thumbsUp','gray',true);
+  drawBar(x,y+30);
+  drawBookshelf(x+28,y+14);
 }
