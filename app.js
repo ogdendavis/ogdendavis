@@ -23,8 +23,7 @@ const makeGrid = (cols=64, rows=64) => {
 const resetGrid = () => {
   const pixels = document.querySelectorAll('.pixel');
   pixels.forEach(pixel => {
-    pixel.classList.remove(...pixel.classList);
-    pixel.classList.add('pixel');
+    pixel.className = 'pixel';
   });
 }
 
