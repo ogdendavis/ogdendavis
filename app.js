@@ -948,12 +948,13 @@ const introAnimate = (x=25,y=25,tick=30) => {
 
   const container = document.querySelector('.container');
   const undergrid = document.querySelector('.undergrid');
-
+  // width offset to make sure he doesn't go off screen left in stage 2
+  offsetX = 7
   // Stage timing variables, for reference and consistency
   const sOneEnd = 2100;
   const sTwoStart = sOneEnd + 500;
-  const sTwoEnd = sTwoStart + 25 * tick;
-  const sThreeStart = sTwoEnd + 100;
+  const sTwoEnd = sTwoStart + (x - offsetX) * tick;
+  const sThreeStart = sTwoEnd + 200;
 
   // Stage 1: Slide the grid down and into view
   container.style.transform = 'translate(-50%,-60%)';
@@ -965,9 +966,6 @@ const introAnimate = (x=25,y=25,tick=30) => {
 
   // Stage 2: Slide Lucas left
   // Modified from first draft animate function
-  // width offset to make sure he doesn't go off screen left
-  offsetX = 7
-
   for (let j = x; j >= offsetX; j--) {
     window.setTimeout(() => {
       resetGrid();
@@ -978,7 +976,7 @@ const introAnimate = (x=25,y=25,tick=30) => {
     resetGrid();
     drawLucas(offsetX,y)
     undergrid.style.minWidth = '0';
-  }, sTwoEnd);
+  }, sThreeStart);
 
   // Stage 3: Add nav buttons
   window.setTimeout(() => {
