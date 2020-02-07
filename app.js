@@ -1,7 +1,8 @@
 window.onload = function() {
   makeGrid();
-  // familyPortrait(15,15,'wave','wave');
-  playPortrait(10,15);
+  familyPortrait(15,15);
+  // playPortrait(10,15);
+  // workPortrait(15,15);
 }
 
 const makeGrid = (cols=64, rows=64) => {
@@ -146,7 +147,7 @@ const drawLucasHead = (x=0, y=0, opt={}) => {
 
 }
 
-const drawLucasShirt = (x=0, y=0, color='blue') => {
+const drawLucasShirt = (x=0, y=0, opt={}) => {
   // t-shirt! Designed to fit immediately under my head
   // Offset from head origin should be x+0, y+15
 
@@ -162,11 +163,11 @@ const drawLucasShirt = (x=0, y=0, color='blue') => {
     8: [2,3,4,5,6,7,8,9],
     9: [2,3,4,5,6,7,8,9],
   }
-  fill(x,y,shirtMap,color);
+  fill(x,y,shirtMap,opt.shirtColor || 'blue');
 
 }
 
-const drawLucasLegs = (x=0, y=0, color='gray', shorts=false) => {
+const drawLucasLegs = (x=0, y=0, opt={}) => {
   // Pants and shoes! Designed to sit immediately under shirt
   // Offset from head origin should be x+0, y+25;
   const pantsMap = {
@@ -183,7 +184,7 @@ const drawLucasLegs = (x=0, y=0, color='gray', shorts=false) => {
     10: [2,3,4,7,8,9],
     11: [2,3,4,7,8,9],
   }
-  fill(x,y,pantsMap,color);
+  fill(x,y,pantsMap,opt.pantsColor || 'gray');
 
   const leatherMap = {
     12: [0,1,2,3,4,7,8,9,10,11],
@@ -196,7 +197,7 @@ const drawLucasLegs = (x=0, y=0, color='gray', shorts=false) => {
   fill(x,y,darkLeatherMap,'dark-leather');
 
   // If wearing shorts, erase some of what is done above!
-  if (shorts) {
+  if (opt.shorts) {
     const backgroundMap = {
       6: [4,7],
       7: [4,7],
@@ -221,7 +222,7 @@ const drawLucasLegs = (x=0, y=0, color='gray', shorts=false) => {
   }
 }
 
-const drawLucasArms = (x=0, y=0, position='down') => {
+const drawLucasArms = (x=0, y=0, opt={}) => {
   // Arms! Should fit in sleeves (duh)
   // Offest from head origin should be x+0,y+18
   // Depending on position, some X values may be negative
@@ -273,7 +274,7 @@ const drawLucasArms = (x=0, y=0, position='down') => {
   }
   // Pick the correct map for the position
   let selectedMap = {}
-  switch (position) {
+  switch (opt.lucasArmPos) {
     case 'thumbsUp':
       selectedMap = thumbsUpMap;
       break;
@@ -284,17 +285,25 @@ const drawLucasArms = (x=0, y=0, position='down') => {
       selectedMap = waveMap;
       break;
     default:
-      selectedMap = thumbsUpMap;
+      selectedMap = downMap;
   }
 
   fill(x,y,selectedMap,'skin');
 }
 
-const drawLucas = (x=0, y=0, shirt='blue', arms='thumbsUp', legs='gray', shorts=false) => {
-  drawLucasHead(x,y);
-  drawLucasShirt(x,y+15,shirt);
-  drawLucasLegs(x,y+25,legs,shorts);
-  drawLucasArms(x,y+18,arms);
+const defaultOpt = {
+  headband: false,
+  shirtColor: 'blue',
+  pantsColor: 'gray',
+  shorts: false,
+  lucasArmPos: 'down',
+}
+
+const drawLucas = (x=0, y=0, opt=defaultLucasOpt) => {
+  drawLucasHead(x,y,opt);
+  drawLucasShirt(x,y+15,opt);
+  drawLucasLegs(x,y+25,opt);
+  drawLucasArms(x,y+18,opt);
 }
 
 const drawFiggy = (x=0, y=0) => {
@@ -383,7 +392,7 @@ const drawSylvie = (x=0, y=0) => {
   fill(x,y,blackMap,'black');
 }
 
-const drawKimMain = (x=0, y=0) => {
+const drawKimMain = (x=0, y=0, opt={}) => {
   // Kim is 14px wide and 33px tall
 
   // row y0: light brown x4-10
@@ -482,7 +491,7 @@ const drawKimMain = (x=0, y=0) => {
   fill(x,y,{32:[4,5,6,9,10,11]},'dark-leather');
 }
 
-const drawKimArms = (x=0, y=0, position='down') => {
+const drawKimArms = (x=0, y=0, opt={}) => {
   const downMap = {
     0: [1,2,9,10],
     1: [1,2,9,10],
@@ -508,7 +517,7 @@ const drawKimArms = (x=0, y=0, position='down') => {
     6: [1,2],
   }
   let selectedMap = {}
-  switch (position) {
+  switch (opt.kimArmPos) {
     case 'down':
       selectedMap = downMap;
       break;
@@ -522,15 +531,22 @@ const drawKimArms = (x=0, y=0, position='down') => {
   fill(x,y,selectedMap,'skin');
 }
 
-const drawKim = (x=0, y=0, arms='down') => {
-  drawKimMain(x,y);
-  drawKimArms(x+2,y+16,arms);
+const drawKim = (x=0, y=0, opt={kimArmPos:'down'}) => {
+  drawKimMain(x,y,opt);
+  drawKimArms(x+2,y+16,opt);
 }
 
-const familyPortrait = (x=0, y=0, lucasArms='down', kimArms='down') => {
-  drawLucas(x,y,'blue','gray',lucasArms);
+const familyPortrait = (x=0, y=0, opt={}) => {
+  opt.kimArmPos = opt.kimArmPos || 'wave';
+  opt.headband = opt.headband || false,
+  opt.shirtColor = opt.shirtColor || 'blue',
+  opt.pantsColor = opt.pantsColor || 'gray',
+  opt.shorts = opt.shorts || false,
+  opt.lucasArmPos = opt.lucasArmPos || 'wave',
+
+  drawLucas(x,y,opt);
   drawFiggy(x+14,y+30);
-  drawKim(x+19,y+6,kimArms);
+  drawKim(x+19,y+6,opt);
   drawSylvie(x+33,y+29);
 }
 
@@ -606,8 +622,14 @@ const drawDesk = (x=0, y=0) => {
   fill(x,y,greenMap,'green');
 }
 
-const workPortrait = (x=0, y=0) => {
-  drawLucas(x+7,y,'blue','gray','down');
+const workPortrait = (x=0, y=0, opt={}) => {
+  opt.headband = opt.headband || false,
+  opt.shirtColor = opt.shirtColor || 'blue',
+  opt.pantsColor = opt.pantsColor || 'gray',
+  opt.shorts = opt.shorts || false,
+  opt.lucasArmPos = opt.lucasArmPos || 'down',
+
+  drawLucas(x+7,y,opt);
   drawDesk(x,y+13);
 }
 
@@ -818,8 +840,14 @@ const drawBookshelf = (x=0, y=0) => {
   fill(x,y,darkRedMap,'dark-red');
 }
 
-const playPortrait = (x=0, y=0) => {
-  drawLucas(x+7,y,'red','thumbsUp','gray',true);
+const playPortrait = (x=0, y=0, opt={}) => {
+  opt.headband = opt.headband || 'red',
+  opt.shirtColor = opt.shirtColor || 'red',
+  opt.pantsColor = opt.pantsColor || 'gray',
+  opt.shorts = opt.shorts || true,
+  opt.lucasArmPos = opt.lucasArmPos || 'thumbsUp',
+
+  drawLucas(x+7,y,opt);
   drawBar(x,y+30);
   drawBookshelf(x+28,y+14);
 }
