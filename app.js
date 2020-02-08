@@ -17,10 +17,10 @@
  */
 
 window.onload = function() {
-  makeGrid();
-  // familyPortrait(15,15);
-  // playPortrait(10,15);
-  // workPortrait(15,15);
+  makeGrid('portrait',45);
+  // familyPortrait();
+  // playPortrait();
+  // workPortrait();
   introAnimate();
 }
 
@@ -48,7 +48,7 @@ const startApp = () => {
  */
 
 const introAnimate = (x=25,y=25,tick=30) => {
-  drawLucas(x,y);
+  drawLucas('portrait',x,y);
 
   const container = document.querySelector('.container');
   const undergrid = document.querySelector('.undergrid');
@@ -63,8 +63,8 @@ const introAnimate = (x=25,y=25,tick=30) => {
   // Stage 1: Slide the grid down and into view
   container.style.transform = 'translate(-50%,-60%)';
   window.setTimeout(() => {
-    resetGrid();
-    drawLucas(x,y,{lucasArmPos:'wave'});
+    resetGrid('portrait');
+    drawLucas('portrait',x,y,{lucasArmPos:'wave'});
     undergrid.innerText = 'Hi, I\'m Lucas';
   }, sOneEnd);
 
@@ -72,19 +72,19 @@ const introAnimate = (x=25,y=25,tick=30) => {
   // Modified from first draft animate function
   for (let j = x; j >= offsetX; j--) {
     window.setTimeout(() => {
-      resetGrid();
-      drawLucas(j,y,{lucasArmPos:'wave'});
+      resetGrid('portrait');
+      drawLucas('portrait',j,y,{lucasArmPos:'wave'});
     }, sTwoStart + (x-j) * tick);
   }
   window.setTimeout(() => {
-    resetGrid();
-    drawLucas(offsetX,y)
+    resetGrid('portrait');
+    drawLucas('portrait',offsetX,y)
     undergrid.style.minWidth = '0';
   }, sThreeStart);
 
   // Stage 3: Add nav buttons
   window.setTimeout(() => {
-    drawButtons(29,19)
+    // drawButtons(,29,19)
     // Also start the app from here, since it's our last step
     startApp();
   }, sThreeStart);
@@ -96,23 +96,23 @@ const introAnimate = (x=25,y=25,tick=30) => {
  * These create or clear entire grids
  */
 
-const makeGrid = (cols=64, rows=64) => {
-  const grid = document.querySelector('.grid');
+const makeGrid = (name, size=45) => {
+  const grid = document.querySelector(`.grid.grid--${name}`);
 
-  for (let i=0; i<rows; i++) {
-    for (let j=0; j<cols; j++) {
+  for (let i=0; i<size; i++) {
+    for (let j=0; j<size; j++) {
       const pix = document.createElement('div');
       pix.classList.add('pixel');
-      pix.id = `x${j}y${i}`;
+      pix.id = `${name}-x${j}y${i}`;
       grid.appendChild(pix);
     }
   }
 
-  grid.style.width = `${rows*.75}rem`;
+  grid.style.width = `${size*.75}rem`;
 }
 
-const resetGrid = () => {
-  const pixels = document.querySelectorAll('.pixel');
+const resetGrid = (name='all') => {
+  const pixels = document.querySelectorAll(name == 'all' ? '.pixel' : `.grid--${name} .pixel`);
   pixels.forEach(pixel => {
     pixel.className = 'pixel';
   });
@@ -124,7 +124,7 @@ const resetGrid = () => {
  * These fill in pixels on a grid with a color, and/or toggle class values
  */
 
-const addButtonClass = (x, y, range, classes) => {
+const addButtonClass = (gridName, x, y, range, classes) => {
   // Take a range defining a rectangle, and add a class to all pixels inside the rectangle
   let rows = []
   for (let i = range.rowStart; i <= range.rowEnd; i++) {
@@ -132,7 +132,7 @@ const addButtonClass = (x, y, range, classes) => {
   }
   rows.forEach(row => {
     for (let j = range.colStart; j <= range.colEnd; j++) {
-        const target = document.querySelector(`#x${x + j}y${y + Number(row)}`);
+        const target = document.querySelector(`#${gridName}-x${x + j}y${y + Number(row)}`);
         if (target) {
           target.classList.add(...classes);
         }
@@ -140,11 +140,11 @@ const addButtonClass = (x, y, range, classes) => {
   });
 }
 
-const fill = (x, y, fillMap, fillClass) => {
+const fill = (gridName, x, y, fillMap, fillClass) => {
   // fills pixels indicated in map by attaching the indicated class
   for (row in fillMap) {
     fillMap[row].forEach(col => {
-      const target = document.querySelector(`#x${x + col}y${y + Number(row)}`);
+      const target = document.querySelector(`#${gridName}-x${x + col}y${y + Number(row)}`);
       // target.classList.add(fillClass);
       // Using className to let later drawings override earlier, as opposed to letting CSS order control which one displays
       if (target) {
@@ -161,6 +161,7 @@ const fill = (x, y, fillMap, fillClass) => {
  */
 
 const familyPortrait = (x=0, y=0, opt={}) => {
+  // Family portrait is 45px wide and 39px tall
   opt.kimArmPos = opt.kimArmPos || 'wave';
   opt.headband = opt.headband || false,
   opt.shirtColor = opt.shirtColor || 'blue',
@@ -168,33 +169,35 @@ const familyPortrait = (x=0, y=0, opt={}) => {
   opt.shorts = opt.shorts || false,
   opt.lucasArmPos = opt.lucasArmPos || 'wave',
 
-  drawLucas(x,y,opt);
-  drawFiggy(x+14,y+30);
-  drawKim(x+19,y+6,opt);
-  drawSylvie(x+33,y+29);
+  drawLucas('portrait',x+4,y,opt);
+  drawFiggy('portrait',x+18,y+30);
+  drawKim('portrait',x+23,y+6,opt);
+  drawSylvie('portrait',x+37,y+29);
 }
 
 const playPortrait = (x=0, y=0, opt={}) => {
+  // Play portrait is 42px wide and 39px tall
   opt.headband = opt.headband || 'red',
   opt.shirtColor = opt.shirtColor || 'red',
   opt.pantsColor = opt.pantsColor || 'gray',
   opt.shorts = opt.shorts || true,
   opt.lucasArmPos = opt.lucasArmPos || 'thumbsUp',
 
-  drawLucas(x+7,y,opt);
-  drawBar(x,y+30);
-  drawBookshelf(x+28,y+14);
+  drawLucas('portrait',x+7,y,opt);
+  drawBar('portrait',x,y+30);
+  drawBookshelf('portrait',x+28,y+14);
 }
 
 const workPortrait = (x=0, y=0, opt={}) => {
+  // Work portrait is 32px wide and 39px tall
   opt.headband = opt.headband || false,
   opt.shirtColor = opt.shirtColor || 'blue',
   opt.pantsColor = opt.pantsColor || 'gray',
   opt.shorts = opt.shorts || false,
   opt.lucasArmPos = opt.lucasArmPos || 'down',
 
-  drawLucas(x+7,y,opt);
-  drawDesk(x,y+13);
+  drawLucas('portrait',x+7,y,opt);
+  drawDesk('portrait',x,y+13);
 }
 
 /*
@@ -214,7 +217,7 @@ const defaultOpt = {
 }
 
 // Now the draw functions!
-const drawBar = (x=0, y=0) => {
+const drawBar = (gridName, x=0, y=0) => {
   // bar is 9px tall and 26px wide
   const blackMap = {
     0: [2,3,22,23],
@@ -227,12 +230,12 @@ const drawBar = (x=0, y=0) => {
     7: [2,3,22,23],
     8: [2,3,22,23],
   }
-  fill(x,y,blackMap,'black');
+  fill(gridName,x,y,blackMap,'black');
 
-  fill(x,y,{4:[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]},'gray')
+  fill(gridName,x,y,{4:[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]},'gray')
 }
 
-const drawBookshelf = (x=0, y=0) => {
+const drawBookshelf = (gridName, x=0, y=0) => {
   // bookshelf is 14px wide and 25px tall
   const darkLeatherMap = {
     0: [0,1,2,3,4,5,6,7,8,9,10,11,12,13],
@@ -261,7 +264,7 @@ const drawBookshelf = (x=0, y=0) => {
     23: [0,13],
     24: [0,1,2,3,4,5,6,7,8,9,10,11,12,13],
   }
-  fill(x,y,darkLeatherMap,'dark-leather');
+  fill(gridName,x,y,darkLeatherMap,'dark-leather');
 
   const bookshelfBackMap = {
     1: [1,2,3,4,5,6,7,8,9,10,11,12],
@@ -273,7 +276,7 @@ const drawBookshelf = (x=0, y=0) => {
     19: [1,2,3,4,5,6,7,8,9,10,11,12],
     20: [4,5,9,10],
   }
-  fill(x,y,bookshelfBackMap,'bookshelf-back');
+  fill(gridName,x,y,bookshelfBackMap,'bookshelf-back');
 
   const darkGreenMap = {
     2: [1],
@@ -293,7 +296,7 @@ const drawBookshelf = (x=0, y=0) => {
     22: [3],
     23: [3],
   }
-  fill(x,y,darkGreenMap,'dark-green');
+  fill(gridName,x,y,darkGreenMap,'dark-green');
 
   const tealMap = {
     2: [12],
@@ -313,7 +316,7 @@ const drawBookshelf = (x=0, y=0) => {
     22: [8],
     23: [8],
   }
-  fill(x,y,tealMap,'teal');
+  fill(gridName,x,y,tealMap,'teal');
 
   const denimMap = {
     2: [3,4,11],
@@ -332,7 +335,7 @@ const drawBookshelf = (x=0, y=0) => {
     22: [12],
     23: [12],
   }
-  fill(x,y,denimMap,'denim');
+  fill(gridName,x,y,denimMap,'denim');
 
   const violetMap = {
     2: [5],
@@ -350,7 +353,7 @@ const drawBookshelf = (x=0, y=0) => {
     22: [9,10],
     23: [9,10],
   }
-  fill(x,y,violetMap,'violet');
+  fill(gridName,x,y,violetMap,'violet');
 
   const grayMap = {
     2: [6],
@@ -368,7 +371,7 @@ const drawBookshelf = (x=0, y=0) => {
     22: [6,7],
     23: [6,7],
   }
-  fill(x,y,grayMap,'gray');
+  fill(gridName,x,y,grayMap,'gray');
 
   const orangeMap = {
     3: [7],
@@ -382,7 +385,7 @@ const drawBookshelf = (x=0, y=0) => {
     22: [11],
     23: [11],
   }
-  fill(x,y,orangeMap,'orange');
+  fill(gridName,x,y,orangeMap,'orange');
 
   const creamMap = {
     3: [8,9],
@@ -400,7 +403,7 @@ const drawBookshelf = (x=0, y=0) => {
     22: [1,2],
     23: [1,2],
   }
-  fill(x,y,creamMap,'cream');
+  fill(gridName,x,y,creamMap,'cream');
 
   const darkRedMap = {
     2: [10],
@@ -418,10 +421,10 @@ const drawBookshelf = (x=0, y=0) => {
     22: [4,5],
     23: [4,5],
   }
-  fill(x,y,darkRedMap,'dark-red');
+  fill(gridName,x,y,darkRedMap,'dark-red');
 }
 
-const drawButtons = (x=0, y=0) => {
+const drawButtons = (gridName, x=0, y=0) => {
   // all buttons together are 35px wide and 45px tall
   const buttonsTextMap = {
     0: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
@@ -464,7 +467,7 @@ const drawButtons = (x=0, y=0) => {
     43: [1,27],
     44: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill(x,y,buttonsTextMap,'button__text');
+  fill(gridName,x,y,buttonsTextMap,'button__text');
 
 
   const aboutButtonRange = {
@@ -493,7 +496,7 @@ const drawButtons = (x=0, y=0) => {
 
 }
 
-const drawDesk = (x=0, y=0) => {
+const drawDesk = (gridName, x=0, y=0) => {
   // Desk and stuff are 32px wide and 26px tall
 
   const lightGrayMap = {
@@ -507,20 +510,20 @@ const drawDesk = (x=0, y=0) => {
     7: [20,21,22,23,24,25,26,27,28,29,30,31],
     10: [24,25,26,27],
   }
-  fill(x,y,lightGrayMap,'light-gray');
+  fill(gridName,x,y,lightGrayMap,'light-gray');
 
   const grayMap = {
     2: [26],
     3: [25],
     4: [25,26],
   }
-  fill(x,y,grayMap,'gray');
+  fill(gridName,x,y,grayMap,'gray');
 
   const shadowMap = {
     8: [25,26],
     9: [25,26],
   }
-  fill(x,y,shadowMap,'shadow-gray');
+  fill(gridName,x,y,shadowMap,'shadow-gray');
 
   const darkLeatherMap = {
     11: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
@@ -539,33 +542,33 @@ const drawDesk = (x=0, y=0) => {
     24: [0,31],
     25: [0,31],
   }
-  fill(x,y,darkLeatherMap,'dark-leather');
+  fill(gridName,x,y,darkLeatherMap,'dark-leather');
 
   const blackMap = {
     8: [15,16,17],
     9: [14,15,16,17],
     10: [15,16,17],
   }
-  fill(x,y,blackMap,'black');
+  fill(gridName,x,y,blackMap,'black');
 
   const stubbleMap = {
     8: [1,2,3],
     9: [1,2,3],
     10: [1,2,3],
   }
-  fill(x,y,stubbleMap,'stubble');
+  fill(gridName,x,y,stubbleMap,'stubble');
 
-  fill(x,y,{7: [2]},'light-brown');
+  fill(gridName,x,y,{7: [2]},'light-brown');
 
   const greenMap = {
     4: [1,2,3],
     5: [0,1,2,3,4],
     6: [0,1,2,3,4],
   }
-  fill(x,y,greenMap,'green');
+  fill(gridName,x,y,greenMap,'green');
 }
 
-const drawFiggy = (x=0, y=0) => {
+const drawFiggy = (gridName, x=0, y=0) => {
   // Figgy is 7px wide and 9px tall
 
   // row y0: gray x0-1, light-gray x2-4, gray x5-6
@@ -585,7 +588,7 @@ const drawFiggy = (x=0, y=0) => {
     7: [2,4],
     8: [0,2,4,6],
   };
-  fill(x,y,grayMap,'gray');
+  fill(gridName,x,y,grayMap,'gray');
 
   const lightGrayMap = {
     0: [2,3,4],
@@ -597,23 +600,23 @@ const drawFiggy = (x=0, y=0) => {
     7: [1,3,5],
     8: [1,3,5],
   };
-  fill(x,y,lightGrayMap,'light-gray');
+  fill(gridName,x,y,lightGrayMap,'light-gray');
 
   const blackMap = {
     1: [2,4],
     3: [3],
   };
-  fill(x,y,blackMap,'black');
+  fill(gridName,x,y,blackMap,'black');
 
-  fill(x,y,{4:[2,3,4]},'blue');
+  fill(gridName,x,y,{4:[2,3,4]},'blue');
 }
 
-const drawKim = (x=0, y=0, opt={kimArmPos:'down'}) => {
-  drawKimMain(x,y,opt);
-  drawKimArms(x+2,y+16,opt);
+const drawKim = (gridName, x=0, y=0, opt={kimArmPos:'down'}) => {
+  drawKimMain(gridName,x,y,opt);
+  drawKimArms(gridName,x+2,y+16,opt);
 }
 
-const drawKimArms = (x=0, y=0, opt={}) => {
+const drawKimArms = (gridName, x=0, y=0, opt={}) => {
   const downMap = {
     0: [1,2,9,10],
     1: [1,2,9,10],
@@ -650,10 +653,10 @@ const drawKimArms = (x=0, y=0, opt={}) => {
       selectedMap = downMap;
   }
 
-  fill(x,y,selectedMap,'skin');
+  fill(gridName,x,y,selectedMap,'skin');
 }
 
-const drawKimMain = (x=0, y=0, opt={}) => {
+const drawKimMain = (gridName, x=0, y=0, opt={}) => {
   // Kim is 14px wide and 33px tall
 
   // row y0: light brown x4-10
@@ -693,7 +696,7 @@ const drawKimMain = (x=0, y=0, opt={}) => {
     12: [0,1,2,3,4,5,6,9,10,11],
     13: [1,2,3,4],
   }
-  fill(x,y,lightBrownMap,'light-brown');
+  fill(gridName,x,y,lightBrownMap,'light-brown');
 
   const skinMap = {
     2: [9,10],
@@ -708,19 +711,19 @@ const drawKimMain = (x=0, y=0, opt={}) => {
     11: [5,6,7,8,9,10],
     12: [7,8],
   }
-  fill(x,y,skinMap,'skin');
+  fill(gridName,x,y,skinMap,'skin');
 
   const blackMap = {
     5: [5,10],
     6: [5,10],
   }
-  fill(x,y,blackMap,'black');
+  fill(gridName,x,y,blackMap,'black');
 
   const whiteMap = {
     8: [6,7,8,9],
     9: [7,8],
   }
-  fill(x,y,whiteMap,'white');
+  fill(gridName,x,y,whiteMap,'white');
 
   const purpleMap = {
     13: [5,6,7,8,9,10],
@@ -732,7 +735,7 @@ const drawKimMain = (x=0, y=0, opt={}) => {
     19: [5,6,7,8,9,10],
     20: [5,6,7,8,9,10],
   }
-  fill(x,y,purpleMap,'purple');
+  fill(gridName,x,y,purpleMap,'purple');
 
   const grayMap = {
     21: [5,6,7,8,9,10],
@@ -746,20 +749,20 @@ const drawKimMain = (x=0, y=0, opt={}) => {
     29: [5,6,9,10],
     30: [5,6,9,10],
   }
-  fill(x,y,grayMap,'gray');
+  fill(gridName,x,y,grayMap,'gray');
 
-  fill(x,y,{31:[4,5,6,9,10,11]},'leather');
-  fill(x,y,{32:[4,5,6,9,10,11]},'dark-leather');
+  fill(gridName,x,y,{31:[4,5,6,9,10,11]},'leather');
+  fill(gridName,x,y,{32:[4,5,6,9,10,11]},'dark-leather');
 }
 
-const drawLucas = (x=0, y=0, opt=defaultOpt) => {
-  drawLucasHead(x,y,opt);
-  drawLucasShirt(x,y+15,opt);
-  drawLucasLegs(x,y+25,opt);
-  drawLucasArms(x,y+18,opt);
+const drawLucas = (gridName, x=0, y=0, opt=defaultOpt) => {
+  drawLucasHead(gridName,x,y,opt);
+  drawLucasShirt(gridName,x,y+15,opt);
+  drawLucasLegs(gridName,x,y+25,opt);
+  drawLucasArms(gridName,x,y+18,opt);
 }
 
-const drawLucasArms = (x=0, y=0, opt={}) => {
+const drawLucasArms = (gridName, x=0, y=0, opt={}) => {
   // Arms! Should fit in sleeves (duh)
   // Offest from head origin should be x+0,y+18
   // Depending on position, some X values may be negative
@@ -825,10 +828,10 @@ const drawLucasArms = (x=0, y=0, opt={}) => {
       selectedMap = downMap;
   }
 
-  fill(x,y,selectedMap,'skin');
+  fill(gridName,x,y,selectedMap,'skin');
 }
 
-const drawLucasHead = (x=0, y=0, opt={}) => {
+const drawLucasHead = (gridName, x=0, y=0, opt={}) => {
   // From drawing made on pixilart.com
   // x and y are points of origin (top left) of image
 
@@ -868,7 +871,7 @@ const drawLucasHead = (x=0, y=0, opt={}) => {
     10: [1,10],
     12: [2,3,4,5,6,7,8,9],
   }
-  fill(x,y,brownMap,'brown')
+  fill(gridName,x,y,brownMap,'brown')
 
   const lightBrownMap = {
     2: [10],
@@ -877,7 +880,7 @@ const drawLucasHead = (x=0, y=0, opt={}) => {
     10: [2,3,8,9],
     11: [2,3,4,5,6,7,8,9],
   }
-  fill(x,y,lightBrownMap,'light-brown');
+  fill(gridName,x,y,lightBrownMap,'light-brown');
 
   const stubbleMap = {
     7: [1,10],
@@ -885,7 +888,7 @@ const drawLucasHead = (x=0, y=0, opt={}) => {
     9: [1,2,9,10],
     10: [4,7],
   }
-  fill(x,y,stubbleMap,'stubble');
+  fill(gridName,x,y,stubbleMap,'stubble');
 
   const darkBrownMap = {
     11: [1,10],
@@ -893,14 +896,14 @@ const drawLucasHead = (x=0, y=0, opt={}) => {
     13: [2,3,4,5,6,7,8,9],
     14: [4,5,6,7],
   }
-  fill(x,y,darkBrownMap,'dark-brown');
+  fill(gridName,x,y,darkBrownMap,'dark-brown');
 
   const darkestBrownMap = {
     13: [1,10],
     14: [2,3,8,9],
     15: [3,4,5,6,7,8],
   }
-  fill(x,y,darkestBrownMap,'darkest-brown');
+  fill(gridName,x,y,darkestBrownMap,'darkest-brown');
 
   const skinMap = {
     3: [4,5,6,7,8,9,10],
@@ -910,19 +913,19 @@ const drawLucasHead = (x=0, y=0, opt={}) => {
     7: [2,3,4,5,6,7,8,9],
     8: [2,9],
   }
-  fill(x,y,skinMap,'skin');
+  fill(gridName,x,y,skinMap,'skin');
 
   const blackMap = {
     5: [3,8],
     6: [3,8],
   }
-  fill(x,y,blackMap,'black');
+  fill(gridName,x,y,blackMap,'black');
 
   const whiteMap = {
     9: [4,5,6,7],
     10: [5,6],
   }
-  fill(x,y,whiteMap,'white');
+  fill(gridName,x,y,whiteMap,'white');
 
   // Add a headband!
   if (opt.headband) {
@@ -930,12 +933,12 @@ const drawLucasHead = (x=0, y=0, opt={}) => {
       2: [1,2,3,4,5,6,7,8,9,10],
       3: [1,2,3,4,5,6,7,8,9,10],
     }
-    fill(x,y,headbandMap,opt.headband);
+    fill(gridName,x,y,headbandMap,opt.headband);
   }
 
 }
 
-const drawLucasLegs = (x=0, y=0, opt={}) => {
+const drawLucasLegs = (gridName, x=0, y=0, opt={}) => {
   // Pants and shoes! Designed to sit immediately under shirt
   // Offset from head origin should be x+0, y+25;
   const pantsMap = {
@@ -952,17 +955,17 @@ const drawLucasLegs = (x=0, y=0, opt={}) => {
     10: [2,3,4,7,8,9],
     11: [2,3,4,7,8,9],
   }
-  fill(x,y,pantsMap,opt.pantsColor || 'gray');
+  fill(gridName,x,y,pantsMap,opt.pantsColor || 'gray');
 
   const leatherMap = {
     12: [0,1,2,3,4,7,8,9,10,11],
   }
-  fill(x,y,leatherMap,'leather');
+  fill(gridName,x,y,leatherMap,'leather');
 
   const darkLeatherMap = {
     13: [0,1,2,3,4,7,8,9,10,11],
   }
-  fill(x,y,darkLeatherMap,'dark-leather');
+  fill(gridName,x,y,darkLeatherMap,'dark-leather');
 
   // If wearing shorts, erase some of what is done above!
   if (opt.shorts) {
@@ -976,7 +979,7 @@ const drawLucasLegs = (x=0, y=0, opt={}) => {
       12: [4,7],
       13: [4,7],
     }
-    fill(x,y,backgroundMap,'');
+    fill(gridName,x,y,backgroundMap,'');
 
     const legsMap = {
       6: [2,3,8,9],
@@ -986,11 +989,11 @@ const drawLucasLegs = (x=0, y=0, opt={}) => {
       10: [2,3,8,9],
       11: [2,3,8,9],
     }
-    fill(x,y,legsMap,'skin');
+    fill(gridName,x,y,legsMap,'skin');
   }
 }
 
-const drawLucasShirt = (x=0, y=0, opt={}) => {
+const drawLucasShirt = (gridName, x=0, y=0, opt={}) => {
   // t-shirt! Designed to fit immediately under my head
   // Offset from head origin should be x+0, y+15
 
@@ -1006,11 +1009,11 @@ const drawLucasShirt = (x=0, y=0, opt={}) => {
     8: [2,3,4,5,6,7,8,9],
     9: [2,3,4,5,6,7,8,9],
   }
-  fill(x,y,shirtMap,opt.shirtColor || 'blue');
+  fill(gridName,x,y,shirtMap,opt.shirtColor || 'blue');
 
 }
 
-const drawSylvie = (x=0, y=0) => {
+const drawSylvie = (gridName, x=0, y=0) => {
   // Sylvie is 8px wide and 10px tall
 
   // row y0: gold x0, gold x4
@@ -1032,7 +1035,7 @@ const drawSylvie = (x=0, y=0) => {
     8: [1,3,7],
     9: [1,3,5,6,7],
   }
-  fill(x,y,goldMap,'gold');
+  fill(gridName,x,y,goldMap,'gold');
 
   const yellowMap = {
     2: [0,1,2,3,4],
@@ -1044,11 +1047,11 @@ const drawSylvie = (x=0, y=0) => {
     8: [0,2,4],
     9: [0,2,4],
   }
-  fill(x,y,yellowMap,'yellow');
+  fill(gridName,x,y,yellowMap,'yellow');
 
   const blackMap = {
     3: [1,3],
     4: [2],
   }
-  fill(x,y,blackMap,'black');
+  fill(gridName,x,y,blackMap,'black');
 }
