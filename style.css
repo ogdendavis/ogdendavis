@@ -37,8 +37,6 @@ body {
   width: 0.75rem;
   height: 0.75rem;
   box-sizing: border-box;
-  -webkit-margin-before: -0.1px;
-  -webkit-margin-after: -0.1px;
   /* border: 1px solid gray; */
   z-index: 10;
 }
