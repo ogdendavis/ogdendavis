@@ -40,9 +40,9 @@ const setup = () => {
 const startApp = () => {
   /*
   To do:
-  1. Add event listeners for hover effects on buttons
-  2. Add bottom text change on button hover (e.g. 'Hi, I'm Lucas' -> 'Learn about me')
-  3. Add click events to display appropriate portrait and text area
+  1. Add click events to display portrait and content on initial button click
+  2. Design where text/buttons will go on initial button click
+  3. Design animations on initial click and subsequent clicks
   */
   console.log('Starting!');
 }
