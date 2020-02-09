@@ -17,7 +17,7 @@
  */
 
 window.onload = function() {
-  makeGrid('portrait',45);
+  setup();
   // familyPortrait();
   // playPortrait();
   // workPortrait();
@@ -29,6 +29,13 @@ window.onload = function() {
  *
  * These control functionality and user interaction with content
  */
+
+const setup = () => {
+  makeGrid('portrait',45,45);
+  makeGrid('button1',35,15);
+  makeGrid('button2',35,15);
+  makeGrid('button3',35,15);
+}
 
 const startApp = () => {
   /*
@@ -47,25 +54,25 @@ const startApp = () => {
  * moving an element within its grid
  */
 
-const introAnimate = (x=25,y=25,tick=30) => {
+const introAnimate = (x=32,y=6,tick=30) => {
   drawLucas('portrait',x,y);
 
-  const container = document.querySelector('.container');
-  const undergrid = document.querySelector('.undergrid');
-  // width offset to make sure he doesn't go off screen left in stage 2
-  offsetX = 7
+  // Say hi first!
+  document.querySelector('.undergrid').innerText = 'Hi, I\'m Lucas';
+
+  // width offset to center Lucas at end of stage 2
+  offsetX = 16
   // Stage timing variables, for reference and consistency
   const sOneEnd = 2100;
-  const sTwoStart = sOneEnd + 500;
-  const sTwoEnd = sTwoStart + (x - offsetX) * tick;
-  const sThreeStart = sTwoEnd + 200;
+  const sTwoStart = sOneEnd + 750;
+  const sTwoEnd = sTwoStart + offsetX * tick;
+  const sThreeStart = sTwoEnd + 100;
 
-  // Stage 1: Slide the grid down and into view
-  container.style.transform = 'translate(-50%,-60%)';
+  // Stage 1: Slide the portrait grid down and into view
+  document.querySelector('.grid--portrait').style.transform = 'none';
   window.setTimeout(() => {
     resetGrid('portrait');
     drawLucas('portrait',x,y,{lucasArmPos:'wave'});
-    undergrid.innerText = 'Hi, I\'m Lucas';
   }, sOneEnd);
 
   // Stage 2: Slide Lucas left
@@ -73,21 +80,16 @@ const introAnimate = (x=25,y=25,tick=30) => {
   for (let j = x; j >= offsetX; j--) {
     window.setTimeout(() => {
       resetGrid('portrait');
-      drawLucas('portrait',j,y,{lucasArmPos:'wave'});
+      drawLucas('portrait',j,y);
     }, sTwoStart + (x-j) * tick);
   }
-  window.setTimeout(() => {
-    resetGrid('portrait');
-    drawLucas('portrait',offsetX,y)
-    undergrid.style.minWidth = '0';
-  }, sThreeStart);
 
   // Stage 3: Add nav buttons
   window.setTimeout(() => {
-    // drawButtons(,29,19)
+    drawButtons()
     // Also start the app from here, since it's our last step
     startApp();
-  }, sThreeStart);
+  }, sTwoStart + 50);
 }
 
 /*
@@ -96,11 +98,11 @@ const introAnimate = (x=25,y=25,tick=30) => {
  * These create or clear entire grids
  */
 
-const makeGrid = (name, size=45) => {
+const makeGrid = (name, cols=45, rows=45) => {
   const grid = document.querySelector(`.grid.grid--${name}`);
 
-  for (let i=0; i<size; i++) {
-    for (let j=0; j<size; j++) {
+  for (let i=0; i<rows; i++) {
+    for (let j=0; j<cols; j++) {
       const pix = document.createElement('div');
       pix.classList.add('pixel');
       pix.id = `${name}-x${j}y${i}`;
@@ -108,7 +110,7 @@ const makeGrid = (name, size=45) => {
     }
   }
 
-  grid.style.width = `${size*.75}rem`;
+  grid.style.width = `${cols*.75}rem`;
 }
 
 const resetGrid = (name='all') => {
@@ -124,7 +126,7 @@ const resetGrid = (name='all') => {
  * These fill in pixels on a grid with a color, and/or toggle class values
  */
 
-const addButtonClass = (gridName, x, y, range, classes) => {
+const addClassToPixel = (gridName, x, y, range, classes) => {
   // Take a range defining a rectangle, and add a class to all pixels inside the rectangle
   let rows = []
   for (let i = range.rowStart; i <= range.rowEnd; i++) {
@@ -424,76 +426,105 @@ const drawBookshelf = (gridName, x=0, y=0) => {
   fill(gridName,x,y,darkRedMap,'dark-red');
 }
 
-const drawButtons = (gridName, x=0, y=0) => {
-  // all buttons together are 35px wide and 45px tall
-  const buttonsTextMap = {
-    0: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
-    1: [1,33],
-    2: [0,34],
-    3: [0,4,5,6,9,10,11,12,16,17,18,21,25,27,28,29,30,31,34],
-    4: [0,3,7,9,13,15,19,21,25,29,34],
+const drawButtons = (x=0, y=0) => {
+  // Each button is placed in the grid indicated in the appropriate fill call
+  // Each button grid is 35px wide by 15px tall
+  // Buttons are 13px tall and 29-35px wide
+  const aboutButtonTextMap = {
+    1: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
+    2: [1,33],
+    3: [0,34],
+    4: [0,4,5,6,9,10,11,12,16,17,18,21,25,27,28,29,30,31,34],
     5: [0,3,7,9,13,15,19,21,25,29,34],
-    6: [0,3,4,5,6,7,9,10,11,12,15,19,21,25,29,34],
-    7: [0,3,7,9,13,15,19,21,25,29,34],
+    6: [0,3,7,9,13,15,19,21,25,29,34],
+    7: [0,3,4,5,6,7,9,10,11,12,15,19,21,25,29,34],
     8: [0,3,7,9,13,15,19,21,25,29,34],
-    9: [0,3,7,9,10,11,12,16,17,18,22,23,24,29,34],
-    10: [0,34],
-    11: [1,33],
+    9: [0,3,7,9,13,15,19,21,25,29,34],
+    10: [0,3,7,9,10,11,12,16,17,18,22,23,24,29,34],
+    11: [0,34],
+    12: [1,33],
+    13: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
+  }
+  fill('button1',x,y,aboutButtonTextMap,'button__text');
+
+  const aboutButtonBgMap = {
+    2: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
+    3: [1, 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33],
+    4: [1,2,3,7,8,13,14,15,19,20,22,23,24,26,32,33],
+    5: [1,2,4,5,6,8,10,11,12,14,16,17,18,20,22,23,24,26,27,28,30,31,32,33],
+    6: [1,2,4,5,6,8,10,11,12,14,16,17,18,20,22,23,24,26,27,28,30,31,32,33],
+    7: [1,2,8,13,14,16,17,18,20,22,23,24,26,27,28,30,31,32,33],
+    8: [1,2,4,5,6,8,10,11,12,14,16,17,18,20,22,23,24,26,27,28,30,31,32,33],
+    9: [1,2,4,5,6,8,10,11,12,14,16,17,18,20,22,23,24,26,27,28,30,31,32,33],
+    10: [1,2,4,5,6,8,13,14,15,19,20,21,25,26,27,28,30,31,32,33],
+    11: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33],
     12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],
-    16: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
-    17: [1,27],
-    18: [0,28],
-    19: [0,3,7,10,11,12,15,16,17,18,21,25,28],
-    20: [0,3,7,9,13,15,19,21,24,28],
-    21: [0,3,7,9,13,15,19,21,23,28],
-    22: [0,3,5,7,9,13,15,16,17,18,21,22,28],
-    23: [0,3,5,7,9,13,15,17,21,23,28],
-    24: [0,3,5,7,9,13,15,18,21,24,28],
-    25: [0,4,6,10,11,12,15,19,21,25,28],
-    26: [0,28],
-    27: [1,27],
-    28: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
-    32: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
-    33: [1,27],
-    34: [0,28],
-    35: [0,3,4,5,6,9,16,17,18,21,25,28],
-    36: [0,3,7,9,15,19,21,25,28],
-    37: [0,3,7,9,15,19,22,24,28],
-    38: [0,3,4,5,6,9,15,16,17,18,19,23,28],
-    39: [0,3,9,15,19,23,28],
-    40: [0,3,9,15,19,23,28],
-    41: [0,3,9,10,11,12,13,15,19,23,28],
-    42: [0,28],
-    43: [1,27],
-    44: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill(gridName,x,y,buttonsTextMap,'button__text');
+  fill('button1',x,y,aboutButtonBgMap,'button__bg');
 
-
-  const aboutButtonRange = {
-    rowStart: 0,
-    rowEnd: 12,
-    colStart: 0,
-    colEnd: 34
+  const workButtonTextMap = {
+    1: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+    2: [1,27],
+    3: [0,28],
+    4: [0,3,7,10,11,12,15,16,17,18,21,25,28],
+    5: [0,3,7,9,13,15,19,21,24,28],
+    6: [0,3,7,9,13,15,19,21,23,28],
+    7: [0,3,5,7,9,13,15,16,17,18,21,22,28],
+    8: [0,3,5,7,9,13,15,17,21,23,28],
+    9: [0,3,5,7,9,13,15,18,21,24,28],
+    10: [0,4,6,10,11,12,15,19,21,25,28],
+    11: [0,28],
+    12: [1,27],
+    13: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  addButtonClass(x,y,aboutButtonRange,['button','button--about']);
+  fill('button2',x+6,y,workButtonTextMap,'button__text');
 
-  const workButtonRange = {
-    rowStart: 32,
-    rowEnd: 44,
-    colStart: 0,
-    colEnd: 28
+  const workButtonBgMap = {
+    2: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+    3: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
+    4: [1,2,4,5,6,8,9,13,14,19,20,22,23,24,26,27],
+    5: [1,2,4,5,6,8,10,11,12,14,16,17,18,20,22,23,25,26,27],
+    6: [1,2,4,5,6,8,10,11,12,14,16,17,18,20,22,24,25,26,27],
+    7: [1,2,4,6,8,10,11,12,14,19,20,23,24,25,26,27],
+    8: [1,2,4,6,8,10,11,12,14,16,18,19,20,22,24,25,26,27],
+    9: [1,2,4,6,8,10,11,12,14,16,17,19,20,22,23,25,26,27],
+    10: [1,2,3,5,7,8,9,13,14,16,17,18,20,22,23,24,26,27],
+    11: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
+    12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  addButtonClass(x,y,workButtonRange,['button','button--work']);
+  fill('button2',x+6,y,workButtonBgMap,'button__bg');
 
-  const playButtonRange = {
-    rowStart: 16,
-    rowEnd: 28,
-    colStart: 0,
-    colEnd: 28
+  const playButtonTextMap = {
+    1: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+    2: [1,27],
+    3: [0,28],
+    4: [0,3,4,5,6,9,16,17,18,21,25,28],
+    5: [0,3,7,9,15,19,21,25,28],
+    6: [0,3,7,9,15,19,22,24,28],
+    7: [0,3,4,5,6,9,15,16,17,18,19,23,28],
+    8: [0,3,9,15,19,23,28],
+    9: [0,3,9,15,19,23,28],
+    10: [0,3,9,10,11,12,13,15,19,23,28],
+    11: [0,28],
+    12: [1,27],
+    13: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  addButtonClass(x,y,playButtonRange,['button','button--play']);
+  fill('button3',x+6,y,playButtonTextMap,'button__text');
 
+  const playButtonBgMap = {
+    2: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+    3: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
+    4: [1,2,7,8,10,11,12,13,14,15,19,20,22,23,24,26,27],
+    5: [1,2,4,5,6,8,10,11,12,13,14,16,17,18,20,22,23,24,26,27],
+    6: [1,2,4,5,6,8,10,11,12,13,14,16,17,18,20,21,23,25,26,27],
+    7: [1,2,7,8,10,11,12,13,14,20,21,22,24,25,26,27],
+    8: [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,20,21,22,24,25,26,27],
+    9: [1,2,4,5,6,7,8,10,11,12,13,14,16,17,18,20,21,22,24,25,26,27],
+    10: [1,2,4,5,6,7,8,14,16,17,18,20,21,22,24,25,26,27],
+    11: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
+    12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
+  }
+  fill('button3',x+6,y,playButtonBgMap,'button__bg');
 }
 
 const drawDesk = (gridName, x=0, y=0) => {
