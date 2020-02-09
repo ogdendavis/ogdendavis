@@ -54,22 +54,35 @@ const startApp = () => {
  * moving an element within its grid
  */
 
-const introAnimate = (x=32,y=6,tick=30) => {
+const introAnimate = (x=32,y=3,tick=30) => {
   drawLucas('portrait',x,y);
-
-  // Say hi first!
-  document.querySelector('.undergrid').innerText = 'Hi, I\'m Lucas';
 
   // width offset to center Lucas at end of stage 2
   offsetX = 16
   // Stage timing variables, for reference and consistency
-  const sOneEnd = 2100;
+  const sOneStart = 250;
+  const sOneEnd = sOneStart + 2100;
   const sTwoStart = sOneEnd + 750;
   const sTwoEnd = sTwoStart + offsetX * tick;
   const sThreeStart = sTwoEnd + 100;
 
+  // Stage 0: Add and then remove hello element;
+  const body = document.querySelector('body');
+  const sayHi = document.createElement('div');
+  sayHi.innerText = 'Hi, I\'m Lucas';
+  sayHi.classList.add('hello');
+  body.appendChild(sayHi);
+  window.setTimeout(() => {
+    sayHi.style.opacity = '0';
+  },500);
+  window.setTimeout(() => {
+    body.removeChild(sayHi);
+  },1500);
+
   // Stage 1: Slide the portrait grid down and into view
-  document.querySelector('.grid--portrait').style.transform = 'none';
+  window.setTimeout(() => {
+    document.querySelector('.grid--portrait').style.transform = 'none';
+  }, sOneStart);
   window.setTimeout(() => {
     resetGrid('portrait');
     drawLucas('portrait',x,y,{lucasArmPos:'wave'});
