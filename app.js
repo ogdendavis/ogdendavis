@@ -32,9 +32,9 @@ window.onload = function() {
 
 const setup = () => {
   makeGrid('portrait',45,45);
-  makeGrid('button1',35,15);
-  makeGrid('button2',35,15);
-  makeGrid('button3',35,15);
+  makeGrid('button1',29,15);
+  makeGrid('button2',29,15);
+  makeGrid('button3',29,15);
 }
 
 const startApp = () => {
@@ -460,7 +460,7 @@ const drawButtons = (x=0, y=0) => {
     12: [1,27],
     13: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill('button1',x+6,y,workButtonTextMap,'button__text');
+  fill('button1',x,y,workButtonTextMap,'button__text');
 
   const workButtonBgMap = {
     2: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
@@ -475,7 +475,7 @@ const drawButtons = (x=0, y=0) => {
     11: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
     12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill('button1',x+6,y,workButtonBgMap,'button__bg');
+  fill('button1',x,y,workButtonBgMap,'button__bg');
 
   const playButtonTextMap = {
     1: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
@@ -492,7 +492,7 @@ const drawButtons = (x=0, y=0) => {
     12: [1,27],
     13: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill('button2',x+6,y,playButtonTextMap,'button__text');
+  fill('button2',x,y,playButtonTextMap,'button__text');
 
   const playButtonBgMap = {
     2: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
@@ -507,7 +507,7 @@ const drawButtons = (x=0, y=0) => {
     11: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
     12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill('button2',x+6,y,playButtonBgMap,'button__bg');
+  fill('button2',x,y,playButtonBgMap,'button__bg');
 
   const aboutButtonTextMap = {
     1: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
@@ -524,7 +524,7 @@ const drawButtons = (x=0, y=0) => {
     12: [1,27],
     13: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill('button3',x+6,y,aboutButtonTextMap,'button__text');
+  fill('button3',x,y,aboutButtonTextMap,'button__text');
 
   const aboutButtonBgMap = {
     2: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
@@ -539,7 +539,7 @@ const drawButtons = (x=0, y=0) => {
     11: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
     12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
-  fill('button3',x+6,y,aboutButtonBgMap,'button__bg');
+  fill('button3',x,y,aboutButtonBgMap,'button__bg');
 }
 
 const drawDesk = (gridName, x=0, y=0) => {

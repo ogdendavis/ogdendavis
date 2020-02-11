@@ -26,7 +26,8 @@ body {
   display: grid;
   grid-template-columns: calc(45 * .75rem) calc(35 * .75rem);
   grid-template-rows: repeat(3, calc(45 * .75rem / 3));
-  grid-gap: 0;
+  grid-column-gap: 2rem;
+  grid-row-gap: 0;
 }
 
 .grid {
