@@ -103,7 +103,7 @@ const introAnimate = (x=32,y=3,tick=30) => {
     sayHi.style.opacity = '0';
   },500);
   window.setTimeout(() => {
-    app.removeChild(sayHi);
+    app.app.removeChild(sayHi);
   },1500);
 
   // Stage 1: Slide the portrait grid down and into view
@@ -131,6 +131,77 @@ const introAnimate = (x=32,y=3,tick=30) => {
     startApp();
   }, sTwoStart + 50);
 }
+
+const switchPortrait = (oldPortrait, newPortrait, tick=30) => {
+  /* First, find location of old portrait and animate it out */
+
+  // Get topmost (lowest) Y position and leftmost (lowest) X position
+  let [leftX, topY] = [...document.querySelectorAll('.grid--portrait .pixel')].reduce((a,c) => {
+    let [x, y] = c.classList.length > 1 ? c.id.split(/\D/).filter(it => it.length > 0) : [45,45];
+    x = Number(x) < a[0] ? Number(x) : a[0];
+    y = Number(y) < a[1] ? Number(y) : a[1];
+    return [x,y];
+  }, [45,45]);
+
+  // Adjust based on known portrait offsets
+  // Declare which portrait to use in window.setTimeout later
+  let goOut;
+  switch (oldPortrait) {
+    case 'lucas':
+      leftX++;
+      goOut = (x,y,o={}) => drawLucas('portrait', x, y);
+      break;
+    case 'work':
+      goOut = (x,y,o={}) => workPortrait(x,y,o);
+      break;
+    case 'play':
+      goOut = (x,y,o={}) => playPortrait(x,y,o);
+      break;
+    case 'family':
+      goOut = (x,y,o={}) => familyPortrait(x,y,o);
+      break;
+    default:
+      console.error('No valid old portrait passed to switchPortrait');
+  }
+
+  for (let i=topY; i <= 45; i++) {
+    window.setTimeout(() => {
+      resetGrid('portrait');
+      goOut(leftX, i);
+    }, i * tick)
+  }
+
+
+  /* Next, animate new portrait in */
+  const startIn = 45 * tick + tick;
+
+  // Declare which portrait to use, adjust position based on known offsets
+  let comeIn, left=0, top=3;
+  switch (newPortrait) {
+    case 'work':
+      left = 7;
+      comeIn = (x,y,o={}) => workPortrait(x,y,o);
+      break;
+    case 'play':
+      left = 2;
+      comeIn = (x,y,o={}) => playPortrait(x,y,o);
+      break;
+    case 'family':
+      comeIn = (x,y,o={}) => familyPortrait(x,y,o);
+      break;
+    default:
+      console.error('No valid new portrait passed to switchPortrait');
+  }
+
+  for (let j=45; j >= top; j--) {
+    window.setTimeout(() => {
+      resetGrid('portrait');
+      comeIn(left,j);
+    }, startIn + ((45 - j) * tick));
+  }
+
+}
+
 
 /*
  * 4. Grid functions
