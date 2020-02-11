@@ -1,4 +1,17 @@
-body {
+/*
+ * CONTENTS
+ * 1. Initial app styles
+ * 2. App styles after open
+ * 3. Pixel styles
+ * 4. Button styles
+ *
+ */
+
+ /*
+  * 1. Initial app styles
+  */
+
+.app {
   background: lightyellow;
   position: relative;
   width: 100vw;
@@ -57,6 +70,20 @@ body {
   grid-column: 2 / 3;
   grid-row: 3 / 4;
 }
+
+
+/*
+ * 2. App style mods after app is opened
+ */
+
+.app.app--open {
+  /* background: red; */
+}
+
+
+/*
+ * 3. Pixel styles
+ */
 
 .pixel {
   display: inline-block;
@@ -181,6 +208,11 @@ body {
 .pixel.button__text {
   background: #3f51b5;
 }
+
+
+/*
+ * 4. Button styles
+ */
 
 .button:hover {
   cursor: pointer;
