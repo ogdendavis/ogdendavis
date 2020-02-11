@@ -163,7 +163,7 @@ const makeGrid = (name, cols=45, rows=45) => {
     }
   }
 
-  grid.style.width = `${cols*.75}rem`;
+  grid.style.width = `${cols*.5}rem`;
 }
 
 const resetGrid = (name='all') => {
