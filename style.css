@@ -80,6 +80,32 @@
   /* background: red; */
 }
 
+.app--open .container {
+  transition: all .5s linear;
+  grid-template-columns: repeat(3, calc(45 * .75rem));
+  grid-template-rows: calc(13 * .75rem) calc(45 * .75rem);
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+}
+
+.app--open .grid--portrait {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.app--open .grid--button1 {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+.app--open .grid--button2 {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+.app--open .grid--button3 {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
 
 /*
  * 3. Pixel styles
@@ -214,6 +240,11 @@
 /*
  * 4. Button styles
  */
+
+.button {
+  place-self: center;
+  transition: all .5s linear;
+}
 
 .button:hover {
   cursor: pointer;
