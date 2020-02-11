@@ -36,6 +36,7 @@ const app = {
   grids: document.querySelectorAll('.grid'),
   buttons: document.querySelectorAll('.button'),
   portrait: document.querySelector('.grid--portrait'),
+  content: document.querySelector('.content'),
 };
 
 const setup = () => {
@@ -63,6 +64,7 @@ const handleInitialClick = (e) => {
   console.log('Initial click');
   app.app.classList.add('app--open');
   app.buttons.forEach(button => button.removeEventListener('click', handleInitialClick));
+  app.content.style.opacity = '1';
 }
 
 const handleClick = (e) => {
@@ -72,20 +74,6 @@ const handleClick = (e) => {
   });
 }
 
-
-// const openAllGrids = (buttons, grids) => {
-//   grids.forEach(grid => {
-//     grid.classList.add('app-open');
-//     if (grid.classList.contains('button')) {
-//       grid.removeEventListener('click', openAllGrids);
-//       console.log('removed from ' + button.classList[-2]);
-//     }
-//   });
-// }
-//
-// const toggleSelectedButton = (e, buttons) => {
-//   buttons.forEach(button)
-// }
 
 /*
  * 3. Animations
@@ -107,11 +95,10 @@ const introAnimate = (x=32,y=3,tick=30) => {
   const sThreeStart = sTwoEnd + 100;
 
   // Stage 0: Add and then remove hello element;
-  const app = document.querySelector('.app');
   const sayHi = document.createElement('div');
   sayHi.innerText = 'Hi, I\'m Lucas';
   sayHi.classList.add('hello');
-  app.appendChild(sayHi);
+  app.app.appendChild(sayHi);
   window.setTimeout(() => {
     sayHi.style.opacity = '0';
   },500);
@@ -121,7 +108,7 @@ const introAnimate = (x=32,y=3,tick=30) => {
 
   // Stage 1: Slide the portrait grid down and into view
   window.setTimeout(() => {
-    document.querySelector('.grid--portrait').style.transform = 'none';
+    app.portrait.style.transform = 'none';
   }, sOneStart);
   window.setTimeout(() => {
     resetGrid('portrait');
