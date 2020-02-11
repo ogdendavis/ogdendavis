@@ -90,6 +90,7 @@
   width: 0.75rem;
   height: 0.75rem;
   box-sizing: border-box;
+  pointer-events: none;
 }
 
 .grid--portrait .pixel {

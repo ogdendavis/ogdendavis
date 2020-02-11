@@ -53,13 +53,23 @@ const startApp = () => {
   3. Design animations on initial click and subsequent clicks
   */
 
-  app.buttons.forEach(button => button.addEventListener('click', handleInitialClick));
+  app.buttons.forEach(button => {
+    button.addEventListener('click', handleInitialClick);
+    button.addEventListener('click', handleClick);
+  });
 }
 
 const handleInitialClick = (e) => {
-  console.log('click on ' + e.target);
+  console.log('Initial click');
   app.app.classList.add('app--open');
   app.buttons.forEach(button => button.removeEventListener('click', handleInitialClick));
+}
+
+const handleClick = (e) => {
+  console.log('Click on ' + e.target.id);
+  app.buttons.forEach(button => {
+    button.id === e.target.id ? button.classList.add('button--selected') : button.classList.remove('button--selected');
+  });
 }
 
 
