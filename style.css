@@ -24,7 +24,7 @@
   left: 50%;
   transform: translate(-50%,-50%);
   transition: all 1s ease-in-out;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-family: monospace;
   opacity: 1;
 }
@@ -73,7 +73,10 @@
 .content {
   grid-column: 2 / 3;
   grid-row: 1 / 4;
-  background: red;
+  opacity: 0;
+  transition: all 1s linear;
+  font-size: 1rem;
+  font-family: monospace;
 }
 
 

@@ -32,6 +32,7 @@ window.onload = function() {
 
 // Create object that holds all app elements for use in app functions
 const app = {
+  activePortrait: false,
   app: document.querySelector('.app'),
   grids: document.querySelectorAll('.grid'),
   buttons: document.querySelectorAll('.button'),
@@ -61,14 +62,29 @@ const startApp = () => {
 }
 
 const handleInitialClick = (e) => {
-  console.log('Initial click');
   app.app.classList.add('app--open');
   app.buttons.forEach(button => button.removeEventListener('click', handleInitialClick));
   app.content.style.opacity = '1';
 }
 
 const handleClick = (e) => {
-  console.log('Click on ' + e.target.id);
+  // Get info for switchPortrait
+  const oldPortrait = app.activePortrait ? app.activePortrait : 'lucas';
+  const newPortrait = e.target.id === 'button1' ? 'work' :
+                      e.target.id === 'button2' ? 'play' : 'family';
+
+  // If first click, delay animation until after content area opens
+  if (oldPortrait == 'lucas') {
+    window.setTimeout(() => switchPortrait(oldPortrait,newPortrait), 1100);
+  }
+  else {
+    switchPortrait(oldPortrait,newPortrait);
+  }
+
+  // Set active portrait in app object
+  app.activePortrait = newPortrait;
+
+  // Update button classes
   app.buttons.forEach(button => {
     button.id === e.target.id ? button.classList.add('button--selected') : button.classList.remove('button--selected');
   });
