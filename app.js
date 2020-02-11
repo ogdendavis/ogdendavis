@@ -30,6 +30,14 @@ window.onload = function() {
  * These control functionality and user interaction with content
  */
 
+// Create object that holds all app elements for use in app functions
+const app = {
+  app: document.querySelector('.app'),
+  grids: document.querySelectorAll('.grid'),
+  buttons: document.querySelectorAll('.button'),
+  portrait: document.querySelector('.grid--portrait'),
+};
+
 const setup = () => {
   makeGrid('portrait',45,45);
   makeGrid('button1',29,15);
@@ -44,8 +52,30 @@ const startApp = () => {
   2. Design where text/buttons will go on initial button click
   3. Design animations on initial click and subsequent clicks
   */
-  console.log('Starting!');
+
+  app.buttons.forEach(button => button.addEventListener('click', handleInitialClick));
 }
+
+const handleInitialClick = (e) => {
+  console.log('click on ' + e.target);
+  app.app.classList.add('app--open');
+  app.buttons.forEach(button => button.removeEventListener('click', handleInitialClick));
+}
+
+
+// const openAllGrids = (buttons, grids) => {
+//   grids.forEach(grid => {
+//     grid.classList.add('app-open');
+//     if (grid.classList.contains('button')) {
+//       grid.removeEventListener('click', openAllGrids);
+//       console.log('removed from ' + button.classList[-2]);
+//     }
+//   });
+// }
+//
+// const toggleSelectedButton = (e, buttons) => {
+//   buttons.forEach(button)
+// }
 
 /*
  * 3. Animations
@@ -67,16 +97,16 @@ const introAnimate = (x=32,y=3,tick=30) => {
   const sThreeStart = sTwoEnd + 100;
 
   // Stage 0: Add and then remove hello element;
-  const body = document.querySelector('body');
+  const app = document.querySelector('.app');
   const sayHi = document.createElement('div');
   sayHi.innerText = 'Hi, I\'m Lucas';
   sayHi.classList.add('hello');
-  body.appendChild(sayHi);
+  app.appendChild(sayHi);
   window.setTimeout(() => {
     sayHi.style.opacity = '0';
   },500);
   window.setTimeout(() => {
-    body.removeChild(sayHi);
+    app.removeChild(sayHi);
   },1500);
 
   // Stage 1: Slide the portrait grid down and into view
