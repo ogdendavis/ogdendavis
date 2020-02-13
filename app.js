@@ -49,10 +49,11 @@ const setup = () => {
 }
 
 const startApp = () => {
-  // adds event handlers to buttons and loads JSON for content
+  // Add initial event handlers to buttons
   app.buttons.forEach(button => {
     button.addEventListener('click', handleInitialClick);
-    button.addEventListener('click', handleClick);
+    // Removed to fix timing with content animation -- this handler is added by handleInitialClick
+    // button.addEventListener('click', handleClick);
   });
 
   // Get content from local JSON file -- switch to CMS at some point?
@@ -63,9 +64,16 @@ const handleInitialClick = (e) => {
   // Convert app to open state
   app.app.classList.add('app--open');
   // Remove this handler, since it should only fire once
-  app.buttons.forEach(button => button.removeEventListener('click', handleInitialClick));
-  // Fade in content box. Width animation handled by css
-  app.contentBox.style.opacity = '1';
+  // Add handler for subsequent clicks
+  app.buttons.forEach(button => {
+    button.removeEventListener('click', handleInitialClick)
+    button.addEventListener('click', handleClick);
+  });
+  // Content box width animation handled by CSS
+
+  // To make content animation timing work, triggering handleClick on a delay here before adding event listeners for the handleClick function to buttons
+  window.setTimeout(() => handleClick(e), 500);
+
 }
 
 const handleClick = (e) => {
@@ -90,8 +98,8 @@ const handleClick = (e) => {
     button.id === e.target.id ? button.classList.add('button--selected') : button.classList.remove('button--selected');
   });
 
-  // Add appropriate content (may contain markup) to content area
-  app.contentBox.innerHTML = app.content[newPortrait];
+  // Add appropriate content to content area
+  switchContent(oldPortrait, newPortrait);
 }
 
 
@@ -150,6 +158,20 @@ const introAnimate = (x=32,y=3,tick=30) => {
     // Also start the app from here, since it's our last step
     startApp();
   }, sTwoStart + 50);
+}
+
+const switchContent = (oldContent, newContent) => {
+  // Early return to avoid animation on button re-click
+  if (oldContent === newContent) {
+    return;
+  }
+  // Opacity animates at .25s
+  app.contentBox.style.opacity = '0'
+  // Change content and switch opacity back!
+  window.setTimeout(() => {
+    app.contentBox.innerHTML = app.content[newContent];
+    app.contentBox.style.opacity = '1'
+  },250);
 }
 
 // Hold all timeouts set by switchPortrait, so can clearn them if another click happens before animation is done
@@ -229,7 +251,6 @@ const switchPortrait = (oldPortrait, newPortrait, tick=5) => {
       comeIn(left,j);
     }, startIn + ((45 - j) * tick)));
   }
-
 }
 
 

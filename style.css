@@ -34,7 +34,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  transition: all 1s linear;
+  transition: all .75s linear;
   display: grid;
   grid-template-columns: calc(45 * .5rem) 0 calc(29 * .5rem);
   grid-template-rows: repeat(3, calc(45 * .5rem / 3));
@@ -73,10 +73,9 @@
   grid-column: 2 / 3;
   grid-row: 1 / 4;
   opacity: 0;
-  transition: all 1s linear;
+  transition: all .25s linear;
   font-size: 1rem;
   font-family: monospace;
-  /* background: #ddd; */
 }
 
 
