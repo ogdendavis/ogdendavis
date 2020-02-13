@@ -70,7 +70,7 @@
   grid-row: 3 / 4;
 }
 
-.content {
+.content__box {
   grid-column: 2 / 3;
   grid-row: 1 / 4;
   opacity: 0;

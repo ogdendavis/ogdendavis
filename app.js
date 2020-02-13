@@ -37,7 +37,8 @@ const app = {
   grids: document.querySelectorAll('.grid'),
   buttons: document.querySelectorAll('.button'),
   portrait: document.querySelector('.grid--portrait'),
-  content: document.querySelector('.content'),
+  contentBox: document.querySelector('.content__box'),
+  content: {}, // Loaded in startApp
 };
 
 const setup = () => {
@@ -48,23 +49,21 @@ const setup = () => {
 }
 
 const startApp = () => {
-  /*
-  To do:
-  1. Add click events to display portrait and content on initial button click
-  2. Design where text/buttons will go on initial button click
-  3. Design animations on initial click and subsequent clicks
-  */
-
+  // adds event handlers to buttons and loads JSON for content
   app.buttons.forEach(button => {
     button.addEventListener('click', handleInitialClick);
     button.addEventListener('click', handleClick);
   });
+
+  // Get content from local JSON file -- switch to CMS at some point?
+  app.content = JSON.parse(contentData);
 }
 
 const handleInitialClick = (e) => {
   app.app.classList.add('app--open');
   app.buttons.forEach(button => button.removeEventListener('click', handleInitialClick));
-  app.content.style.opacity = '1';
+  app.contentBox.style.opacity = '1';
+  console.log(app);
 }
 
 const handleClick = (e) => {
