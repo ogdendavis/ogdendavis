@@ -60,10 +60,12 @@ const startApp = () => {
 }
 
 const handleInitialClick = (e) => {
+  // Convert app to open state
   app.app.classList.add('app--open');
+  // Remove this handler, since it should only fire once
   app.buttons.forEach(button => button.removeEventListener('click', handleInitialClick));
+  // Fade in content box. Width animation handled by css
   app.contentBox.style.opacity = '1';
-  console.log(app);
 }
 
 const handleClick = (e) => {
@@ -87,6 +89,9 @@ const handleClick = (e) => {
   app.buttons.forEach(button => {
     button.id === e.target.id ? button.classList.add('button--selected') : button.classList.remove('button--selected');
   });
+
+  // Add appropriate content (may contain markup) to content area
+  app.contentBox.innerHTML = app.content[newPortrait];
 }
 
 

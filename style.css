@@ -36,7 +36,7 @@
   transform: translate(-50%,-50%);
   transition: all 1s linear;
   display: grid;
-  grid-template-columns: calc(45 * .5rem) 0 calc(45 * .5rem);
+  grid-template-columns: calc(45 * .5rem) 0 calc(29 * .5rem);
   grid-template-rows: repeat(3, calc(45 * .5rem / 3));
   grid-column-gap: 1rem;
   grid-row-gap: 0;
@@ -77,6 +77,7 @@
   transition: all 1s linear;
   font-size: 1rem;
   font-family: monospace;
+  /* background: #ddd; */
 }
 
 
@@ -89,7 +90,7 @@
 }
 
 .app--open .container {
-  grid-template-columns: calc(45 * .5rem) calc(65 * .5rem) calc(45 * .5rem);
+  grid-template-columns: calc(45 * .5rem) calc(65 * .5rem) calc(29 * .5rem);
   grid-column-gap: 2rem;
 }
 
