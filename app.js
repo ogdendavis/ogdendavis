@@ -78,7 +78,7 @@ const handleClick = (e) => {
   if (oldPortrait == 'lucas') {
     window.setTimeout(() => switchPortrait(oldPortrait,newPortrait), 1100);
   }
-  else {
+  else if (oldPortrait !== newPortrait) {
     switchPortrait(oldPortrait,newPortrait);
   }
 
@@ -152,7 +152,17 @@ const introAnimate = (x=32,y=3,tick=30) => {
   }, sTwoStart + 50);
 }
 
-const switchPortrait = (oldPortrait, newPortrait, tick=30) => {
+// Hold all timeouts set by switchPortrait, so can clearn them if another click happens before animation is done
+var portraitAnimationTimeouts = [];
+
+const switchPortrait = (oldPortrait, newPortrait, tick=5) => {
+  // If a portrait animation is going, cancel it!
+  if (portraitAnimationTimeouts !== []) {
+    for (let i=0; i<portraitAnimationTimeouts.length; i++) {
+      window.clearTimeout(portraitAnimationTimeouts[i]);
+    }
+  }
+
   /* First, find location of old portrait and animate it out */
 
   // Get topmost (lowest) Y position and leftmost (lowest) X position
@@ -185,10 +195,10 @@ const switchPortrait = (oldPortrait, newPortrait, tick=30) => {
   }
 
   for (let i=topY; i <= 45; i++) {
-    window.setTimeout(() => {
+    portraitAnimationTimeouts.push(window.setTimeout(() => {
       resetGrid('portrait');
       goOut(leftX, i);
-    }, i * tick)
+    }, i * tick));
   }
 
 
@@ -214,10 +224,10 @@ const switchPortrait = (oldPortrait, newPortrait, tick=30) => {
   }
 
   for (let j=45; j >= top; j--) {
-    window.setTimeout(() => {
+    portraitAnimationTimeouts.push(window.setTimeout(() => {
       resetGrid('portrait');
       comeIn(left,j);
-    }, startIn + ((45 - j) * tick));
+    }, startIn + ((45 - j) * tick)));
   }
 
 }
