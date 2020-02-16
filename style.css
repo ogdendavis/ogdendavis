@@ -245,3 +245,12 @@
 .button:hover .pixel.button__text {
   background: #fff;
 }
+
+
+.button--selected .pixel.button__bg, .button--selected:hover .pixel.button__bg {
+  background: #808080;
+}
+
+.button--selected .pixel.button__text, .button--selected:hover .pixel.button__text {
+  background: #c0c0c0;
+}
