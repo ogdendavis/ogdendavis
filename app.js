@@ -19,6 +19,10 @@
 window.onload = function() {
   setup();
   introAnimate();
+  // familyPortrait(); //d
+  // drawButtons(); //d
+  // startApp(); //d
+  // drawContactInfo(); //d
 }
 
 /*
@@ -159,8 +163,14 @@ const switchContent = (oldContent, newContent) => {
   app.contentBox.style.opacity = '0'
   // Change content and switch opacity back!
   window.setTimeout(() => {
+    // Get container to put actual content in
     const content = app.contentBox.firstElementChild;
     content.innerHTML = app.content[newContent];
+    // If on the @ me tab, add grids for email and phone number
+    if (newContent === 'family') {
+      drawContactInfo();
+    }
+    // Make the box visible
     app.contentBox.style.opacity = '1'
     // Check height of content vs height of app. If content is too tall, add scroll bar
     // Can't just blanket add scroll bar in css, because then it always displays
@@ -259,7 +269,7 @@ const switchPortrait = (oldPortrait, newPortrait, tick=5) => {
  * These create or clear entire grids
  */
 
-const makeGrid = (name, cols=45, rows=45) => {
+const makeGrid = (name, cols=45, rows=45, pxSize=0.5) => {
   const grid = document.querySelector(`.grid.grid--${name}`);
 
   for (let i=0; i<rows; i++) {
@@ -267,11 +277,13 @@ const makeGrid = (name, cols=45, rows=45) => {
       const pix = document.createElement('div');
       pix.classList.add('pixel');
       pix.id = `${name}-x${j}y${i}`;
+      pix.style.width = `${pxSize}rem`;
+      pix.style.height = `${pxSize}rem`;
       grid.appendChild(pix);
     }
   }
 
-  grid.style.width = `${cols*.5}rem`;
+  grid.style.width = `${cols * pxSize}rem`;
 }
 
 const resetGrid = (name='all') => {
@@ -688,6 +700,31 @@ const drawButtons = (x=0, y=0) => {
     12: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26],
   }
   fill('button3',x,y,aboutButtonBgMap,'button__bg');
+}
+
+const drawContactInfo = (x=0,y=0) => {
+  makeGrid('email', 97, 7, 0.35);
+  makeGrid('phone', 57, 5, 0.35);
+
+  const phoneMap = {
+    0: [0,1,2,3,5,6,7,8,10,11,12,13,19,20,21,22,24,25,26,27,29,30,31,32,38,39,40,41,43,44,45,46,48,49,50,51,53,54,55],
+    1: [3,8,10,13,22,27,32,38,41,46,48,51,53],
+    2: [2,5,6,7,8,10,13,15,16,17,21,26,29,30,31,32,34,35,36,38,39,40,41,43,44,45,46,48,49,50,51,53,54,55,56],
+    3: [1,5,10,13,20,25,29,38,41,43,51,53,56],
+    4: [1,5,6,7,8,10,11,12,13,20,25,29,30,31,32,38,39,40,41,43,44,45,46,51,53,54,55,56],
+  }
+  fill('phone',x,y,phoneMap,'black');
+
+  const emailMap = {
+    0: [26,27,28],
+    1: [0,5,8,11,12,13,16,17,21,22,23,25,29,32,33,37,38,41,42,43,46,47,48,49,51,54,56,57,58,62,63,66,68,70,71,72,75,76,77,83,84,85,88,89,92,96],
+    2: [0,5,8,10,15,18,20,25,27,28,29,31,34,36,41,44,46,51,52,54,56,59,61,64,66,68,71,74,82,87,90,92,93,95,96],
+    3: [0,5,8,10,15,16,17,18,21,22,25,27,29,31,34,36,38,39,41,44,46,47,48,51,53,54,56,59,61,62,63,64,66,68,71,75,76,82,87,90,92,94,96],
+    4: [0,5,8,10,15,18,23,25,27,28,29,31,34,36,39,41,44,46,51,54,56,59,61,64,66,68,71,77,79,80,82,87,90,92,96],
+    5: [0,1,2,3,6,7,11,12,13,15,18,20,21,22,25,32,33,37,38,41,42,43,46,47,48,49,51,54,56,57,58,61,64,67,70,71,72,74,75,76,79,80,83,84,85,88,89,92,96],
+    6: [26,27,28,29],
+  }
+  fill('email',x,y,emailMap,'black');
 }
 
 const drawDesk = (gridName, x=0, y=0) => {

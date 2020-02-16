@@ -76,6 +76,10 @@
   transition: all 2s linear;
 }
 
+.grid--email, .grid--phone {
+  margin: 2rem auto;
+}
+
 .content__box {
   opacity: 0;
   transition: all .25s linear;
@@ -98,15 +102,10 @@
  */
 
 .pixel {
+  /* Pixel size now set inline with makeGrid function */
   display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
   box-sizing: border-box;
   pointer-events: none;
-}
-
-.grid--portrait .pixel {
-  /* border: 1px solid gray; */
 }
 
 /* Colors! Classes used by JS to draw pixel art */
