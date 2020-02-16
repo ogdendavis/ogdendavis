@@ -18,9 +18,6 @@
 
 window.onload = function() {
   setup();
-  // familyPortrait();
-  // playPortrait();
-  // workPortrait();
   introAnimate();
 }
 
@@ -77,18 +74,11 @@ const handleInitialClick = (e) => {
 }
 
 const handleClick = (e) => {
-  // Get info for switchPortrait
+  // Get info for switchPortrait, and switch!
   const oldPortrait = app.activePortrait ? app.activePortrait : 'lucas';
   const newPortrait = e.target.id === 'button1' ? 'work' :
                       e.target.id === 'button2' ? 'play' : 'family';
-
-  // If first click, delay animation until after content area opens
-  if (oldPortrait == 'lucas') {
-    window.setTimeout(() => switchPortrait(oldPortrait,newPortrait), 1100);
-  }
-  else if (oldPortrait !== newPortrait) {
-    switchPortrait(oldPortrait,newPortrait);
-  }
+  switchPortrait(oldPortrait,newPortrait);
 
   // Set active portrait in app object
   app.activePortrait = newPortrait;
@@ -178,6 +168,11 @@ const switchContent = (oldContent, newContent) => {
 var portraitAnimationTimeouts = [];
 
 const switchPortrait = (oldPortrait, newPortrait, tick=5) => {
+  // Early return to cancel animation on button re-click
+  if (oldPortrait === newPortrait) {
+    return;
+  }
+
   // If a portrait animation is going, cancel it!
   if (portraitAnimationTimeouts !== []) {
     for (let i=0; i<portraitAnimationTimeouts.length; i++) {
@@ -231,7 +226,7 @@ const switchPortrait = (oldPortrait, newPortrait, tick=5) => {
   let comeIn, left=0, top=3;
   switch (newPortrait) {
     case 'work':
-      left = 7;
+      left = 6;
       comeIn = (x,y,o={}) => workPortrait(x,y,o);
       break;
     case 'play':
