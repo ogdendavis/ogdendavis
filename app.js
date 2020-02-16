@@ -159,8 +159,12 @@ const switchContent = (oldContent, newContent) => {
   app.contentBox.style.opacity = '0'
   // Change content and switch opacity back!
   window.setTimeout(() => {
-    app.contentBox.innerHTML = app.content[newContent];
+    const content = app.contentBox.firstElementChild;
+    content.innerHTML = app.content[newContent];
     app.contentBox.style.opacity = '1'
+    // Check height of content vs height of app. If content is too tall, add scroll bar
+    // Can't just blanket add scroll bar in css, because then it always displays
+    app.contentBox.style.overflowY = content.offsetHeight > app.contentBox.offsetHeight ? 'scroll' : 'auto';
   },250);
 }
 
