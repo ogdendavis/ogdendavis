@@ -48,7 +48,7 @@
   max-width: 0;
   transition: all 2s linear;
   box-sizing: border-box;
-  max-height: calc(45 * 0.5rem);
+  /* max-height: calc(45 * 0.5rem); */
   scrollbar-color: #808080 lightyellow;
   scrollbar-width: thin;
 }
@@ -89,7 +89,7 @@
 }
 
 .buttons {
-  width: calc(45 * 0.5rem);
+  /* width: calc(45 * 0.5rem); */
   display: flex;
   flex-flow: column nowrap;
   align-items: center;

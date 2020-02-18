@@ -40,10 +40,23 @@ const app = {
 };
 
 const setup = () => {
-  makeGrid('portrait',45,45);
-  makeGrid('button1',29,15);
-  makeGrid('button2',29,15);
-  makeGrid('button3',29,15);
+  // Adjust pixel size and width here, to make sure sizing is appropriate for viewport
+  const vwRem = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) / 16;
+  const fitPxSize = Math.floor((vwRem / 3) / 45 * 10) / 10;
+  const usePxSize = fitPxSize >= 0.5 ? 0.5 :
+                    fitPxSize <= 0.3 ? 0.3 : fitPxSize;
+
+  // Make the grids using the appropriate pixel size
+  makeGrid('portrait',45,45,usePxSize);
+  makeGrid('button1',29,15,usePxSize);
+  makeGrid('button2',29,15,usePxSize);
+  makeGrid('button3',29,15,usePxSize);
+
+  // Adjust container sizing based on viewport width (as reflected in px size)
+  const containerWidth = `${45 * fitPxSize}rem`
+  app.contentBox.style.maxHeight = `${45 * fitPxSize}rem`;
+  //app.contentBox.style.width = `${45 * fitPxSize}rem`;
+  document.querySelector('.buttons').style.width = `${35 * fitPxSize}rem`;
 }
 
 const startApp = () => {
@@ -717,12 +730,16 @@ const drawButtons = (x=0, y=0) => {
 }
 
 const drawContactInfo = (x=0,y=0) => {
-  const pxSizeToFit = Math.floor((app.contentBox.offsetWidth / 97) / 16 * 10) / 10;
-  const pxSizeToUse = Math.max(pxSizeToFit, 0.2);
+  // Choose pixel size by width of container
+  const boxWidth = app.contentBox.offsetWidth;
+  const pxSizeToUse = boxWidth >= 490 ? 0.3 :
+                      boxWidth >= 420 ? 0.25 : 0.2;
 
+  // Make grids with appropriate pixel size
   makeGrid('email', 97, 7, pxSizeToUse);
   makeGrid('phone', 57, 5, pxSizeToUse);
 
+  // Now fill 'em!
   const phoneMap = {
     0: [0,1,2,3,5,6,7,8,10,11,12,13,19,20,21,22,24,25,26,27,29,30,31,32,38,39,40,41,43,44,45,46,48,49,50,51,53,54,55],
     1: [3,8,10,13,22,27,32,38,41,46,48,51,53],
