@@ -39,6 +39,7 @@ const app = {
   buttons: document.querySelectorAll('.button'),
   portrait: document.querySelector('.grid--portrait'),
   contentBox: document.querySelector('.content__box'),
+  footer: document.querySelector('.footer'),
   content: {}, // Loaded in startApp
 };
 
@@ -59,6 +60,16 @@ const startApp = () => {
 
   // Get content from local JSON file -- switch to CMS at some point?
   app.content = JSON.parse(contentData);
+
+  // If there's footer content, load the footer!
+  if (app.content.footer) {
+    if (app.content.footer.left) {
+      populateFooter(app.content.footer.left, 'left');
+    }
+    if (app.content.footer.right) {
+      populateFooter(app.content.footer.right, 'right');
+    }
+  }
 }
 
 const handleInitialClick = (e) => {
@@ -94,6 +105,13 @@ const handleClick = (e) => {
 
   // Add appropriate content to content area
   switchContent(oldPortrait, newPortrait);
+}
+
+const populateFooter = (content, side) => {
+  const container = document.createElement('div');
+  container.classList.add(`footer__inner`, `footer__inner--${side}`);
+  container.innerHTML = content;
+  app.footer.appendChild(container);
 }
 
 

@@ -3,6 +3,7 @@
  * 1. App & container styles
  * 2. Pixel styles
  * 3. Button styles
+ * 4. Footer
  *
  */
 
@@ -20,6 +21,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  font-family: monospace;
 }
 
 .hello {
@@ -29,7 +31,6 @@
   transform: translate(-50%,-50%);
   transition: all 1s ease-in-out;
   font-size: 2rem;
-  font-family: monospace;
   opacity: 1;
 }
 
@@ -84,7 +85,6 @@
   opacity: 0;
   transition: all .25s linear;
   font-size: 1rem;
-  font-family: monospace;
   box-sizing: border-box:
 }
 
@@ -253,4 +253,30 @@
 
 .button--selected .pixel.button__text, .button--selected:hover .pixel.button__text {
   background: #c0c0c0;
+}
+
+/*
+ * 4. Footer
+ */
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: all 1s linear;
+  font-size: 0.75rem;
+  /* height: 2rem;
+  background: blue; */
+}
+
+.footer__inner {
+  display: inline-block;
+  padding: 0 1rem;
+}
+.footer__inner--left {
+  float: left;
+}
+.footer__inner--right {
+  float: right;
 }
