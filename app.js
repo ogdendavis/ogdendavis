@@ -19,10 +19,6 @@
 window.onload = function() {
   setup();
   introAnimate();
-  // familyPortrait(); //d
-  // drawButtons(); //d
-  // startApp(); //d
-  // drawContactInfo(); //d
 }
 
 /*
@@ -721,8 +717,11 @@ const drawButtons = (x=0, y=0) => {
 }
 
 const drawContactInfo = (x=0,y=0) => {
-  makeGrid('email', 97, 7, 0.35);
-  makeGrid('phone', 57, 5, 0.35);
+  const pxSizeToFit = Math.floor((app.contentBox.offsetWidth / 97) / 16 * 10) / 10;
+  const pxSizeToUse = Math.max(pxSizeToFit, 0.2);
+
+  makeGrid('email', 97, 7, pxSizeToUse);
+  makeGrid('phone', 57, 5, pxSizeToUse);
 
   const phoneMap = {
     0: [0,1,2,3,5,6,7,8,10,11,12,13,19,20,21,22,24,25,26,27,29,30,31,32,38,39,40,41,43,44,45,46,48,49,50,51,53,54,55],
