@@ -297,8 +297,7 @@
   right: 0;
   transition: all 1s linear;
   font-size: 0.75rem;
-  /* height: 2rem;
-  background: blue; */
+  opacity: 0;
 }
 
 .footer__inner {

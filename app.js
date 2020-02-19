@@ -62,20 +62,12 @@ const setup = () => {
   if (app.viewportWidth <= app.breakpoints[0]) {
     app.contentBox.style.width = `${45 * portraitPxSize}rem`;
   }
-}
-
-const startApp = () => {
-  // Add initial event handlers to buttons
-  app.buttons.forEach(button => {
-    button.addEventListener('click', handleInitialClick);
-    // Removed to fix timing with content animation -- this handler is added by handleInitialClick
-    // button.addEventListener('click', handleClick);
-  });
 
   // Get content from local JSON file -- switch to CMS at some point?
   app.content = JSON.parse(contentData);
 
-  // If there's footer content, load the footer!
+  // If there's footer content, load it in!
+  // The rest of the content is loaded in on button click, by handleClick
   if (app.content.footer) {
     if (app.content.footer.left) {
       populateFooter(app.content.footer.left, 'left');
@@ -84,6 +76,15 @@ const startApp = () => {
       populateFooter(app.content.footer.right, 'right');
     }
   }
+}
+
+const startApp = () => {
+  // Add initial event handlers to buttons. Have to wait until buttons are animated in
+  app.buttons.forEach(button => {
+    button.addEventListener('click', handleInitialClick);
+    // Removed to fix timing with content animation -- this handler is added by handleInitialClick
+    // button.addEventListener('click', handleClick);
+  });
 }
 
 const handleInitialClick = (e) => {
@@ -164,6 +165,8 @@ const introAnimate = (x=32,y=3,tick=30) => {
   },500);
   window.setTimeout(() => {
     app.app.removeChild(sayHi);
+    // Fade footer in as sayHi fades out
+    app.footer.style.opacity = 1;
   },1500);
 
   // Stage 1: Slide the portrait grid down and into view
