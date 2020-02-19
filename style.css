@@ -33,6 +33,11 @@
   font-size: 2rem;
   opacity: 1;
 }
+@media only screen and (max-width: 460px) {
+  .hello {
+    font-size: 1.5rem;
+  }
+}
 
 .container {
   position: absolute;
@@ -66,6 +71,7 @@
     transform: none;
     max-height: 100vh;
     justify-content: space-between;
+    overflow-y: hidden;
   }
 }
 
