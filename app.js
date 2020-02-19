@@ -30,7 +30,7 @@ window.onload = function() {
 // Create object that holds all app elements for use in app functions
 const app = {
   viewportWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-  breakpoints: [1075],
+  breakpoints: [1075, 760],
   activePortrait: false,
   app: document.querySelector('.app'),
   grids: document.querySelectorAll('.grid'),
@@ -43,22 +43,24 @@ const app = {
 
 const setup = () => {
   // Adjust pixel size and width here, to make sure sizing is appropriate for viewport
-  const pxSize = app.viewportWidth >= 1200 ? 0.5 :
-                 app.viewportWidth > app.breakpoints[0] ? 0.4 : 0.5;
+  const portraitPxSize = app.viewportWidth >= 1200 ? 0.5 :
+                         app.viewportWidth > app.breakpoints[0] ? 0.4 :
+                         app.viewportWidth > app.breakpoints[1] ? 0.5 : 0.4;
+  const buttonPxSize = app.viewportWidth > app.breakpoints[1] ? portraitPxSize : 0.3
 
   // Make the grids using the appropriate pixel size
-  makeGrid('portrait',45,45,pxSize);
-  makeGrid('button1',29,15,pxSize);
-  makeGrid('button2',29,15,pxSize);
-  makeGrid('button3',29,15,pxSize);
+  makeGrid('portrait',45,45,portraitPxSize);
+  makeGrid('button1',29,15,buttonPxSize);
+  makeGrid('button2',29,15,buttonPxSize);
+  makeGrid('button3',29,15,buttonPxSize);
 
   // Adjust container sizing based on viewport width (as reflected in px size)
-  app.contentBox.style.maxHeight = `${45 * pxSize}rem`;
-  document.querySelector('.buttons').style.width = app.viewportWidth > app.breakpoints[0] ? `${35 * pxSize}rem` : `${90 * pxSize}rem`;
+  app.contentBox.style.maxHeight = `${45 * portraitPxSize}rem`;
+  document.querySelector('.buttons').style.width = app.viewportWidth > app.breakpoints[0] ? `${35 * buttonPxSize}rem` : `${90 * buttonPxSize}rem`;
 
   // If below first breakpoint, force content box to same width as portrait grid
   if (app.viewportWidth <= app.breakpoints[0]) {
-    app.contentBox.style.width = `${45 * pxSize}rem`;
+    app.contentBox.style.width = `${45 * portraitPxSize}rem`;
   }
 }
 
@@ -137,6 +139,10 @@ const populateFooter = (content, side) => {
 const introAnimate = (x=32,y=3,tick=30) => {
   // width offset to center Lucas at end of stage 2
   const offsetX = 16
+  // On phones, Lucas should slide in from top already centered
+  if (app.viewportWidth <= app.breakpoints[1]) {
+    x = offsetX;
+  }
 
   // Draw Lucas! He'll stay in this spot until the grid transitions in
   drawLucas('portrait',x,y);

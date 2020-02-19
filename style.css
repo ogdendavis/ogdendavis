@@ -48,6 +48,11 @@
     align-items: center;
   }
 }
+@media only screen and (max-width: 760px) {
+  .container {
+    flex-flow: column nowrap;
+  }
+}
 
 .content__box {
   width: 40vw;
@@ -89,6 +94,11 @@
 @media only screen and (max-width: 1075px) {
   .grid--portrait {
     transform: translateX(-300%);
+  }
+}
+@media only screen and (max-width: 760px) {
+  .grid--portrait {
+    transform: translateY(-100vh);
   }
 }
 
