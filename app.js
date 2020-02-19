@@ -30,7 +30,7 @@ window.onload = function() {
 // Create object that holds all app elements for use in app functions
 const app = {
   viewportWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-  breakpoints: [1075, 760],
+  breakpoints: [1075, 760, 460],
   activePortrait: false,
   app: document.querySelector('.app'),
   grids: document.querySelectorAll('.grid'),
@@ -42,11 +42,14 @@ const app = {
 };
 
 const setup = () => {
+  console.log(app.viewportWidth);
   // Adjust pixel size and width here, to make sure sizing is appropriate for viewport
   const portraitPxSize = app.viewportWidth >= 1200 ? 0.5 :
                          app.viewportWidth > app.breakpoints[0] ? 0.4 :
-                         app.viewportWidth > app.breakpoints[1] ? 0.5 : 0.4;
-  const buttonPxSize = app.viewportWidth > app.breakpoints[1] ? portraitPxSize : 0.3
+                         app.viewportWidth > app.breakpoints[1] ? 0.5 :
+                         app.viewPortWidth > app.breakpoints[2] ? 0.4 : 0.3;
+  const buttonPxSize = app.viewportWidth > app.breakpoints[1] ? portraitPxSize :
+                       app.viewPortWidth > app.breakpoints[2] ? 0.3 : 0.25;
 
   // Make the grids using the appropriate pixel size
   makeGrid('portrait',45,45,portraitPxSize);
@@ -54,14 +57,23 @@ const setup = () => {
   makeGrid('button2',29,15,buttonPxSize);
   makeGrid('button3',29,15,buttonPxSize);
 
-  // Adjust container sizing based on viewport width (as reflected in px size)
-  app.contentBox.style.maxHeight = `${45 * portraitPxSize}rem`;
-  document.querySelector('.buttons').style.width = app.viewportWidth > app.breakpoints[0] ? `${35 * buttonPxSize}rem` : `${90 * buttonPxSize}rem`;
-
-  // If below first breakpoint, force content box to same width as portrait grid
-  if (app.viewportWidth <= app.breakpoints[0]) {
+  // Adjust container sizing based on viewport width
+  if (app.viewportWidth <= app.breakpoints[1]) {
+    // If at or below second breakpoint, set width the same as button container width
+    app.contentBox.style.width = `${90 * buttonPxSize}rem`;
+  }
+  else {
+    app.contentBox.style.height = `${45 * portraitPxSize}rem`;
+  }
+  // If below first breakpoint but above second, force content box to same width as portrait grid
+  if (app.viewportWidth <= app.breakpoints[0] && app.viewportWidth > app.breakpoints[1]) {
     app.contentBox.style.width = `${45 * portraitPxSize}rem`;
   }
+
+  // Set button area width
+  document.querySelector('.buttons').style.width = app.viewportWidth > app.breakpoints[0] ? `${35 * buttonPxSize}rem` : `${90 * buttonPxSize}rem`;
+
+
 
   // Get content from local JSON file -- switch to CMS at some point?
   app.content = JSON.parse(contentData);
@@ -98,7 +110,7 @@ const handleInitialClick = (e) => {
   });
   // Content box width animation handled by CSS
 
-  // To make content animation timing work, triggering handleClick on a delay here before adding event listeners for the handleClick function to buttons
+  // To make content animation timing work on this initial click, triggering handleClick on a delay
   window.setTimeout(() => handleClick(e), 500);
 
 }
