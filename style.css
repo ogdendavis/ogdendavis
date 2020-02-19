@@ -120,6 +120,7 @@
   .app--open .content__box {
     max-height: 100vh;
     height: auto;
+    flex-grow: 1;
   }
 }
 
