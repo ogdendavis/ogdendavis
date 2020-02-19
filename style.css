@@ -170,6 +170,11 @@
     margin-top: 1rem;
   }
 }
+@media only screen and (max-width: 460px) {
+  .buttons {
+    margin-top: 0.5rem;
+  }
+}
 
 
 /*
