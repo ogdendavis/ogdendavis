@@ -153,6 +153,11 @@
     transform: translateY(-100vh);
   }
 }
+@media only screen and (max-width: 460px) {
+  .grid--portrait {
+    flex-grow: 0;
+  }
+}
 
 .grid--email, .grid--phone {
   margin: 2rem auto;
@@ -176,6 +181,7 @@
     margin-top: 0.5rem;
     margin-bottom: 10rem;
     transition: all 1s linear;
+    flex-grow: 0;
   }
   .app--open .buttons {
     margin-bottom: 0;
