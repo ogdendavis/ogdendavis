@@ -53,9 +53,13 @@ const setup = () => {
   makeGrid('button3',29,15,pxSize);
 
   // Adjust container sizing based on viewport width (as reflected in px size)
-  const containerWidth = `${45 * pxSize}rem`
   app.contentBox.style.maxHeight = `${45 * pxSize}rem`;
   document.querySelector('.buttons').style.width = app.viewportWidth > app.breakpoints[0] ? `${35 * pxSize}rem` : `${90 * pxSize}rem`;
+
+  // If below first breakpoint, force content box to same width as portrait grid
+  if (app.viewportWidth <= app.breakpoints[0]) {
+    app.contentBox.style.width = `${45 * pxSize}rem`;
+  }
 }
 
 const startApp = () => {

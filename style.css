@@ -58,8 +58,13 @@
   scrollbar-width: thin;
 }
 .app--open .content__box {
-  max-width: calc(100vw - (90 * 0.5rem));
+  max-width: 40vw;
   padding: 0 1.5rem;
+}
+@media only screen and (max-width: 1075px) {
+  .app--open .content__box {
+    max-width: 50vw;
+  }
 }
 
 /* Scrollbar styling for Chrome */
