@@ -42,7 +42,6 @@ const app = {
 };
 
 const setup = () => {
-  console.log(app.viewportWidth);
   // Adjust pixel size and width here, to make sure sizing is appropriate for viewport
   const portraitPxSize = app.viewportWidth >= 1200 ? 0.5 :
                          app.viewportWidth > app.breakpoints[0] ? 0.4 :

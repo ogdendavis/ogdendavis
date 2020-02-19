@@ -32,6 +32,8 @@
   transition: all 1s ease-in-out;
   font-size: 2rem;
   opacity: 1;
+  width: 100vw;
+  text-align: center;
 }
 @media only screen and (max-width: 460px) {
   .hello {
