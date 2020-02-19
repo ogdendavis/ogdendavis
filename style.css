@@ -42,13 +42,18 @@
   display: flex;
   flex-flow: row nowrap;
 }
+@media only screen and (max-width: 1075px) {
+  .container {
+    flex-flow: row wrap;
+    align-items: center;
+  }
+}
 
 .content__box {
   width: 40vw;
   max-width: 0;
   transition: all 2s linear;
   box-sizing: border-box;
-  /* max-height: calc(45 * 0.5rem); */
   scrollbar-color: #808080 lightyellow;
   scrollbar-width: thin;
 }
@@ -76,6 +81,11 @@
   transform: translateY(-300%);
   transition: all 2s linear;
 }
+@media only screen and (max-width: 1075px) {
+  .grid--portrait {
+    transform: translateX(-300%);
+  }
+}
 
 .grid--email, .grid--phone {
   margin: 2rem auto;
@@ -85,15 +95,21 @@
   opacity: 0;
   transition: all .25s linear;
   font-size: 1rem;
-  box-sizing: border-box:
+  box-sizing: border-box;
 }
 
 .buttons {
-  /* width: calc(45 * 0.5rem); */
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   box-sizing: border-box;
+}
+@media only screen and (max-width: 1075px) {
+  .buttons {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
 }
 
 

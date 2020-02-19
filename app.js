@@ -29,6 +29,8 @@ window.onload = function() {
 
 // Create object that holds all app elements for use in app functions
 const app = {
+  viewportWidth: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+  breakpoints: [1075],
   activePortrait: false,
   app: document.querySelector('.app'),
   grids: document.querySelectorAll('.grid'),
@@ -41,22 +43,19 @@ const app = {
 
 const setup = () => {
   // Adjust pixel size and width here, to make sure sizing is appropriate for viewport
-  const vwRem = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) / 16;
-  const fitPxSize = Math.floor((vwRem / 3) / 45 * 10) / 10;
-  const usePxSize = fitPxSize >= 0.5 ? 0.5 :
-                    fitPxSize <= 0.3 ? 0.3 : fitPxSize;
+  const pxSize = app.viewportWidth >= 1200 ? 0.5 :
+                 app.viewportWidth > app.breakpoints[0] ? 0.4 : 0.5;
 
   // Make the grids using the appropriate pixel size
-  makeGrid('portrait',45,45,usePxSize);
-  makeGrid('button1',29,15,usePxSize);
-  makeGrid('button2',29,15,usePxSize);
-  makeGrid('button3',29,15,usePxSize);
+  makeGrid('portrait',45,45,pxSize);
+  makeGrid('button1',29,15,pxSize);
+  makeGrid('button2',29,15,pxSize);
+  makeGrid('button3',29,15,pxSize);
 
   // Adjust container sizing based on viewport width (as reflected in px size)
-  const containerWidth = `${45 * fitPxSize}rem`
-  app.contentBox.style.maxHeight = `${45 * fitPxSize}rem`;
-  //app.contentBox.style.width = `${45 * fitPxSize}rem`;
-  document.querySelector('.buttons').style.width = `${35 * fitPxSize}rem`;
+  const containerWidth = `${45 * pxSize}rem`
+  app.contentBox.style.maxHeight = `${45 * pxSize}rem`;
+  document.querySelector('.buttons').style.width = app.viewportWidth > app.breakpoints[0] ? `${35 * pxSize}rem` : `${90 * pxSize}rem`;
 }
 
 const startApp = () => {
@@ -132,10 +131,12 @@ const populateFooter = (content, side) => {
  */
 
 const introAnimate = (x=32,y=3,tick=30) => {
+  // width offset to center Lucas at end of stage 2
+  const offsetX = 16
+
+  // Draw Lucas! He'll stay in this spot until the grid transitions in
   drawLucas('portrait',x,y);
 
-  // width offset to center Lucas at end of stage 2
-  offsetX = 16
   // Stage timing variables, for reference and consistency
   const sOneStart = 250;
   const sOneEnd = sOneStart + 2100;

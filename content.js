@@ -4,6 +4,6 @@ var contentData = JSON.stringify({
   "family": `<h2>Get @ Me</h2><p>I live in Thomasville, Georgia, with my wife Kim, and our pets: Sylvie the cat and Figgy the dog.</p><p>You can get in touch with me at:</p><div class="grid grid--email"></div><div class="grid grid--phone"></div>`,
   "footer": {
     "left": `<p>&#169; 2020, Lucas Ogden-Davis`,
-    "right": `<p>Looking for my brother, the translator? He's <a href="https://www.ogden-davis.com/" target="_blank">here</a>.`
+    "right": `<p>Looking for my brother, Joshua Ogden-Davis? He's <a href="https://www.ogden-davis.com/" target="_blank">here</a>.`
   }
 });
