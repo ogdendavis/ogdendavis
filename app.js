@@ -21,9 +21,8 @@ window.onload = async function() {
   //introAnimate();
   drawLucas('portrait', 32, 3);
   const svg = await getSVG('lucas');
+  svg.width = '200px';
   app.contentBox.innerHTML = svg;
-  console.log(svg);
-  // console.log(getSVG('lucas'));
 }
 
 /*
