@@ -16,9 +16,14 @@
  * Makes it go!
  */
 
-window.onload = function() {
+window.onload = async function() {
   setup();
-  introAnimate();
+  //introAnimate();
+  drawLucas('portrait', 32, 3);
+  const svg = await getSVG('lucas');
+  app.contentBox.innerHTML = svg;
+  console.log(svg);
+  // console.log(getSVG('lucas'));
 }
 
 /*
@@ -1344,4 +1349,11 @@ const drawSylvie = (gridName, x=0, y=0) => {
     4: [2],
   }
   fill(gridName,x,y,blackMap,'black');
+}
+
+const getSVG = async id => {
+  // Gets an SVG from a file, and passes it back. For use inserting SVGs into contaienrs on the page.
+  return fetch(`./assets/${id}.svg`)
+    .then(r => r.text())
+    .then(t => {return t});
 }
