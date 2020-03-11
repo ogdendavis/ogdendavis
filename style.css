@@ -225,9 +225,15 @@
 .pixel.dark-brown {
   background: #5b3a1c;
 }
+.pixel--dark-brown {
+  fill: #5b3a1c;
+}
 
 .pixel.darkest-brown {
   background: #432c19;
+}
+.pixel--darkest-brown {
+  fill: #432c19;
 }
 
 .pixel.leather {
@@ -254,6 +260,9 @@
 
 .pixel.white {
   background: #fff;
+}
+.pixel--white {
+  fill: #fff;
 }
 
 .pixel.blue {
