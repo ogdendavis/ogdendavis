@@ -239,9 +239,15 @@
 .pixel.leather {
   background: #5d4037;
 }
+.pixel--leather {
+  fill: #5d4037;
+}
 
 .pixel.dark-leather {
   background: #3e2723;
+}
+.pixel--dark-leather {
+  fill: #3e2723;
 }
 
 .pixel.skin {
@@ -290,6 +296,9 @@
 
 .pixel.gray {
   background: #808080;
+}
+.pixel--gray {
+  fill: #808080;
 }
 
 .pixel.shadow-gray {
