@@ -28,4 +28,8 @@
     <polygon class="pixel--dark-leather" points="60,390 110,390 110,400 60,400" />
     <polygon class="pixel--dark-leather" points="130,390 180,390 180,400 130,400" />
   </g>
+  <g class="lucas__arms">
+    <polygon class="lucas__arm--right pixel--skin" points="60,190 80,190 80,290 60,290 60,280 50,280 50,260 60,260" />
+    <polygon class="lucas__arm--left pixel--skin" points="160,190 180,190 180,260 190,260 190,280 180,280 180,290 160,290" />
+  </g>
 </svg>
