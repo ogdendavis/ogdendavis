@@ -23,6 +23,9 @@ window.onload = async function() {
   const svg = await getSVG('lucas');
   svg.width = '200px';
   app.contentBox.innerHTML = svg;
+  window.setTimeout(function() {
+    modSVG('lucas','wave');
+  }, 1000)
 }
 
 /*
@@ -1350,9 +1353,28 @@ const drawSylvie = (gridName, x=0, y=0) => {
   fill(gridName,x,y,blackMap,'black');
 }
 
-const getSVG = async id => {
+const getSVG = async (id) => {
   // Gets an SVG from a file, and passes it back. For use inserting SVGs into contaienrs on the page.
   return fetch(`./assets/${id}.svg`)
     .then(r => r.text())
     .then(t => {return t});
+}
+
+const modSVG = (id, mod=false) => {
+  // Reaches into the DOM to modify an svg which has already been placed
+  // const svg = document.querySelector(`#svg--${id}`);
+  switch (id) {
+    case 'lucas':
+      switch(mod) {
+        case 'thumbsUp':
+          document.querySelector('.lucas__arm--right').setAttribute('points', '60,190 80,190 80,240 10,240 10,210 20,210 20,200 30,200 30,220 60,220');
+          break;
+        case 'wave':
+          document.querySelector('.lucas__arm--right').setAttribute('points', '60,190 20,190 20,100 40,100 40,110 50,110 50,130 40,130 40,170 60,170');
+          break;
+        case 'defaultArms':
+          document.querySelector('.lucas__arm--right').setAttribute('points', '60,190 80,190 80,290 60,290 60,280 50,280 50,260 60,260');
+      }
+
+  }
 }
