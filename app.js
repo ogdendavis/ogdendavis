@@ -24,8 +24,11 @@ window.onload = async function() {
   svg.width = '200px';
   app.contentBox.innerHTML = svg;
   window.setTimeout(function() {
-    modSVG('lucas','wave');
-  }, 1000)
+    modSVG('lucas','workout');
+  }, 1000);
+  // window.setTimeout(function() {
+  //   modSVG('lucas','defaultArms');
+  // },3000)
 }
 
 /*
@@ -1362,6 +1365,7 @@ const getSVG = async (id) => {
 
 const modSVG = (id, mod=false) => {
   // Reaches into the DOM to modify an svg which has already been placed
+  // Assumes starting from base SVG -- if not, reset the svg first!
   // const svg = document.querySelector(`#svg--${id}`);
   switch (id) {
     case 'lucas':
@@ -1374,6 +1378,37 @@ const modSVG = (id, mod=false) => {
           break;
         case 'defaultArms':
           document.querySelector('.lucas__arm--right').setAttribute('points', '60,190 80,190 80,290 60,290 60,280 50,280 50,260 60,260');
+          break;
+        case 'workout':
+          // Add headband
+          const headband = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
+          headband.classList.add('pixel--red');
+          headband.setAttribute('points', '70,30 170,30 170,50 70,50');
+          document.querySelector('.lucas__head').appendChild(headband);
+          // Change shirt color
+          const shirt = document.querySelector('.lucas__torso polygon');
+          shirt.classList.forEach(cls => shirt.classList.remove(cls));
+          shirt.classList.add('pixel--red');
+          // Put on shorts by shortening pants and drawing shins
+          const legs = document.querySelector('.lucas__legs');
+          const pants = document.querySelector('.lucas__legs polygon');
+          pants.setAttribute('points', '80,260 160,260 160,320 130,320 130,290 110,290 110,320 80,320');
+          const leftShin = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
+          leftShin.classList.add('pixel--skin');
+          leftShin.setAttribute('points', '160,320 160,380 140,380 140,320');
+          legs.appendChild(leftShin);
+          const rightShin = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
+          rightShin.classList.add('pixel--skin');
+          rightShin.setAttribute('points', '100,320 100,380 80,380 80,320');
+          legs.appendChild(rightShin);
+          // Change shoe size to match new leg width
+          const shoes = document.querySelectorAll('.lucas__shoes polygon');
+          shoes.forEach(shoe => {
+            const shoeSize = `${shoe.points}`;
+            console.log(shoeSize);
+          });
+          console.log(shoes);
+          break;
       }
 
   }

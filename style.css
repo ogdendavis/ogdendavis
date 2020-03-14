@@ -281,6 +281,9 @@
 .pixel.red {
   background: #f44336;
 }
+.pixel--red {
+  fill: #f44336;
+}
 
 .pixel.dark-red {
   background: #dd2c00;
