@@ -27,7 +27,7 @@ window.onload = async function() {
     modSVG('lucas','workout');
   }, 1000);
   // window.setTimeout(function() {
-  //   modSVG('lucas','defaultArms');
+  //   modSVG('lucas','thumbsUp');
   // },3000)
 }
 
@@ -1403,11 +1403,16 @@ const modSVG = (id, mod=false) => {
           legs.appendChild(rightShin);
           // Change shoe size to match new leg width
           const shoes = document.querySelectorAll('.lucas__shoes polygon');
+          const shoeDownsize = {
+            '110':'100',
+            '130':'140'
+          }
           shoes.forEach(shoe => {
-            const shoeSize = `${shoe.points}`;
-            console.log(shoeSize);
+            let points = shoe.getAttribute('points');
+            shoe.setAttribute('points', points.replace(/110|130/g, (match) => {
+              return shoeDownsize[match]
+            }));
           });
-          console.log(shoes);
           break;
       }
 
