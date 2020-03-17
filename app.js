@@ -20,6 +20,13 @@ window.onload = async function() {
   setup();
   introAnimate();
 
+  const button = await getSVG('button--work');
+  document.querySelector('#button1').innerHTML = button;
+  const button2 = await getSVG('button--play');
+  document.querySelector('#button2').innerHTML = button2;
+  const button3 = await getSVG('button--atme');
+  document.querySelector('#button3').innerHTML = button3;
+
   // drawLucas('portrait', 32, 3);
   // const svg = await getSVG('lucas');
   // svg.width = '200px';
@@ -191,6 +198,7 @@ const introAnimate = async (x=32,y=3,tick=30) => {
   }, sTwoStart);
 
   // Stage 3: Add nav buttons
+  /* WORKING ON THIS -- DRAW THE BUTTONS! */
   window.setTimeout(() => {
     drawButtons()
     // Also start the app from here, since it's our last step
