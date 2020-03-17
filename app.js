@@ -173,8 +173,6 @@ const introAnimate = (x=32,y=3,tick=30) => {
   const sOneStart = 250;
   const sOneEnd = sOneStart + 2100;
   const sTwoStart = sOneEnd + 750;
-  const sTwoEnd = sTwoStart + offsetX * tick;
-  const sThreeStart = sTwoEnd + 100;
 
   // Stage 0: Add and then remove hello element;
   const sayHi = document.createElement('div');
@@ -203,15 +201,15 @@ const introAnimate = (x=32,y=3,tick=30) => {
   window.setTimeout(() => {
     modSVG('lucas','defaultArms');
     lucas.style.right = '95px';
-  }, sTwoStart);
-
-  // Stage 3: Add nav buttons
-  /* WORKING ON THIS -- DRAW THE BUTTONS! */
-  window.setTimeout(() => {
-    drawButtons()
-    // Also start the app from here, since it's our last step
+    app.buttons[0].innerHTML = app.svg.buttons.work;
+    app.buttons[1].innerHTML = app.svg.buttons.play;
+    app.buttons[2].innerHTML = app.svg.buttons.atme;
+    app.buttons.forEach(button => button.style.opacity = 1);
+    /* DO NEXT
+     * Make it so startApp works with new svg setup!
+     */
     startApp();
-  }, sTwoStart + 50);
+  }, sTwoStart);
 }
 
 const switchContent = (oldContent, newContent) => {
