@@ -17,15 +17,8 @@
  */
 
 window.onload = async function() {
-  setup();
+  await setup();
   introAnimate();
-
-  const button = await getSVG('button--work');
-  document.querySelector('#button1').innerHTML = button;
-  const button2 = await getSVG('button--play');
-  document.querySelector('#button2').innerHTML = button2;
-  const button3 = await getSVG('button--atme');
-  document.querySelector('#button3').innerHTML = button3;
 
   // drawLucas('portrait', 32, 3);
   // const svg = await getSVG('lucas');
@@ -65,12 +58,28 @@ const app = {
   portrait: document.querySelector('.frame--portrait'),
   contentBox: document.querySelector('.content__box'),
   footer: document.querySelector('.footer'),
-  content: {}, // Loaded in startApp
+  content: {}, // Loaded in setup
+  svg: {} // loaded in setup
 };
 
-const setup = () => {
+const setup = async () => {
   // Get content from local JSON file -- switch to CMS at some point?
   app.content = JSON.parse(contentData);
+
+  // Load SVGs now for future use
+  const lucas = await getSVG('lucas');
+  const buttonWork = await getSVG('button--work');
+  const buttonPlay = await getSVG('button--play');
+  const buttonAtme = await getSVG('button--atme');
+
+  app.svg = {
+    lucas: lucas,
+    buttons: {
+      work: buttonWork,
+      play: buttonPlay,
+      atme: buttonAtme,
+    },
+  }
 
   // If there's footer content, load it in!
   // The rest of the content is loaded in on button click, by handleClick
@@ -143,7 +152,7 @@ const populateFooter = (content, side) => {
  * moving an element within its grid
  */
 
-const introAnimate = async (x=32,y=3,tick=30) => {
+const introAnimate = (x=32,y=3,tick=30) => {
   // width offset to center Lucas at end of stage 2
   const offsetX = 16
   // On phones, Lucas should slide in from top already centered
@@ -152,8 +161,7 @@ const introAnimate = async (x=32,y=3,tick=30) => {
   }
 
   // Draw Lucas! He'll stay in this spot until the grid transitions in
-  const lucasSVG = await getSVG('lucas');
-  app.portrait.innerHTML = lucasSVG;
+  app.portrait.innerHTML = app.svg.lucas;
   const lucas = document.querySelector('#svg--lucas');
   lucas.style.position = 'absolute';
   lucas.style.right = '-2.5rem';
@@ -1408,9 +1416,9 @@ const modSVG = (id, mod=false) => {
   }
 }
 
-const resetSVG = async (id) => {
-  // Get initial, unmodified SVG from file, and get info about the current svg and its container
-  const initialSVG = await getSVG(id);
+const resetSVG = (id) => {
+  // Get initial, unmodified SVG from app object, and get info about the current svg and its container
+  const initialSVG = id.slice(0,8) === 'button--' ? app.svg.buttons[id.slice(8)] : app.svg[id];
   const currentSVG = document.querySelector(`#svg--${id}`);
   const currentParent = currentSVG.parentNode;
 
