@@ -403,21 +403,23 @@
   transition: all .5s ease-in-out;
 }
 
-.button:hover .pixel.button__bg {
-  background: #3f51b5;
+.button:hover .pixel--button-bg {
+  fill: #3f51b5;
+  fill-opacity: 1;
 }
 
-.button:hover .pixel.button__text {
-  background: #fff;
+.button:hover .pixel--button-text {
+  fill: #fff;
 }
 
 
-.button--selected .pixel.button__bg, .button--selected:hover .pixel.button__bg {
-  background: #808080;
+.button--selected .pixel--button-bg, .button--selected:hover .pixel--button-bg {
+  fill: #808080;
+  fill-opacity: 1;
 }
 
-.button--selected .pixel.button__text, .button--selected:hover .pixel.button__text {
-  background: #c0c0c0;
+.button--selected .pixel--button-text, .button--selected:hover .pixel--button-text {
+  fill: #c0c0c0;
 }
 
 /*
