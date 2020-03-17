@@ -18,26 +18,27 @@
 
 window.onload = async function() {
   setup();
-  //introAnimate();
-  drawLucas('portrait', 32, 3);
-  const svg = await getSVG('lucas');
-  svg.width = '200px';
-  app.contentBox.innerHTML = svg;
-  const randomDiv = document.createElement('div');
-  randomDiv.innerText = 'yo';
-  app.contentBox.appendChild(randomDiv);
-  window.setTimeout(function() {
-    modSVG('lucas','workout');
-  }, 500);
-  window.setTimeout(function() {
-    modSVG('lucas','thumbsUp');
-  },1000);
-  window.setTimeout(function() {
-    modSVG('lucas','wave');
-  },1500);
-  window.setTimeout(function() {
-    resetSVG('lucas');
-  },2000);
+  introAnimate();
+
+  // drawLucas('portrait', 32, 3);
+  // const svg = await getSVG('lucas');
+  // svg.width = '200px';
+  // app.contentBox.innerHTML = svg;
+  // const randomDiv = document.createElement('div');
+  // randomDiv.innerText = 'yo';
+  // app.contentBox.appendChild(randomDiv);
+  // window.setTimeout(function() {
+  //   modSVG('lucas','workout');
+  // }, 500);
+  // window.setTimeout(function() {
+  //   modSVG('lucas','thumbsUp');
+  // },1000);
+  // window.setTimeout(function() {
+  //   modSVG('lucas','wave');
+  // },1500);
+  // window.setTimeout(function() {
+  //   resetSVG('lucas');
+  // },2000);
 }
 
 /*
@@ -52,47 +53,15 @@ const app = {
   breakpoints: [1075, 760, 460],
   activePortrait: false,
   app: document.querySelector('.app'),
-  grids: document.querySelectorAll('.grid'),
+  frames: document.querySelectorAll('.frame'),
   buttons: document.querySelectorAll('.button'),
-  portrait: document.querySelector('.grid--portrait'),
+  portrait: document.querySelector('.frame--portrait'),
   contentBox: document.querySelector('.content__box'),
   footer: document.querySelector('.footer'),
   content: {}, // Loaded in startApp
 };
 
 const setup = () => {
-  // Adjust pixel size and width here, to make sure sizing is appropriate for viewport
-  const portraitPxSize = app.viewportWidth >= 1200 ? 0.5 :
-                         app.viewportWidth > app.breakpoints[0] ? 0.4 :
-                         app.viewportWidth > app.breakpoints[1] ? 0.5 :
-                         app.viewPortWidth > app.breakpoints[2] ? 0.4 : 0.3;
-  const buttonPxSize = app.viewportWidth > app.breakpoints[1] ? portraitPxSize :
-                       app.viewPortWidth > app.breakpoints[2] ? 0.3 : 0.25;
-
-  // Make the grids using the appropriate pixel size
-  makeGrid('portrait',45,45,portraitPxSize);
-  makeGrid('button1',29,15,buttonPxSize);
-  makeGrid('button2',29,15,buttonPxSize);
-  makeGrid('button3',29,15,buttonPxSize);
-
-  // Adjust container sizing based on viewport width
-  if (app.viewportWidth <= app.breakpoints[1]) {
-    // If at or below second breakpoint, set width the same as button container width
-    app.contentBox.style.width = `${90 * buttonPxSize}rem`;
-  }
-  else {
-    app.contentBox.style.height = `${45 * portraitPxSize}rem`;
-  }
-  // If below first breakpoint but above second, force content box to same width as portrait grid
-  if (app.viewportWidth <= app.breakpoints[0] && app.viewportWidth > app.breakpoints[1]) {
-    app.contentBox.style.width = `${45 * portraitPxSize}rem`;
-  }
-
-  // Set button area width
-  document.querySelector('.buttons').style.width = app.viewportWidth > app.breakpoints[0] ? `${35 * buttonPxSize}rem` : `${90 * buttonPxSize}rem`;
-
-
-
   // Get content from local JSON file -- switch to CMS at some point?
   app.content = JSON.parse(contentData);
 
@@ -167,7 +136,7 @@ const populateFooter = (content, side) => {
  * moving an element within its grid
  */
 
-const introAnimate = (x=32,y=3,tick=30) => {
+const introAnimate = async (x=32,y=3,tick=30) => {
   // width offset to center Lucas at end of stage 2
   const offsetX = 16
   // On phones, Lucas should slide in from top already centered
@@ -176,7 +145,14 @@ const introAnimate = (x=32,y=3,tick=30) => {
   }
 
   // Draw Lucas! He'll stay in this spot until the grid transitions in
-  drawLucas('portrait',x,y);
+  const lucasSVG = await getSVG('lucas');
+  app.portrait.innerHTML = lucasSVG;
+  const lucas = document.querySelector('#svg--lucas');
+  lucas.style.position = 'absolute';
+  lucas.style.right = '-2.5rem';
+  lucas.style.bottom = 0;
+  lucas.style.transition = 'right .25s linear';
+
 
   // Stage timing variables, for reference and consistency
   const sOneStart = 250;
@@ -204,18 +180,15 @@ const introAnimate = (x=32,y=3,tick=30) => {
     app.portrait.style.transform = 'none';
   }, sOneStart);
   window.setTimeout(() => {
-    resetGrid('portrait');
-    drawLucas('portrait',x,y,{lucasArmPos:'wave'});
+    modSVG('lucas','wave');
   }, sOneEnd);
 
   // Stage 2: Slide Lucas left
   // Modified from first draft animate function
-  for (let j = x; j >= offsetX; j--) {
-    window.setTimeout(() => {
-      resetGrid('portrait');
-      drawLucas('portrait',j,y);
-    }, sTwoStart + (x-j) * tick);
-  }
+  window.setTimeout(() => {
+    modSVG('lucas','defaultArms');
+    lucas.style.right = '95px';
+  }, sTwoStart);
 
   // Stage 3: Add nav buttons
   window.setTimeout(() => {

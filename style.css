@@ -78,9 +78,10 @@
 }
 
 .content__box {
-  /* opacity: 0; */
+  opacity: 0;
   width: 40vw;
-  /* max-width: 0; */
+  height: 24rem;
+  max-width: 0;
   transition: all .25s linear;
   box-sizing: border-box;
   font-size: 1rem;
@@ -133,34 +134,46 @@
   background-color: #808080;
 }
 
-.grid {
+.frame {
   box-sizing: border-box;
   position: relative;
   line-height: 0;
 }
 
-/* .grid--portrait {
+/* TEMP for fixing css without pixels */
+.frame, .content__box {
+  border: 1px solid black;
+}
+
+.frame--portrait {
   transform: translateY(-300%);
   transition: all 2s linear;
+  width: 24rem;
+  height: 24rem;
 }
 @media only screen and (max-width: 1075px) {
-  .grid--portrait {
+  .frame--portrait {
     transform: translateX(-300%);
   }
 }
 @media only screen and (max-width: 760px) {
-  .grid--portrait {
+  .frame--portrait {
     transform: translateY(-100vh);
   }
 }
 @media only screen and (max-width: 460px) {
-  .grid--portrait {
+  .frame--portrait {
     flex-grow: 0;
   }
-} */
+}
 
-.grid--email, .grid--phone {
+.frame--email, .frame--phone {
   margin: 2rem auto;
+}
+
+.frame.button {
+  width: 15rem;
+  height: 8rem;
 }
 
 .buttons {
@@ -194,7 +207,6 @@
  */
 
 .pixel {
-  /* Pixel size now set inline with makeGrid function */
   display: inline-block;
   box-sizing: border-box;
   pointer-events: none;
