@@ -23,12 +23,21 @@ window.onload = async function() {
   const svg = await getSVG('lucas');
   svg.width = '200px';
   app.contentBox.innerHTML = svg;
+  const randomDiv = document.createElement('div');
+  randomDiv.innerText = 'yo';
+  app.contentBox.appendChild(randomDiv);
   window.setTimeout(function() {
     modSVG('lucas','workout');
-  }, 1000);
-  // window.setTimeout(function() {
-  //   modSVG('lucas','thumbsUp');
-  // },3000)
+  }, 500);
+  window.setTimeout(function() {
+    modSVG('lucas','thumbsUp');
+  },1000);
+  window.setTimeout(function() {
+    modSVG('lucas','wave');
+  },1500);
+  window.setTimeout(function() {
+    resetSVG('lucas');
+  },2000);
 }
 
 /*
@@ -1415,6 +1424,26 @@ const modSVG = (id, mod=false) => {
           });
           break;
       }
+  }
+}
 
+const resetSVG = async (id) => {
+  // Get initial, unmodified SVG from file, and get info about the current svg and its container
+  const initialSVG = await getSVG(id);
+  const currentSVG = document.querySelector(`#svg--${id}`);
+  const currentParent = currentSVG.parentNode;
+
+  // If there are multiple SVGs in the container, just remove the one we want to
+  // reset, and insert the reset version back in the same spot
+  if (currentParent.childElementCount > 1) {
+    const currentNextSibling = currentSVG.nextElementSibling;
+    currentParent.removeChild(currentSVG);
+    const newContainer = document.createElement('div');
+    newContainer.innerHTML = initialSVG;
+    currentParent.insertBefore(newContainer.firstElementChild, currentNextSibling);
+  }
+  else {
+    // If it's the only SVG in the container, we can just rewrite the container contents
+    currentParent.innerHTML = initialSVG;
   }
 }
