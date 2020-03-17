@@ -212,6 +212,12 @@
   pointer-events: none;
 }
 
+/* SVG sizing, based on legacy pixel sizes */
+#svg--lucas {
+  width: 12rem;
+  height: 20rem;
+}
+
 /* Colors! Classes used by JS to draw pixel art */
 .pixel.brown {
   background: #744720;
@@ -362,6 +368,9 @@
 
 .pixel.button__text {
   background: #3f51b5;
+}
+.pixel--button-text {
+  fill: #3f51b5;
 }
 
 
