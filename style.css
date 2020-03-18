@@ -140,11 +140,6 @@
   line-height: 0;
 }
 
-/* TEMP for fixing css without pixels */
-.frame, .content__box {
-  border: 1px solid black;
-}
-
 .frame--portrait {
   transform: translateY(-300%);
   transition: all 2s linear;

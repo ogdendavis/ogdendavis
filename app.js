@@ -237,88 +237,53 @@ const switchContent = (oldContent, newContent) => {
   },250);
 }
 
-// Hold all timeouts set by switchPortrait, so can clearn them if another click happens before animation is done
-var portraitAnimationTimeouts = [];
-
-const switchPortrait = (oldPortrait, newPortrait, tick=5) => {
+const switchPortrait = (oldPortrait, newPortrait) => {
   // Early return to cancel animation on button re-click
   if (oldPortrait === newPortrait) {
     return;
   }
 
-  // If a portrait animation is going, cancel it!
-  if (portraitAnimationTimeouts !== []) {
-    for (let i=0; i<portraitAnimationTimeouts.length; i++) {
-      window.clearTimeout(portraitAnimationTimeouts[i]);
+  /* First, animate the frame off screen */
+  app.portrait.style.transform = 'translateY(1500%)';
+
+  /* Next, remove SVG(s) from the frame while it's off screen */
+  window.setTimeout(() => {
+    document.querySelectorAll('#portrait > svg').forEach(s => { s.parentNode.removeChild(s); })
+  }, 400);
+
+  /* Now add new SVG(s) to the frame */
+  window.setTimeout(() => {
+    // Vars to hold selected SVGs, and styles needed for portrait to display properly
+    let newSVGs;
+    let styleMap = {};
+    // Append SVGs to frame, and add needed styles to style object
+    switch (newPortrait) {
+      default:
+        newSVGs = app.svg.lucas;
+        styleMap.lucas = {
+          position: 'absolute',
+          bottom: 0,
+          right: '95px',
+        }
     }
-  }
+    app.portrait.innerHTML = newSVGs;
 
-  /* First, find location of old portrait and animate it out */
+    // After appending SVGs, but before moving frame back into view, update styles
+    document.querySelectorAll('#portrait > svg').forEach(s => {
+      const id = s.id.slice(5)
+      if (styleMap[id]) {
+        for (const [rule, val] of Object.entries(styleMap[id])) {
+          s.style[rule] = val;
+        }
+      }
+    });
+  }, 450);
 
-  // Get topmost (lowest) Y position and leftmost (lowest) X position
-  let [leftX, topY] = [...document.querySelectorAll('.grid--portrait .pixel')].reduce((a,c) => {
-    let [x, y] = c.classList.length > 1 ? c.id.split(/\D/).filter(it => it.length > 0) : [45,45];
-    x = Number(x) < a[0] ? Number(x) : a[0];
-    y = Number(y) < a[1] ? Number(y) : a[1];
-    return [x,y];
-  }, [45,45]);
+  /* Finally, animate frame back in */
+  window.setTimeout(() => {
+    app.portrait.style.transform = 'none';
+  }, 500)
 
-  // Adjust based on known portrait offsets
-  // Declare which portrait to use in window.setTimeout later
-  let goOut;
-  switch (oldPortrait) {
-    case 'lucas':
-      leftX++;
-      goOut = (x,y,o={}) => drawLucas('portrait', x, y);
-      break;
-    case 'work':
-      goOut = (x,y,o={}) => workPortrait(x,y,o);
-      break;
-    case 'play':
-      goOut = (x,y,o={}) => playPortrait(x,y,o);
-      break;
-    case 'family':
-      goOut = (x,y,o={}) => familyPortrait(x,y,o);
-      break;
-    default:
-      console.error('No valid old portrait passed to switchPortrait');
-  }
-
-  for (let i=topY; i <= 45; i++) {
-    portraitAnimationTimeouts.push(window.setTimeout(() => {
-      resetGrid('portrait');
-      goOut(leftX, i);
-    }, i * tick));
-  }
-
-
-  /* Next, animate new portrait in */
-  const startIn = 45 * tick + tick;
-
-  // Declare which portrait to use, adjust position based on known offsets
-  let comeIn, left=0, top=3;
-  switch (newPortrait) {
-    case 'work':
-      left = 6;
-      comeIn = (x,y,o={}) => workPortrait(x,y,o);
-      break;
-    case 'play':
-      left = 2;
-      comeIn = (x,y,o={}) => playPortrait(x,y,o);
-      break;
-    case 'family':
-      comeIn = (x,y,o={}) => familyPortrait(x,y,o);
-      break;
-    default:
-      console.error('No valid new portrait passed to switchPortrait');
-  }
-
-  for (let j=45; j >= top; j--) {
-    portraitAnimationTimeouts.push(window.setTimeout(() => {
-      resetGrid('portrait');
-      comeIn(left,j);
-    }, startIn + ((45 - j) * tick)));
-  }
 }
 
 
