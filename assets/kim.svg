@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 350" shape-rendering="crispEdges" id="svg--kim" class="svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 340" shape-rendering="crispEdges" id="svg--kim" class="svg">
   <!-- In units of 10 per grid pixel. Offset of 10 from top and left -->
   <g class="kim__head">
     <polygon class="pixel--light-brown" points="50,10 120,10 120,20 130,20 130,30 140,30 140,40 150,40 150,60 140,60 140,50 130,50 130,40 120,40 120,30 100,30 100,40 70,40 70,50 50,50 50,70 40,70 40,60 30,60 30,80 40,80 40,110, 50,110 50,120 60,120 60,130 80,130 80,140 60,140 60,150 20,150 20,140 10,140 10,110 20,110 20,50 30,50 30,30 40,30 40,20 50,20" />
