@@ -218,10 +218,19 @@
   height: 20rem;
 }
 #svg--kim {
-  margin-top: 35vh;
-  margin-left: 45vw;
   width: 8rem;
   height: 17.5rem;
+}
+#svg--sylvie {
+  width: 4rem;
+  height: 5rem;
+  transform: scale(2);
+  margin-top: 35vh;
+  margin-left: 45vw;
+}
+#svg--figgy {
+  width: 3.5rem;
+  height: 4.5rem;
 }
 .svg--button {
   width: 14.5rem;
@@ -343,6 +352,9 @@
 .pixel.light-gray {
   background: #c0c0c0;
 }
+.pixel--light-gray {
+  fill:#c0c0c0;
+}
 
 .pixel.purple {
   background: #9c27b0;
@@ -354,9 +366,15 @@
 .pixel.gold {
   background: #ffb300;
 }
+.pixel--gold {
+  fill: #ffb300;
+}
 
 .pixel.yellow {
   background: #ffe082;
+}
+.pixel--yellow {
+  fill: #ffe082;
 }
 
 .pixel.teal {
