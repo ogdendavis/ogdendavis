@@ -224,13 +224,14 @@
 #svg--sylvie {
   width: 4rem;
   height: 5rem;
-  transform: scale(2);
-  margin-top: 35vh;
-  margin-left: 45vw;
 }
 #svg--figgy {
   width: 3.5rem;
   height: 4.5rem;
+}
+#svg--reg {
+  width: 3.5rem;
+  height: 5.5rem;
 }
 .svg--button {
   width: 14.5rem;
