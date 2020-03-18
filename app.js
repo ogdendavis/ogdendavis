@@ -19,7 +19,6 @@
 window.onload = async function() {
   await setup();
   introAnimate();
-  switchPortrait('lucas','family');
 
   // drawLucas('portrait', 32, 3);
   // const svg = await getSVG('lucas');
@@ -76,6 +75,7 @@ const setup = async () => {
   const buttonWork = await getSVG('button--work');
   const buttonPlay = await getSVG('button--play');
   const buttonAtme = await getSVG('button--atme');
+  const desk = await getSVG('desk');
 
   app.svg = {
     lucas: lucas,
@@ -88,6 +88,7 @@ const setup = async () => {
       play: buttonPlay,
       atme: buttonAtme,
     },
+    desk: desk,
   }
 
   // If there's footer content, load it in!
@@ -130,7 +131,7 @@ const handleClick = (e) => {
   const newPortrait = e.target.id === 'button1' ? 'work' :
                       e.target.id === 'button2' ? 'play' : 'family';
   switchPortrait(oldPortrait,newPortrait);
-
+  
   // Set active portrait in app object
   app.activePortrait = newPortrait;
 
@@ -287,6 +288,22 @@ const switchPortrait = (oldPortrait, newPortrait) => {
             bottom: 0,
             right: 0,
           },
+        }
+        break;
+      case 'work':
+        /* START HERE! Make an SVG of the desk, load it into app object, then use it here */
+        newSVGs = app.svg.lucas + app.svg.desk;
+        styleMap = {
+          lucas: {
+            position: 'absolute',
+            bottom: 0,
+            left: '95px',
+          },
+          desk: {
+            position: 'absolute',
+            bottom: 0,
+            left: '90px',
+          }
         }
         break;
       default:
