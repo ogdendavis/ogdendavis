@@ -19,6 +19,7 @@
 window.onload = async function() {
   await setup();
   introAnimate();
+  switchPortrait('lucas','family');
 
   // drawLucas('portrait', 32, 3);
   // const svg = await getSVG('lucas');
@@ -258,6 +259,36 @@ const switchPortrait = (oldPortrait, newPortrait) => {
     let styleMap = {};
     // Append SVGs to frame, and add needed styles to style object
     switch (newPortrait) {
+      case 'family':
+        newSVGs = app.svg.reg + app.svg.lucas + app.svg.figgy + app.svg.kim + app.svg.sylvie;
+        styleMap = {
+          reg: {
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+          },
+          lucas: {
+            position: 'absolute',
+            bottom: 0,
+            left: '18px',
+          },
+          figgy: {
+            position: 'absolute',
+            bottom: 0,
+            left: '174px',
+          },
+          kim: {
+            position: 'absolute',
+            bottom: 0,
+            left: '200px',
+          },
+          sylvie: {
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+          },
+        }
+        break;
       default:
         newSVGs = app.svg.lucas;
         styleMap.lucas = {
@@ -270,7 +301,7 @@ const switchPortrait = (oldPortrait, newPortrait) => {
 
     // After appending SVGs, but before moving frame back into view, update styles
     document.querySelectorAll('#portrait > svg').forEach(s => {
-      const id = s.id.slice(5)
+      const id = s.id.slice(5);
       if (styleMap[id]) {
         for (const [rule, val] of Object.entries(styleMap[id])) {
           s.style[rule] = val;
