@@ -18,7 +18,8 @@
 
 window.onload = async function() {
   await setup();
-  introAnimate();
+  // introAnimate();
+  document.querySelector('body').innerHTML = app.svg.kim;
 
   // drawLucas('portrait', 32, 3);
   // const svg = await getSVG('lucas');
@@ -68,12 +69,14 @@ const setup = async () => {
 
   // Load SVGs now for future use
   const lucas = await getSVG('lucas');
+  const kim = await getSVG('kim');
   const buttonWork = await getSVG('button--work');
   const buttonPlay = await getSVG('button--play');
   const buttonAtme = await getSVG('button--atme');
 
   app.svg = {
     lucas: lucas,
+    kim: kim,
     buttons: {
       work: buttonWork,
       play: buttonPlay,
@@ -97,8 +100,6 @@ const startApp = () => {
   // Add initial event handlers to buttons. Have to wait until buttons are animated in
   app.buttons.forEach(button => {
     button.addEventListener('click', handleInitialClick);
-    // Removed to fix timing with content animation -- this handler is added by handleInitialClick
-    // button.addEventListener('click', handleClick);
   });
 }
 
@@ -115,7 +116,6 @@ const handleInitialClick = (e) => {
 
   // To make content animation timing work on this initial click, triggering handleClick on a delay
   window.setTimeout(() => handleClick(e), 500);
-
 }
 
 const handleClick = (e) => {
@@ -196,8 +196,7 @@ const introAnimate = (x=32,y=3,tick=30) => {
     modSVG('lucas','wave');
   }, sOneEnd);
 
-  // Stage 2: Slide Lucas left
-  // Modified from first draft animate function
+  // Stage 2: Slide Lucas left, buttons appear, start app
   window.setTimeout(() => {
     modSVG('lucas','defaultArms');
     lucas.style.right = '95px';
@@ -205,9 +204,6 @@ const introAnimate = (x=32,y=3,tick=30) => {
     app.buttons[1].innerHTML = app.svg.buttons.play;
     app.buttons[2].innerHTML = app.svg.buttons.atme;
     app.buttons.forEach(button => button.style.opacity = 1);
-    /* DO NEXT
-     * Make it so startApp works with new svg setup!
-     */
     startApp();
   }, sTwoStart);
 }

@@ -217,6 +217,12 @@
   width: 12rem;
   height: 20rem;
 }
+#svg--kim {
+  margin-top: 35vh;
+  margin-left: 45vw;
+  width: 8rem;
+  height: 17.5rem;
+}
 .svg--button {
   width: 14.5rem;
   height: 6.5rem;
@@ -340,6 +346,9 @@
 
 .pixel.purple {
   background: #9c27b0;
+}
+.pixel--purple {
+  fill: #9c27b0;
 }
 
 .pixel.gold {
