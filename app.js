@@ -128,10 +128,11 @@ const handleInitialClick = (e) => {
 const handleClick = (e) => {
   // Get info for switchPortrait, and switch!
   const oldPortrait = app.activePortrait ? app.activePortrait : 'lucas';
-  const newPortrait = e.target.id === 'button1' ? 'work' :
-                      e.target.id === 'button2' ? 'play' : 'family';
+  const newPortrait = e.target.id.slice(13);
+
   switchPortrait(oldPortrait,newPortrait);
-  
+  console.log(e.target.id);
+  console.log(oldPortrait,newPortrait)
   // Set active portrait in app object
   app.activePortrait = newPortrait;
 
@@ -228,7 +229,7 @@ const switchContent = (oldContent, newContent) => {
     const content = app.contentBox.firstElementChild;
     content.innerHTML = app.content[newContent];
     // If on the @ me tab, add grids for email and phone number
-    if (newContent === 'family') {
+    if (newContent === 'play') {
       drawContactInfo();
     }
     // Make the box visible
@@ -260,7 +261,7 @@ const switchPortrait = (oldPortrait, newPortrait) => {
     let styleMap = {};
     // Append SVGs to frame, and add needed styles to style object
     switch (newPortrait) {
-      case 'family':
+      case 'play':
         newSVGs = app.svg.reg + app.svg.lucas + app.svg.figgy + app.svg.kim + app.svg.sylvie;
         styleMap = {
           reg: {
@@ -291,7 +292,6 @@ const switchPortrait = (oldPortrait, newPortrait) => {
         }
         break;
       case 'work':
-        /* START HERE! Make an SVG of the desk, load it into app object, then use it here */
         newSVGs = app.svg.lucas + app.svg.desk;
         styleMap = {
           lucas: {
@@ -305,6 +305,9 @@ const switchPortrait = (oldPortrait, newPortrait) => {
             left: '90px',
           }
         }
+        break;
+      case 'atme':
+        /* START HERE! Make needed SVGs for @me, and add app logic to display them */
         break;
       default:
         newSVGs = app.svg.lucas;
