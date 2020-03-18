@@ -138,6 +138,7 @@
   box-sizing: border-box;
   position: relative;
   line-height: 0;
+  border: 1px solid black;
 }
 
 .frame--portrait {
@@ -331,6 +332,9 @@
 
 .pixel.dark-green {
   background: #388e3c;
+}
+.pixel--dark-green {
+  fill: #388e3c;
 }
 
 .pixel.gray {

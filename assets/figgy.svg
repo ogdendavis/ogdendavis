@@ -10,5 +10,5 @@
   <polygon class="pixel--black" points="20,10 30,10 30,20 20,20" />
   <polygon class="pixel--black" points="40,10 50,10 50,20 40,20" />
   <polygon class="pixel--black" points="30,30 40,30 40,40 30,40" />
-  <polygon class="pixel--purple" points="20,40 50,40 50,50 20,50" />
+  <polygon class="pixel--dark-green" points="20,40 50,40 50,50 20,50" />
 </svg>
