@@ -18,8 +18,7 @@
 
 window.onload = async function() {
   await setup();
-  // introAnimate();
-  document.querySelector('body').innerHTML = app.svg.kim;
+  introAnimate();
 
   // drawLucas('portrait', 32, 3);
   // const svg = await getSVG('lucas');
@@ -70,6 +69,9 @@ const setup = async () => {
   // Load SVGs now for future use
   const lucas = await getSVG('lucas');
   const kim = await getSVG('kim');
+  const sylvie = await getSVG('sylvie');
+  const figgy = await getSVG('figgy');
+  const reg = await getSVG('reg');
   const buttonWork = await getSVG('button--work');
   const buttonPlay = await getSVG('button--play');
   const buttonAtme = await getSVG('button--atme');
@@ -77,6 +79,9 @@ const setup = async () => {
   app.svg = {
     lucas: lucas,
     kim: kim,
+    sylvie: sylvie,
+    figgy: figgy,
+    reg: reg,
     buttons: {
       work: buttonWork,
       play: buttonPlay,
