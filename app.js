@@ -320,6 +320,12 @@ const switchPortrait = (oldPortrait, newPortrait) => {
     }
     app.portrait.innerHTML = newSVGs;
 
+    // Special case to switch Lucas to workout mode if on the play portrait
+    if (newPortrait === 'play') {
+      modSVG('lucas','workout');
+      modSVG('lucas','thumbsUp');
+    }
+
     // After appending SVGs, but before moving frame back into view, update styles
     document.querySelectorAll('#portrait > svg').forEach(s => {
       const id = s.id.slice(5);
