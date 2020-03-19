@@ -261,7 +261,7 @@ const switchPortrait = (oldPortrait, newPortrait) => {
     let styleMap = {};
     // Append SVGs to frame, and add needed styles to style object
     switch (newPortrait) {
-      case 'play':
+      case 'atme':
         newSVGs = app.svg.reg + app.svg.lucas + app.svg.figgy + app.svg.kim + app.svg.sylvie;
         styleMap = {
           reg: {
@@ -306,8 +306,8 @@ const switchPortrait = (oldPortrait, newPortrait) => {
           }
         }
         break;
-      case 'atme':
-        /* START HERE! Make needed SVGs for @me, and add app logic to display them */
+      case 'play':
+        /* START HERE! Make needed SVGs for play, and add app logic to display them */
         break;
       default:
         newSVGs = app.svg.lucas;
