@@ -232,6 +232,14 @@
   width: 16rem;
   height: 13rem;
 }
+#svg--barbell {
+  width: 13rem;
+  height: 4.5rem;
+}
+#svg--bookshelf {
+  width: 7rem;
+  height: 12.5rem;
+}
 .svg--button {
   width: 14.5rem;
   height: 6.5rem;
@@ -328,6 +336,9 @@
 .pixel.dark-red {
   background: #dd2c00;
 }
+.pixel--dark-red {
+  fill: #dd2c00;
+}
 
 .pixel.green {
   background: #4caf50;
@@ -359,6 +370,9 @@
 
 .pixel.denim {
   background: #3f51b5;
+}
+.pixel--denim {
+  fill: #3f51b5;
 }
 
 .pixel.light-gray {
@@ -392,21 +406,36 @@
 .pixel.teal {
   background: #008080;
 }
+.pixel--teal {
+  fill: #008080;
+}
 
 .pixel.violet {
   background: #800080;
+}
+.pixel--violet {
+  fill: #800080;
 }
 
 .pixel.orange {
   background: #ff5722;
 }
+.pixel--orange {
+  fill: #ff5722;
+}
 
 .pixel.cream {
   background: #ffd180;
 }
+.pixel--cream {
+  fill: #ffd180;
+}
 
 .pixel.bookshelf-back {
   background: #795548;
+}
+.pixel--bookshelf-back {
+  fill: #795548;
 }
 
 .pixel.button__text {

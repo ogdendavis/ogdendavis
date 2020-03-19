@@ -19,26 +19,6 @@
 window.onload = async function() {
   await setup();
   introAnimate();
-
-  // drawLucas('portrait', 32, 3);
-  // const svg = await getSVG('lucas');
-  // svg.width = '200px';
-  // app.contentBox.innerHTML = svg;
-  // const randomDiv = document.createElement('div');
-  // randomDiv.innerText = 'yo';
-  // app.contentBox.appendChild(randomDiv);
-  // window.setTimeout(function() {
-  //   modSVG('lucas','workout');
-  // }, 500);
-  // window.setTimeout(function() {
-  //   modSVG('lucas','thumbsUp');
-  // },1000);
-  // window.setTimeout(function() {
-  //   modSVG('lucas','wave');
-  // },1500);
-  // window.setTimeout(function() {
-  //   resetSVG('lucas');
-  // },2000);
 }
 
 /*
@@ -76,6 +56,8 @@ const setup = async () => {
   const buttonPlay = await getSVG('button--play');
   const buttonAtme = await getSVG('button--atme');
   const desk = await getSVG('desk');
+  const barbell = await getSVG('barbell');
+  const bookshelf = await getSVG('bookshelf');
 
   app.svg = {
     lucas: lucas,
@@ -89,6 +71,8 @@ const setup = async () => {
       atme: buttonAtme,
     },
     desk: desk,
+    barbell: barbell,
+    bookshelf: bookshelf,
   }
 
   // If there's footer content, load it in!
@@ -307,7 +291,24 @@ const switchPortrait = (oldPortrait, newPortrait) => {
         }
         break;
       case 'play':
-        /* START HERE! Make needed SVGs for play, and add app logic to display them */
+        newSVGs = app.svg.lucas + app.svg.barbell + app.svg.bookshelf;
+        styleMap = {
+          lucas: {
+            position: 'absolute',
+            bottom: 0,
+            left: '32px',
+          },
+          barbell: {
+            position: 'absolute',
+            bottom: 0,
+            left: '24px'
+          },
+          bookshelf: {
+            position: 'absolute',
+            bottom: 0,
+            right: '16px',
+          },
+        }
         break;
       default:
         newSVGs = app.svg.lucas;

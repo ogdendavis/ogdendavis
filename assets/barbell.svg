@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 90" shape-rendering="crispEdges" id="svg--barbell" class="svg">
+  <!-- In units of 10 per grid pixel. No offset -->
+  <polygon class="pixel--black" points="20,0 40,0 40,90 20,90 20,70 10,70 10,60 0,60 0,30 10,30 10,20 20,20" />
+  <polygon class="pixel--shadow-gray" points="40,40 220,40 220,50 40,50" />
+  <polygon class="pixel--black" points="220,0 240,0 240,20 250,20 250,30 260,30 260,60 250,60 250,70 240,70 240,90 220,90" />
+</svg>
