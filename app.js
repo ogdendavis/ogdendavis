@@ -58,6 +58,7 @@ const setup = async () => {
   const desk = await getSVG('desk');
   const barbell = await getSVG('barbell');
   const bookshelf = await getSVG('bookshelf');
+  const contact = await getSVG('contact');
 
   app.svg = {
     lucas: lucas,
@@ -73,6 +74,7 @@ const setup = async () => {
     desk: desk,
     barbell: barbell,
     bookshelf: bookshelf,
+    contact: contact,
   }
 
   // If there's footer content, load it in!
@@ -144,14 +146,7 @@ const populateFooter = (content, side) => {
  * moving an element within its grid
  */
 
-const introAnimate = (x=32,y=3,tick=30) => {
-  // width offset to center Lucas at end of stage 2
-  const offsetX = 16
-  // On phones, Lucas should slide in from top already centered
-  if (app.viewportWidth <= app.breakpoints[1]) {
-    x = offsetX;
-  }
-
+const introAnimate = () => {
   // Draw Lucas! He'll stay in this spot until the grid transitions in
   app.portrait.innerHTML = app.svg.lucas;
   const lucas = document.querySelector('#svg--lucas');
