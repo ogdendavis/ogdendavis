@@ -240,6 +240,10 @@
   width: 7rem;
   height: 12.5rem;
 }
+#svg--contact {
+  display: block;
+  margin: 0 auto;
+}
 .svg--button {
   width: 14.5rem;
   height: 6.5rem;

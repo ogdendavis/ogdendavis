@@ -206,6 +206,13 @@ const switchContent = (oldContent, newContent) => {
     // Add the content
     contentContainer.innerHTML = app.content[newContent];
 
+    // If loading atme content, insert contact info svg
+    if (newContent === 'atme') {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = app.svg.contact;
+      contentContainer.appendChild(tempDiv.firstElementChild);
+    }
+
     // Make the box visible
     app.contentBox.style.opacity = '1'
     // Check height of content vs height of app. If content is too tall, add scroll bar
