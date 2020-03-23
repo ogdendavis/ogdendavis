@@ -22,6 +22,7 @@
   width: 100vw;
   height: 100vh;
   font-family: monospace;
+  overflow: hidden;
 }
 
 .hello {
@@ -87,8 +88,6 @@
   font-size: 1rem;
   scrollbar-color: #808080 lightyellow;
   scrollbar-width: thin;
-  display: flex;
-  align-items: center;
 }
 .app--open .content__box {
   max-width: 40vw;
