@@ -117,8 +117,6 @@ const handleClick = (e) => {
   const newPortrait = e.target.id.slice(13);
 
   switchPortrait(oldPortrait,newPortrait);
-  console.log(e.target.id);
-  console.log(oldPortrait,newPortrait)
   // Set active portrait in app object
   app.activePortrait = newPortrait;
 
@@ -154,7 +152,6 @@ const introAnimate = () => {
   lucas.style.right = '-2.5rem';
   lucas.style.bottom = 0;
   lucas.style.transition = 'right .25s linear';
-
 
   // Stage timing variables, for reference and consistency
   const sOneStart = 250;
@@ -205,17 +202,15 @@ const switchContent = (oldContent, newContent) => {
   // Change content and switch opacity back!
   window.setTimeout(() => {
     // Get container to put actual content in
-    const content = app.contentBox.firstElementChild;
-    content.innerHTML = app.content[newContent];
-    // If on the @ me tab, add grids for email and phone number
-    if (newContent === 'play') {
-      drawContactInfo();
-    }
+    const contentContainer = app.contentBox.firstElementChild;
+    // Add the content
+    contentContainer.innerHTML = app.content[newContent];
+
     // Make the box visible
     app.contentBox.style.opacity = '1'
     // Check height of content vs height of app. If content is too tall, add scroll bar
     // Can't just blanket add scroll bar in css, because then it always displays
-    app.contentBox.style.overflowY = content.offsetHeight > app.contentBox.offsetHeight ? 'scroll' : 'auto';
+    app.contentBox.style.overflowY = contentContainer.offsetHeight > app.contentBox.offsetHeight ? 'scroll' : 'auto';
   },250);
 }
 
