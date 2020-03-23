@@ -1,7 +1,7 @@
 /*
  * CONTENTS
  * 1. App & container styles
- * 2. Pixel styles
+ * 2. SVG styles
  * 3. Button styles
  * 4. Footer
  *
@@ -198,14 +198,8 @@
 
 
 /*
- * 2. Pixel styles
+ * 2. SVG styles
  */
-
-.pixel {
-  display: inline-block;
-  box-sizing: border-box;
-  pointer-events: none;
-}
 
 /* SVG sizing, based on legacy pixel sizes */
 #svg--lucas {
@@ -248,207 +242,96 @@
   width: 14.5rem;
   height: 6.5rem;
 }
+
 .svg * {
   pointer-events: none;
 }
 
-/* Colors! Classes used by JS to draw pixel art */
-.pixel.brown {
-  background: #744720;
-}
+/* Colors! Classes used in SVGs to draw pixel art */
 .pixel--brown {
   fill: #744720;
-}
-
-.pixel.light-brown {
-  background: #8d5524;
 }
 .pixel--light-brown {
   fill: #8d5524;
 }
-
-.pixel.stubble {
-  background: #c6915c;
-}
 .pixel--stubble {
   fill: #c6915c;
-}
-
-.pixel.dark-brown {
-  background: #5b3a1c;
 }
 .pixel--dark-brown {
   fill: #5b3a1c;
 }
-
-.pixel.darkest-brown {
-  background: #432c19;
-}
 .pixel--darkest-brown {
   fill: #432c19;
-}
-
-.pixel.leather {
-  background: #5d4037;
 }
 .pixel--leather {
   fill: #5d4037;
 }
-
-.pixel.dark-leather {
-  background: #3e2723;
-}
 .pixel--dark-leather {
   fill: #3e2723;
-}
-
-.pixel.skin {
-  background: #ffcd94;
 }
 .pixel--skin {
   fill: #ffcd94;
 }
-
-.pixel.black {
-  background: #000;
-}
 .pixel--black {
   fill: #000;
-}
-
-.pixel.white {
-  background: #fff;
 }
 .pixel--white {
   fill: #fff;
 }
-
-.pixel.blue {
-  background: #2196f3;
-}
 .pixel--blue {
   fill: #2196f3;
-}
-
-.pixel.red {
-  background: #f44336;
 }
 .pixel--red {
   fill: #f44336;
 }
-
-.pixel.dark-red {
-  background: #dd2c00;
-}
 .pixel--dark-red {
   fill: #dd2c00;
-}
-
-.pixel.green {
-  background: #4caf50;
 }
 .pixel--green {
   fill: #4caf50;
 }
-
-.pixel.dark-green {
-  background: #388e3c;
-}
 .pixel--dark-green {
   fill: #388e3c;
-}
-
-.pixel.gray {
-  background: #808080;
 }
 .pixel--gray {
   fill: #808080;
 }
-
-.pixel.shadow-gray {
-  background: #9e9e9e;
-}
 .pixel--shadow-gray {
   fill: #9e9e9e;
-}
-
-.pixel.denim {
-  background: #3f51b5;
 }
 .pixel--denim {
   fill: #3f51b5;
 }
-
-.pixel.light-gray {
-  background: #c0c0c0;
-}
 .pixel--light-gray {
   fill:#c0c0c0;
-}
-
-.pixel.purple {
-  background: #9c27b0;
 }
 .pixel--purple {
   fill: #9c27b0;
 }
-
-.pixel.gold {
-  background: #ffb300;
-}
 .pixel--gold {
   fill: #ffb300;
-}
-
-.pixel.yellow {
-  background: #ffe082;
 }
 .pixel--yellow {
   fill: #ffe082;
 }
-
-.pixel.teal {
-  background: #008080;
-}
 .pixel--teal {
   fill: #008080;
-}
-
-.pixel.violet {
-  background: #800080;
 }
 .pixel--violet {
   fill: #800080;
 }
-
-.pixel.orange {
-  background: #ff5722;
-}
 .pixel--orange {
   fill: #ff5722;
-}
-
-.pixel.cream {
-  background: #ffd180;
 }
 .pixel--cream {
   fill: #ffd180;
 }
-
-.pixel.bookshelf-back {
-  background: #795548;
-}
 .pixel--bookshelf-back {
   fill: #795548;
-}
-
-.pixel.button__text {
-  background: #3f51b5;
 }
 .pixel--button-text {
   fill: #3f51b5;
 }
-
 .pixel--button-bg {
   fill: #3f51b5;
   fill-opacity: 0;
