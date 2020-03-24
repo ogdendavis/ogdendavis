@@ -51,6 +51,8 @@
   flex-flow: row nowrap;
   min-height: 60vh;
   align-items: center;
+  justify-content: center;
+  width: 80vw;
 }
 @media only screen and (max-width: 1075px) {
   .container {
@@ -78,6 +80,12 @@
   }
 }
 
+.first-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
 .content__box {
   opacity: 0;
   width: 40vw;
@@ -88,20 +96,24 @@
   font-size: 1rem;
   scrollbar-color: #808080 lightyellow;
   scrollbar-width: thin;
+  display: flex;
 }
 .app--open .content__box {
   max-width: 40vw;
   padding: 0 1.5rem;
   margin: auto 1rem;
+  flex-grow: 1;
 }
 @media only screen and (max-width: 1075px) {
   .content__box {
-    margin: 0;
     display: block;
+    margin: 0;
   }
   .app--open .content__box {
-    max-width: 50vw;
+    max-width: 60vw;
     margin: 0;
+    margin-left: -10%;
+    padding-right: .5rem;
   }
 }
 @media only screen and (max-width: 760px) {
@@ -120,7 +132,6 @@
   .app--open .content__box {
     max-height: 100vh;
     height: auto;
-    flex-grow: 1;
   }
 }
 
@@ -147,7 +158,9 @@
 }
 @media only screen and (max-width: 1075px) {
   .frame--portrait {
-    transform: translateX(-300%);
+    transform: translateX(-300%) scale(.8);
+    transform-origin: left;
+    flex-shrink: 1;
   }
 }
 @media only screen and (max-width: 760px) {
@@ -158,6 +171,15 @@
 @media only screen and (max-width: 460px) {
   .frame--portrait {
     flex-grow: 0;
+  }
+}
+
+.frame--portrait.frame--in {
+  transform: none;
+}
+@media only screen and (max-width: 1075px) {
+  .frame--portrait.frame--in {
+    transform: scale(.8);
   }
 }
 
@@ -241,14 +263,6 @@
 .svg--button {
   width: 14.5rem;
   height: 6.5rem;
-}
-
-@media only screen and (max-width: 1075px) {
-  /* Scale SVG down for smaller screens */
-  /* START HERE -- figure out how to start scaling things appropriately on tablet, then mobile */
-  .svg {
-    transform: scale(.8);
-  }
 }
 
 .svg * {

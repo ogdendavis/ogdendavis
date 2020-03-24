@@ -157,7 +157,7 @@ const introAnimate = () => {
   if (app.viewportWidth <= app.breakpoints[0]) {
     // Case for tablet view
     // Lucas slides in from right to mid-screen
-    lucas.style.right = '-4.5rem';
+    lucas.style.right = '2rem';
     lucas.style.transition = 'right .25s linear';
   }
   else {
@@ -187,7 +187,7 @@ const introAnimate = () => {
 
   // Stage 1: Slide the portrait grid down and into view
   window.setTimeout(() => {
-    app.portrait.style.transform = 'none';
+    app.portrait.classList.add('frame--in');
   }, sOneStart);
   window.setTimeout(() => {
     modSVG('lucas','wave');
@@ -231,9 +231,16 @@ const switchContent = (oldContent, newContent) => {
 
     // Make the box visible
     app.contentBox.style.opacity = '1'
-    // Check height of content vs height of app. If content is too tall, add scroll bar
-    // Can't just blanket add scroll bar in css, because then it always displays
-    app.contentBox.style.overflowY = contentContainer.offsetHeight > app.contentBox.offsetHeight ? 'scroll' : 'auto';
+    
+    // Toggle scroll bar and content alignment depending on if content is larger than containing content__box
+    if (contentContainer.offsetHeight > app.contentBox.offsetHeight) {
+      app.contentBox.style.overflowY = 'scroll'
+      app.contentBox.style.alignItems = 'flex-start';
+    }
+    else {
+      app.contentBox.style.overflowY = 'auto'
+      app.contentBox.style.alignItems = 'center';
+    }
   },250);
 }
 
@@ -352,7 +359,8 @@ const switchPortrait = (oldPortrait, newPortrait) => {
 
   /* Finally, animate frame back in */
   window.setTimeout(() => {
-    app.portrait.style.transform = 'none';
+    // Animate in by removing inline styles, so class-based CSS transforms still apply
+    app.portrait.removeAttribute('style');
   }, 500)
 
 }
