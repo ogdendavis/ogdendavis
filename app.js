@@ -223,7 +223,7 @@ const switchContent = (oldContent, newContent) => {
     app.contentBox.style.opacity = '1'
 
     // Toggle scroll bar and content alignment depending on if content is larger than containing content__box
-    if (contentContainer.offsetHeight > app.contentBox.offsetHeight) {
+    if (contentContainer.offsetHeight >= app.contentBox.offsetHeight) {
       app.contentBox.style.overflowY = 'scroll'
       app.contentBox.style.alignItems = 'flex-start';
     }
