@@ -105,7 +105,7 @@ const handleInitialClick = (e) => {
   // Content box width animation handled by CSS
 
   // In tablet view, need to slide lucas left before opening content
-  if (app.viewportWidth <= app.breakpoints[0]) {
+  if (app.viewportWidth <= app.breakpoints[0] && app.viewportWidth > app.breakpoints[2]) {
     document.querySelector('#svg--lucas').style.right = '9rem';
   }
 
@@ -152,19 +152,9 @@ const introAnimate = () => {
   const lucas = document.querySelector('#svg--lucas');
   lucas.style.position = 'absolute';
   lucas.style.bottom = 0;
-
-  // Set initial positions and future position markers based on viewport size layout (and therefore animation) changes for tablet and mobile
-  if (app.viewportWidth <= app.breakpoints[0]) {
-    // Case for tablet view
-    // Lucas slides in from right to mid-screen
-    lucas.style.right = '2rem';
-    lucas.style.transition = 'right .25s linear';
-  }
-  else {
-    // Default case for laptops & up
-    lucas.style.right =  '-2.5rem';
-    lucas.style.transition = 'right .25s linear';
-  }
+  // horizontal position of lucas depends on viewport width
+  lucas.style.right = app.viewportWidth <= app.breakpoints[2] ? '3rem' : app.viewportWidth <= app.breakpoints[0] ? '2rem' : '-2.5rem';
+  lucas.style.transition = 'right .25s linear';
 
   // Stage timing variables, for reference and consistency
   const sOneStart = 250;
@@ -231,7 +221,7 @@ const switchContent = (oldContent, newContent) => {
 
     // Make the box visible
     app.contentBox.style.opacity = '1'
-    
+
     // Toggle scroll bar and content alignment depending on if content is larger than containing content__box
     if (contentContainer.offsetHeight > app.contentBox.offsetHeight) {
       app.contentBox.style.overflowY = 'scroll'
@@ -263,6 +253,7 @@ const switchPortrait = (oldPortrait, newPortrait) => {
     // Vars to hold selected SVGs, and styles needed for portrait to display properly
     let newSVGs;
     let styleMap = {};
+    const breakpoint = app.viewportWidth <= app.breakpoints[2] ? 2 : app.viewportWidth <= app.breakpoints[1] ? 1 : app.viewportWidth <= app.breakpoints[0] ? 0 : false;
     // Append SVGs to frame, and add needed styles to style object
     switch (newPortrait) {
       case 'atme':
@@ -276,17 +267,17 @@ const switchPortrait = (oldPortrait, newPortrait) => {
           lucas: {
             position: 'absolute',
             bottom: 0,
-            left: '18px',
+            left: breakpoint == 2 ? '15px' : '18px',
           },
           figgy: {
             position: 'absolute',
             bottom: 0,
-            left: '174px',
+            left: breakpoint == 2 ? '98px' : '174px',
           },
           kim: {
             position: 'absolute',
             bottom: 0,
-            left: '200px',
+            left: breakpoint == 2 ? '115px' : '200px',
           },
           sylvie: {
             position: 'absolute',
@@ -301,12 +292,12 @@ const switchPortrait = (oldPortrait, newPortrait) => {
           lucas: {
             position: 'absolute',
             bottom: 0,
-            left: '95px',
+            left: breakpoint == 2 ? '34px' : '95px',
           },
           desk: {
             position: 'absolute',
             bottom: 0,
-            left: '90px',
+            left: breakpoint == 2 ? '32px' : '90px',
           }
         }
         break;
@@ -316,17 +307,17 @@ const switchPortrait = (oldPortrait, newPortrait) => {
           lucas: {
             position: 'absolute',
             bottom: 0,
-            left: '32px',
+            left: breakpoint == 2 ? '16px' : '32px',
           },
           barbell: {
             position: 'absolute',
             bottom: 0,
-            left: '24px'
+            left: breakpoint == 2 ? '12px' : '24px'
           },
           bookshelf: {
             position: 'absolute',
             bottom: 0,
-            right: '16px',
+            right: breakpoint == 2 ? '8px' : '16px',
           },
         }
         break;
@@ -335,7 +326,7 @@ const switchPortrait = (oldPortrait, newPortrait) => {
         styleMap.lucas = {
           position: 'absolute',
           bottom: 0,
-          right: '95px',
+          right: breakpoint == 2 ? '47.5px' : '95px',
         }
     }
     app.portrait.innerHTML = newSVGs;

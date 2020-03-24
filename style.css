@@ -75,8 +75,8 @@
     bottom: 0;
     transform: none;
     max-height: 100vh;
-    justify-content: flex-start;
-    overflow-y: hidden;
+    width: auto;
+    justify-content: space-between;
   }
 }
 
@@ -84,6 +84,11 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+}
+@media only screen and (max-width: 460px) {
+  .first-row {
+    flex-flow: column-reverse nowrap;
+  }
 }
 
 .content__box {
@@ -130,8 +135,12 @@
 }
 @media only screen and (max-width: 460px) {
   .app--open .content__box {
-    max-height: 100vh;
-    height: auto;
+    max-height: 60vh;
+    height: 60vh;
+    width: auto;
+    margin: auto;
+    max-width: 100vw;
+    padding-right: 1.5rem;
   }
 }
 
@@ -156,30 +165,33 @@
   width: 24rem;
   height: 24rem;
 }
+.frame--portrait.frame--in {
+  transform: none;
+}
 @media only screen and (max-width: 1075px) {
   .frame--portrait {
     transform: translateX(-300%) scale(.8);
     transform-origin: left;
     flex-shrink: 1;
   }
+  .frame--portrait.frame--in {
+    transform: scale(.8);
+  }
 }
 @media only screen and (max-width: 760px) {
   .frame--portrait {
-    transform: translateY(-100vh);
+    transform: translateY(-100vh) scale(1);
+  }
+  .frame--portrait.frame--in {
+    transform: scale(1);
   }
 }
 @media only screen and (max-width: 460px) {
   .frame--portrait {
     flex-grow: 0;
-  }
-}
-
-.frame--portrait.frame--in {
-  transform: none;
-}
-@media only screen and (max-width: 1075px) {
-  .frame--portrait.frame--in {
-    transform: scale(.8);
+    transform-origin: bottom;
+    width: 12rem;
+    height: 12rem;
   }
 }
 
@@ -190,6 +202,12 @@
 .frame.button {
   width: 15rem;
   height: 8rem;
+}
+@media only screen and (max-width: 460px) {
+  .frame.button {
+    width: auto;
+    height: 4rem;
+  }
 }
 
 .buttons {
@@ -207,12 +225,13 @@
 }
 @media only screen and (max-width: 460px) {
   .buttons {
-    margin-top: 0.5rem;
+    margin-top: 40vh;
     margin-bottom: 10rem;
     transition: all 1s linear;
     flex-grow: 0;
   }
   .app--open .buttons {
+    margin-top: 0.5rem;
     margin-bottom: 0;
   }
 }
@@ -225,35 +244,27 @@
 /* SVG sizing, based on legacy pixel sizes */
 #svg--lucas {
   width: 12rem;
-  height: 20rem;
 }
 #svg--kim {
   width: 8rem;
-  height: 17rem;
 }
 #svg--sylvie {
   width: 4rem;
-  height: 5rem;
 }
 #svg--figgy {
   width: 3.5rem;
-  height: 4.5rem;
 }
 #svg--reg {
   width: 3.5rem;
-  height: 5.5rem;
 }
 #svg--desk {
   width: 16rem;
-  height: 13rem;
 }
 #svg--barbell {
   width: 13rem;
-  height: 4.5rem;
 }
 #svg--bookshelf {
   width: 7rem;
-  height: 12.5rem;
 }
 #svg--contact {
   display: block;
@@ -263,6 +274,36 @@
 .svg--button {
   width: 14.5rem;
   height: 6.5rem;
+}
+@media only screen and (max-width: 460px) {
+  #svg--lucas {
+    width: 6rem;
+  }
+  #svg--kim {
+    width: 4rem;
+  }
+  #svg--sylvie {
+    width: 1rem;
+  }
+  #svg--figgy {
+    width: 1.75rem;
+  }
+  #svg--reg {
+    width: 1.75rem;
+  }
+  #svg--desk {
+    width: 8rem;
+  }
+  #svg--barbell {
+    width: 6.5rem;
+  }
+  #svg--bookshelf {
+    width: 3.5rem;
+  }
+  .svg--button {
+    width: 7rem;
+    height: 3rem;
+  }
 }
 
 .svg * {
