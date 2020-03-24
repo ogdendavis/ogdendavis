@@ -104,6 +104,11 @@ const handleInitialClick = (e) => {
   });
   // Content box width animation handled by CSS
 
+  // In tablet view, need to slide lucas left before opening content
+  if (app.viewportWidth <= app.breakpoints[0]) {
+    document.querySelector('#svg--lucas').style.right = '9rem';
+  }
+
   // To make content animation timing work on this initial click, triggering handleClick on a delay
   window.setTimeout(() => handleClick(e), 500);
 }
@@ -142,13 +147,24 @@ const populateFooter = (content, side) => {
  */
 
 const introAnimate = () => {
-  // Draw Lucas! He'll stay in this spot until the grid transitions in
+  // Draw Lucas!
   app.portrait.innerHTML = app.svg.lucas;
   const lucas = document.querySelector('#svg--lucas');
   lucas.style.position = 'absolute';
-  lucas.style.right = '-2.5rem';
   lucas.style.bottom = 0;
-  lucas.style.transition = 'right .25s linear';
+
+  // Set initial positions and future position markers based on viewport size layout (and therefore animation) changes for tablet and mobile
+  if (app.viewportWidth <= app.breakpoints[0]) {
+    // Case for tablet view
+    // Lucas slides in from right to mid-screen
+    lucas.style.right = '-4.5rem';
+    lucas.style.transition = 'right .25s linear';
+  }
+  else {
+    // Default case for laptops & up
+    lucas.style.right =  '-2.5rem';
+    lucas.style.transition = 'right .25s linear';
+  }
 
   // Stage timing variables, for reference and consistency
   const sOneStart = 250;
@@ -180,7 +196,10 @@ const introAnimate = () => {
   // Stage 2: Slide Lucas left, buttons appear, start app
   window.setTimeout(() => {
     modSVG('lucas','defaultArms');
-    lucas.style.right = '95px';
+    if (app.viewportWidth > app.breakpoints[0]) {
+      // Lucas only slides left for buttons if we're on laptop or bigger
+      lucas.style.right = '6rem';
+    }
     app.buttons[0].innerHTML = app.svg.buttons.work;
     app.buttons[1].innerHTML = app.svg.buttons.play;
     app.buttons[2].innerHTML = app.svg.buttons.atme;

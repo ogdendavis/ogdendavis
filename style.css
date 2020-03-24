@@ -236,13 +236,23 @@
 #svg--contact {
   display: block;
   margin: 0 auto;
+  max-width: 100%;
 }
 .svg--button {
   width: 14.5rem;
   height: 6.5rem;
 }
 
+@media only screen and (max-width: 1075px) {
+  /* Scale SVG down for smaller screens */
+  /* START HERE -- figure out how to start scaling things appropriately on tablet, then mobile */
+  .svg {
+    transform: scale(.8);
+  }
+}
+
 .svg * {
+  /* Move pointer events to top-level svg */
   pointer-events: none;
 }
 
