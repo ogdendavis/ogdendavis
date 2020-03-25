@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 340" shape-rendering="crispEdges" id="svg--kim" class="svg">
+  <!-- In units of 10 per grid pixel. Offset of 10 from top and left -->
+  <g class="kim__head">
+    <polygon class="pixel--light-brown" points="50,10 120,10 120,20 130,20 130,30 140,30 140,40 150,40 150,60 140,60 140,50 130,50 130,40 120,40 120,30 100,30 100,40 70,40 70,50 50,50 50,70 40,70 40,60 30,60 30,80 40,80 40,110, 50,110 50,120 60,120 60,130 80,130 80,140 60,140 60,150 20,150 20,140 10,140 10,110 20,110 20,50 30,50 30,30 40,30 40,20 50,20" />
+    <polygon class="pixel--light-brown" points="140,80 150,80 150,120 140,120 140,130 130,130 130,140 100,140 100,130 120,130 120,120 130,120 130,110 140,110" />
+    <polygon class="pixel--skin" points="100,30 120,30 120,40 130,40 130,50 140,50 140,60 150,60 150,80 140,80 140,110 130,110 130,120 120,120 120,130 100,130 100,140 80,140 80,130 60,130 60,120 50,120 50,110 40,110 40,80 30,80 30,60 40,60 40,70 50,70 50,50 70,50 70,40 100,40" />
+    <polygon class="pixel--black" points="60,60 70,60 70,80 60,80" />
+    <polygon class="pixel--black" points="110,60 120,60 120,80 110,80" />
+    <polygon class="pixel--white" points="70,90 110,90 110,100 100,100 100,110 80,110 80,100 70,100" />
+  </g>
+  <g class="kim__torso">
+    <polygon class="pixel--purple" points="60,140 120,140 120,150 140,150 140,170 120,170 120,220 60,220 60,170 40,170 40,150 60,150" />
+  </g>
+  <g class="kim__legs">
+    <polygon class="pixel--gray" points="60,220 120,220 120,320 100,320 100,250 80,250 80,320 60,320" />
+  </g>
+  <g class="kim__shoes">
+    <polygon class="pixel--leather" points="50,320 80,320 80,330 50,330" />
+    <polygon class="pixel--leather" points="100,320 130,320 130,330 100,330" />
+    <polygon class="pixel--dark-leather" points="50,330 80,330 80,340 50,340" />
+    <polygon class="pixel--dark-leather" points="100,330 130,330 130,340 100,340" />
+  </g>
+  <g class="kim__arms">
+    <polygon class="kim__arm--right pixel--skin" points="40,170 60,170 60,240 40,240 40,230 30,230 30,220 40,220" />
+    <polygon class="kim__arm--left pixel--skin" points="120,170 140,170 140,220 150,220 150,230 140,230 140,240 120,240" />
+  </g>
+</svg>

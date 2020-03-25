@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 110" shape-rendering="crispEdges" id="svg--reg" class="svg">
+  <!-- In units of 10 per grid pixel. No offset -->
+  <polygon class="pixel--stubble" points="20,0 50,0 50,60 60,60 60,110 10,110 10,60 20,60" />
+  <polygon class="pixel--leather" points="0,0 20,0 20,30 10,30 10,20 0,20" />
+  <polygon class="pixel--leather" points="50,0 70,0 70,20 60,20 60,30 50,30" />
+  <polygon class="pixel--leather" points="0,100 10,100 10,110 0,110" />
+  <polygon class="pixel--leather" points="60,100 70,100 70,110 60,110" />
+  <polygon class="pixel--leather" points="20,80 30,80 30,110 20,110" />
+  <polygon class="pixel--leather" points="40,80 50,80 50,110 40,110" />
+  <polygon class="pixel--black" points="20,10 30,10 30,20 20,20" />
+  <polygon class="pixel--black" points="40,10 50,10 50,20 40,20" />
+  <polygon class="pixel--black" points="30,30 40,30 40,40 30,40" />
+  <polygon class="pixel--red" points="20,40 50,40 50,50 20,50" />
+</svg>

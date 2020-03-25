@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 90" shape-rendering="crispEdges" id="svg--figgy" class="svg">
+  <!-- In units of 10 per grid pixel. No offset -->
+  <polygon class="pixel--light-gray" points="20,0 50,0 50,60 60,60 60,90 10,90 10,60 20,60" />
+  <polygon class="pixel--gray" points="0,0 20,0 20,30 10,30 10,20 0,20" />
+  <polygon class="pixel--gray" points="50,0 70,0 70,20 60,20 60,30 50,30" />
+  <polygon class="pixel--gray" points="0,80 10,80 10,90 0,90" />
+  <polygon class="pixel--gray" points="60,80 70,80 70,90 60,90" />
+  <polygon class="pixel--gray" points="20,70 30,70 30,90 20,90" />
+  <polygon class="pixel--gray" points="40,70 50,70 50,90 40,90" />
+  <polygon class="pixel--black" points="20,10 30,10 30,20 20,20" />
+  <polygon class="pixel--black" points="40,10 50,10 50,20 40,20" />
+  <polygon class="pixel--black" points="30,30 40,30 40,40 30,40" />
+  <polygon class="pixel--dark-green" points="20,40 50,40 50,50 20,50" />
+</svg>
