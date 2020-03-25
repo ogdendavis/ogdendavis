@@ -40,7 +40,7 @@ gulp.task('pages', function() {
 });
 
 // Clean output directory
-gulp.task('clean', () => del(['dist']));
+gulp.task('clean', () => del(['docs']));
 
 // Gulp task to minify all files
 gulp.task('default', gulp.series('clean','styles','scripts','pages'), function (done) {
