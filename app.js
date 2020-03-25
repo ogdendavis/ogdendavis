@@ -93,13 +93,19 @@ const startApp = () => {
   });
 }
 
-const handleInitialClick = (e) => {
+const handleInitialClick = (ev) => {
   // Convert app to open state
   app.app.classList.add('app--open');
+
+  // To fix portrait flashes on mobile Safari
+  if (app.viewportWidth < app.breakpoints[2]) {
+    app.portrait.style.transform = 'translateY(1500%)';
+  }
+
   // Remove this handler, since it should only fire once
   // Add handler for subsequent clicks
   app.buttons.forEach(button => {
-    button.removeEventListener('click', handleInitialClick)
+    button.removeEventListener('click', handleInitialClick);
     button.addEventListener('click', handleClick);
   });
   // Content box width animation handled by CSS
@@ -110,7 +116,7 @@ const handleInitialClick = (e) => {
   }
 
   // To make content animation timing work on this initial click, triggering handleClick on a delay
-  window.setTimeout(() => handleClick(e), 500);
+  window.setTimeout(() => handleClick(ev), 500);
 }
 
 const handleClick = (e) => {
