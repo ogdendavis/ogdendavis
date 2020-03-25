@@ -379,13 +379,15 @@ const modSVG = (id, mod=false) => {
     case 'lucas':
       switch(mod) {
         case 'thumbsUp':
-          document.querySelector('.lucas__arm--right').setAttribute('points', '60,190 80,190 80,240 10,240 10,210 20,210 20,200 30,200 30,220 60,220');
-          break;
         case 'wave':
-          document.querySelector('.lucas__arm--right').setAttribute('points', '60,190 20,190 20,100 40,100 40,110 50,110 50,130 40,130 40,170 60,170');
-          break;
         case 'defaultArms':
-          document.querySelector('.lucas__arm--right').setAttribute('points', '60,190 80,190 80,290 60,290 60,280 50,280 50,260 60,260');
+          const rightArm = document.querySelector('.lucas__arm--right');
+          const newPoints =
+            mod === 'thumbsUp' ? '60,190 80,190 80,240 10,240 10,210 20,210 20,200 30,200 30,220 60,220' :
+            mod === 'wave' ? '60,190 20,190 20,100 40,100 40,110 50,110 50,130 40,130 40,170 60,170' :
+            '60,190 80,190 80,290 60,290 60,280 50,280 50,260 60,260';
+          rightArm.removeAttribute('points');
+          rightArm.setAttribute('points', newPoints);
           break;
         case 'workout':
           // Add headband
