@@ -6,5 +6,5 @@ var contentData = JSON.stringify({
     left: `<p>&#169; 2020, Lucas Ogden-Davis`,
     right: `<p>Looking for my brother, Joshua Ogden-Davis? He's <a href="https://www.ogden-davis.com/" target="_blank">here</a>.`,
   },
-  header: `Having a great website is important, but living in a just and equitable society is even more important. I'm donating 10% of my revenue to <a href="https://www.allstarcode.org/" target="_blank">All Star Code</a> and <a href="https://www.blackgirlscode.com/" target="_blank">Black Girls Code</a>. I encourage you to protest, <a href="https://www.vox.com/future-perfect/2020/6/9/21281538/how-to-donate-to-black-lives-matter-charity" target="_blank">donate</a>, and speak out as you are able.`,
+  header: `Having a great website is important, but living in a just and equitable society is even more important. I'm donating 10% of my revenue to <a href="https://www.allstarcode.org/" target="_blank">All Star Code</a> and <a href="https://www.blackgirlscode.com/" target="_blank">Black Girls Code</a>. I encourage you to speak out, protest, and <a href="https://www.vox.com/future-perfect/2020/6/9/21281538/how-to-donate-to-black-lives-matter-charity" target="_blank">donate</a> as you are able.`,
 });

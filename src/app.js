@@ -86,7 +86,7 @@ const setup = async () => {
     }
   }
   if (app.content.header) {
-    app.header.innerHTML = app.content.header;
+    app.header.innerHTML += app.content.header;
   }
 }
 
@@ -95,6 +95,15 @@ const startApp = () => {
   app.buttons.forEach(button => {
     button.addEventListener('click', handleInitialClick);
   });
+  // Also add handler to close header
+  app.header.querySelector('.header__closer').addEventListener('click', closeHeader);
+}
+
+const closeHeader = () => {
+  // Fade out
+  app.header.style.opacity = 0;
+  // Remove from DOM
+  window.setTimeout(() => {app.header.remove()}, 1100);
 }
 
 const handleInitialClick = (ev) => {
@@ -142,6 +151,7 @@ const handleClick = (e) => {
 }
 
 const populateFooter = (content, side) => {
+  // Bring footer content from content.js into the appropriate containers in the footer
   const container = document.createElement('div');
   container.classList.add(`footer__inner`, `footer__inner--${side}`);
   container.innerHTML = content;
