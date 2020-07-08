@@ -35,6 +35,7 @@ const app = {
   portrait: document.querySelector('.frame--portrait'),
   contentBox: document.querySelector('.content__box'),
   footer: document.querySelector('.footer'),
+  header: document.querySelector('.header'),
   content: {}, // Loaded in setup
   svg: {} // loaded in setup
 };
@@ -74,7 +75,7 @@ const setup = async () => {
     contact: contact,
   }
 
-  // If there's footer content, load it in!
+  // If there's content for the footer & header, load it in!
   // The rest of the content is loaded in on button click, by handleClick
   if (app.content.footer) {
     if (app.content.footer.left) {
@@ -83,6 +84,9 @@ const setup = async () => {
     if (app.content.footer.right) {
       populateFooter(app.content.footer.right, 'right');
     }
+  }
+  if (app.content.header) {
+    app.header.innerHTML = app.content.header;
   }
 }
 
@@ -179,6 +183,7 @@ const introAnimate = () => {
     app.app.removeChild(sayHi);
     // Fade footer in as sayHi fades out
     app.footer.style.opacity = 1;
+    app.header.style.opacity = 1;
   },1500);
 
   // Stage 1: Slide the portrait grid down and into view

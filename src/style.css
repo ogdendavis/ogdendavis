@@ -443,7 +443,7 @@
 }
 
 /*
- * 4. Footer
+ * 4. Footer & Header
  */
 
 .footer {
@@ -454,6 +454,21 @@
   transition: all 1s linear;
   font-size: 0.75rem;
   opacity: 0;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: all 1s linear;
+  font-size: 0.75rem;
+  background: #3f3f3f;
+  color: lightyellow;
+  padding: 1rem;
+  opacity: 0;
+}
+.header a {
+  color: #ff5722;
 }
 @media only screen and (max-width: 460px) {
   .footer {
