@@ -487,6 +487,7 @@
   color: lightyellow;
   padding: 1rem;
   opacity: 0;
+  z-index: 1;
 }
 .header a {
   color: #ffe082;
